@@ -1,0 +1,15 @@
+@import "colors";
+.gerar-btn {
+  color: $txt;
+  background: $primary;
+}
+.gerar-btn:hover {
+  color: $txt;
+  background: $primary_light;
+  transform: scale(1.02);
+}
+.gerar-btn:active {
+  color: $txt;
+  background: $primary_dark;
+  transform: scale(0.98);
+}
