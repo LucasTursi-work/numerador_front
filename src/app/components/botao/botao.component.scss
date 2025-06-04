@@ -2,14 +2,17 @@
 .gerar-btn {
   color: $txt;
   background: $primary;
+  border-radius: 1rem;
 }
 .gerar-btn:hover {
   color: $txt;
   background: $primary_light;
   transform: scale(1.02);
+  border-radius: 1rem;
 }
 .gerar-btn:active {
   color: $txt;
   background: $primary_dark;
   transform: scale(0.98);
+  border-radius: 1rem;
 }

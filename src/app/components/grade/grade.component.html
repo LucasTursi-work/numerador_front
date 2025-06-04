@@ -10,59 +10,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>CARTA PRECATÓRIA</td>
-      <td>Otto</td>
-      <td><app-botao></app-botao></td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>ORDEM DE MISSÃO POLICIAL</td>
-      <td>Thornton</td>
-      <td><app-botao></app-botao></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>GUIA DE RECOLHIMENTO</td>
-      <td>the Bird</td>
-      <td><app-botao></app-botao></td>
-    </tr>
-    <tr>
-      <th scope="row">4</th>
-      <td>OFÍCIO</td>
-      <td>the Bird</td>
-      <td><app-botao></app-botao></td>
-    </tr>
-    <tr>
-      <th scope="row">5</th>
-      <td>VERIFICAÇÃO PRELIMINAR DE INFORMAÇÃO</td>
-      <td>the Bird</td>
-      <td><app-botao></app-botao></td>
-    </tr>
-    <tr>
-      <th scope="row">6</th>
-      <td>RELATÓRIO DE MISSÃO</td>
-      <td>the Bird</td>
-      <td><app-botao></app-botao></td>
-    </tr>
-    <tr>
-      <th scope="row">7</th>
-      <td>COMUNICAÇÃO INTERNA</td>
-      <td>the Bird</td>
-      <td><app-botao></app-botao></td>
-    </tr>
-    <tr>
-      <th scope="row">8</th>
-      <td>DESPACHO</td>
-      <td>the Bird</td>
-      <td><app-botao></app-botao></td>
-    </tr>
-    <tr>
-      <th scope="row">9</th>
-      <td>RELATÓRIO TÉCNICO</td>
-      <td>the Bird</td>
-      <td><app-botao></app-botao></td>
+    <tr *ngFor="let documento of documentos; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ documento.nome }}</td>
+      <td>{{ documento.contador }}</td>
+      <td>
+        <app-botao [texto]="'Gerar'" (click)="gerarDocumento(i)"></app-botao>
+      </td>
     </tr>
   </tbody>
 </table>
