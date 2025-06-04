@@ -12,10 +12,10 @@
   <tbody>
     <tr *ngFor="let documento of documentos; let i = index">
       <td>{{ i + 1 }}</td>
-      <td>{{ documento.nome }}</td>
-      <td>{{ documento.contador }}</td>
+      <td>{{ documento.name }}</td>
+      <td>{{ documento.counter }}</td>
       <td>
-        <app-botao [texto]="'Gerar'" (click)="gerarDocumento(i)"></app-botao>
+        <app-botao [texto]="'Gerar'" (aoClicar)="gerarDocumento(i)"></app-botao>
       </td>
     </tr>
   </tbody>
