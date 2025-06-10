@@ -1,7 +1,8 @@
-<p>grade works!</p>
-
-<table class="table table-sm table-striped table-bordered table-hover">
-  <thead class="thead-dark">
+<!--
+<table
+  class="table minha-tabela table-md table-striped table-bordered table-hover rounded-sm"
+  id="miatablea"
+  <thead class="thead-dark cabeçalho">
     <tr>
       <th scope="col">#</th>
       <th scope="col">Nome do documento</th>
@@ -11,9 +12,30 @@
   </thead>
   <tbody>
     <tr *ngFor="let documento of documentos; let i = index">
-      <td>{{ i + 1 }}</td>
-      <td>{{ documento.name }}</td>
-      <td>{{ documento.counter }}</td>
+      <td class="col" id="index">{{ i + 1 }}</td>
+      <td class="col">{{ documento.nome }}</td>
+      <td class="col">{{ documento.contador }}</td>
+      <td>
+        <app-botao [texto]="'Gerar'" (aoClicar)="gerarDocumento(i)"></app-botao>
+      </td>
+    </tr>
+  </tbody>
+</table>
+-->
+<table id="miatablea">
+  <thead class="cabeçalho">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nome do documento</th>
+      <th scope="col">Contagem</th>
+      <th scope="col">Botão</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let documento of documentos; let i = index">
+      <td class="col" id="index">{{ i + 1 }}</td>
+      <td class="col">{{ documento.nome }}</td>
+      <td class="col">{{ documento.contador }}</td>
       <td>
         <app-botao [texto]="'Gerar'" (aoClicar)="gerarDocumento(i)"></app-botao>
       </td>

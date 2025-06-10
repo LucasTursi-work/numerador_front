@@ -1,9 +1,13 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+//$custom-colors: {
 $primary: #2a7050;
-$primary_light: #008241;
-$primary_dark: #225b41;
+$primary-light: #008241;
+$primary-lighter: #7fc6b0;
+$primary-lightest: #e3f9f3;
+$primary-dark: #225b41;
 $secondary: #55a7b2;
-$secondary_light: #87d1e6;
-$secondary_dark: #44868f;
+$secondary-light: #87d1e6;
+$secondary-dark: #44868f;
 $accent: #ffa000;
 $success: #4ec162;
 $danger: #d2322d;
@@ -11,3 +15,21 @@ $txt: #f0f0f0;
 $txt-alt: #4c4c4c;
 $bg-color: #f0f0f0;
 $bg-color-alt: #4c4c4c;
+//}
+//$theme-colors: map-merge($theme-colors, $custom-colors);
+/*
+--bs-table-color-type: initial;
+--bs-table-bg-type: initial;
+--bs-table-color-state: initial;
+--bs-table-bg-state: initial;
+--bs-table-color: var(--bs-emphasis-color);
+--bs-table-bg: var(--bs-body-bg);
+--bs-table-border-color: var(--bs-border-color);
+--bs-table-accent-bg: transparent;
+--bs-table-striped-color: var(--bs-emphasis-color);
+--bs-table-striped-bg: rgba(var(--bs-emphasis-color-rgb), 0.05);
+--bs-table-active-color: var(--bs-emphasis-color);
+--bs-table-active-bg: rgba(var(--bs-emphasis-color-rgb), 0.1);
+--bs-table-hover-color: var(--bs-emphasis-color);
+--bs-table-hover-bg: rgba(var(--bs-emphasis-color-rgb), 0.075);
+*/

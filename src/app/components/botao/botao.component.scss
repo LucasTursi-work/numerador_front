@@ -1,18 +1,47 @@
 @import "colors";
-.gerar-btn {
+.botao {
   color: $txt;
-  background: $primary;
+  border-color: none;
+  background: $secondary;
   border-radius: 1rem;
+  padding: 0.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin: 0.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  box-shadow: 4px 3px 2px darkgrey;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
 }
-.gerar-btn:hover {
+.botao:hover {
   color: $txt;
-  background: $primary_light;
-  transform: scale(1.02);
+  border-color: none;
+  background: $secondary-light;
+  transform: scale(1.05);
   border-radius: 1rem;
+  padding: 0.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin: 0.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  box-shadow: 8px 5px 5px lightgray;
+  border: none;
 }
-.gerar-btn:active {
+.botao:active {
   color: $txt;
-  background: $primary_dark;
-  transform: scale(0.98);
+  border-color: none;
+  background: $secondary-dark;
+  transform: scale(0.95);
   border-radius: 1rem;
+  padding: 0.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin: 0.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  box-shadow: none;
+  border: none;
 }

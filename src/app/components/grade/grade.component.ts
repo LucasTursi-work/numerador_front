@@ -1,68 +1,73 @@
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser, NgFor } from '@angular/common';
 import { BotaoComponent } from '../botao/botao.component';
+import { CommonModule } from '@angular/common';
 
 interface Documento {
-  name: string;
-  counter: number;
   id: number;
+  nome: string;
+  contador: number;
 }
 
 @Component({
   selector: 'app-grade',
   standalone: true,
-  imports: [BotaoComponent],
+  imports: [BotaoComponent, NgFor], // Usando o componente importado
   templateUrl: './grade.component.html',
   styleUrl: './grade.component.scss',
 })
 export class GradeComponent {
   documentos: Documento[] = [
-    { id: 1, name: 'CARTA PRECATÓRIA', counter: 0 },
-    { id: 2, name: 'ORDEM DE MISSÃO POLICIAL', counter: 0 },
-    { id: 3, name: 'GUIA DE RECOLHIMENTO', counter: 0 },
-    { id: 4, name: 'OFÍCIO', counter: 0 },
-    { id: 5, name: 'VERIFICAÇÃO PRELIMINAR DE INFORMAÇÃO', counter: 0 },
-    { id: 6, name: 'RELATÓRIO DE MISSÃO', counter: 0 },
-    { id: 7, name: 'COMUNICAÇÃO INTERNA', counter: 0 },
-    { id: 8, name: 'DESPACHO', counter: 0 },
-    { id: 9, name: 'RELATÓRIO TÉCNICO', counter: 0 },
+    { id: 1, nome: 'CARTA PRECATÓRIA', contador: 0 },
+    { id: 2, nome: 'ORDEM DE MISSÃO POLICIAL', contador: 0 },
+    { id: 3, nome: 'GUIA DE RECOLHIMENTO', contador: 0 },
+    { id: 4, nome: 'OFÍCIO', contador: 0 },
+    { id: 5, nome: 'VERIFICAÇÃO PRELIMINAR DE INFORMAÇÃO', contador: 0 },
+    { id: 6, nome: 'RELATÓRIO DE MISSÃO', contador: 0 },
+    { id: 7, nome: 'COMUNICAÇÃO INTERNA', contador: 0 },
+    { id: 8, nome: 'DESPACHO', contador: 0 },
+    { id: 9, nome: 'RELATÓRIO TÉCNICO', contador: 0 },
   ];
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    this.carregarContadores();
-  }
-
-  private isLocalStorageAvailable(): boolean {
-    try {
-      const test = '__storage_test__';
-      localStorage.setItem(test, test);
-      localStorage.removeItem(test);
-      return true;
-    } catch (e) {
-      return false;
+    if (this.isBrowser()) {
+      this.carregarContadores();
     }
   }
 
-  carregarContadores() {
-    if (!this.isLocalStorageAvailable()) return;
+  private isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
 
-    const contadoresSalvos = localStorage.getItem('documentosContadores');
-    if (contadoresSalvos) {
-      const contadores = JSON.parse(contadoresSalvos);
-      this.documentos.forEach((doc, index) => {
-        doc.counter = contadores[index] || 0;
-      });
+  private carregarContadores() {
+    if (!this.isBrowser()) return;
+
+    try {
+      const contadoresSalvos = localStorage.getItem('documentosContadores');
+      if (contadoresSalvos) {
+        const contadores = JSON.parse(contadoresSalvos);
+        this.documentos.forEach((doc, index) => {
+          doc.contador = contadores[index] || 0;
+        });
+      }
+    } catch (error) {
+      console.error('Erro ao carregar contadores:', error);
     }
   }
 
   salvarContadores() {
-    if (!this.isLocalStorageAvailable()) return;
+    if (!this.isBrowser()) return;
 
-    const contadores = this.documentos.map((doc) => doc.counter);
-    localStorage.setItem('documentosContadores', JSON.stringify(contadores));
+    try {
+      const contadores = this.documentos.map((doc) => doc.contador);
+      localStorage.setItem('documentosContadores', JSON.stringify(contadores));
+    } catch (error) {
+      console.error('Erro ao salvar contadores:', error);
+    }
   }
 
   gerarDocumento(index: number) {
-    this.documentos[index].counter++; // Incrementa
-    this.salvarContadores(); // Chama o método que salva no localStorage
+    this.documentos[index].contador++;
+    this.salvarContadores();
   }
 }
