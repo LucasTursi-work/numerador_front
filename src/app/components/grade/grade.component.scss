@@ -4,7 +4,7 @@
 }
 
 #miatablea {
-  border-radius: 8px;
+  border-radius: 0.5rem;
   background-color: white;
   table-layout: auto;
   width: 60%;
@@ -42,12 +42,4 @@ tr:hover {
 th,
 td {
   white-space: nowrap;
-}
-/* Opcional: bordas arredondadas para a primeira e última célula */
-th:first-child {
-  border-radius: 0.5rem 0 0 0;
-}
-
-th:last-child {
-  border-radius: 0 0.5rem 0 0;
 }

@@ -1,5 +1,40 @@
-<p>graficos works!</p>
-<div class="col-md-4">
+<!--<p>graficos works!</p>-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById("grafico");
+
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: [
+        "CARTA PRECATÓRIA",
+        "ORDEM DE MISSÃO POLICIAL",
+        "GUIA DE RECOLHIMENTO",
+        "OFÍCIO",
+        "VERIFICAÇÃO PRELIMINAR DE INFORMAÇÃO",
+        "RELATÓRIO DE MISSÃO",
+        "COMUNICAÇÃO INTERNA",
+        "DESPACHO",
+        "RELATÓRIO TÉCNICO",
+      ],
+      datasets: [
+        {
+          label: "Documentos gerados",
+          data: [12, 19, 3, 5, 2, 3, 56, 7, 34],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+</script>
+<div class="col-md-8">
   <!-- Gráfico -->
   <canvas id="grafico"></canvas>
   <!-- Usando Chart.js -->

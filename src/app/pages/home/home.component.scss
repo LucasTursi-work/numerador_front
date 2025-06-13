@@ -25,19 +25,19 @@
 #charts {
   display: flex;
   float: right;
-  padding-left: 1vw;
-  margin-left: 0;
-  min-width: 12vw;
-  max-width: 24vw;
-  min-height: 9vh;
-  width: 8vw;
+  padding: 0.8vw;
+  margin-left: 1vw;
+  width: 60vw;
   height: auto;
-  background-color: #4c4c4c;
+  // background-color: #4c4c4c;
   border-radius: 1rem;
-  box-shadow: 8px 2px 4px lightgray;
+  //box-shadow: 8px 2px 4px lightgray;
 }
 
 #grade {
   float: left;
-  padding-left: 2vw;
+  border-radius: 1rem;
+  overflow: hidden;
+  width: 61%;
+  //padding-left: 2vw;
 }
