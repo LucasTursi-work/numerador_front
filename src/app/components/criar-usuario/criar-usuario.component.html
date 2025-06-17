@@ -1,0 +1,62 @@
+<p>criar-usuario works!</p>
+<!-- criar-usuario.component.html -->
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <!-- Campo Nome -->
+  <div>
+    <label>Nome:</label>
+    <input type="text" formControlName="nome" />
+    <small *ngIf="form.get('nome')?.hasError('required')"
+      >Campo obrigatório</small
+    >
+    <small *ngIf="form.get('nome')?.hasError('minlength')">
+      Mínimo 3 caracteres
+    </small>
+  </div>
+
+  <!-- Campo CPF -->
+  <div>
+    <label>CPF:</label>
+    <input type="text" formControlName="cpf" placeholder="Apenas números" />
+    <small *ngIf="form.get('cpf')?.hasError('required')"
+      >Campo obrigatório</small
+    >
+    <small *ngIf="form.get('cpf')?.hasError('pattern')">
+      CPF deve ter 11 dígitos
+    </small>
+  </div>
+
+  <!-- Campo Email -->
+  <div>
+    <label>Email:</label>
+    <input type="email" formControlName="email" />
+    <small *ngIf="form.get('email')?.hasError('required')"
+      >Campo obrigatório</small
+    >
+    <small *ngIf="form.get('email')?.hasError('email')"> Email inválido </small>
+  </div>
+
+  <!-- Campo Senha -->
+  <div>
+    <label>Senha:</label>
+    <input type="password" formControlName="senha" />
+    <small *ngIf="form.get('senha')?.hasError('required')"
+      >Campo obrigatório</small
+    >
+    <small *ngIf="form.get('senha')?.hasError('minlength')">
+      Mínimo 6 caracteres
+    </small>
+  </div>
+
+  <!-- Select Perfil -->
+  <div>
+    <label>Perfil:</label>
+    <select formControlName="perfil">
+      <option *ngFor="let perfil of perfis" [value]="perfil">
+        {{ perfil }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Botão Submit -->
+  <button type="submit" [disabled]="form.invalid">Cadastrar Usuário</button>
+</form>
