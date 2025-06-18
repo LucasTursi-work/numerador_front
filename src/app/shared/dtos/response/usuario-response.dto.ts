@@ -1,3 +1,5 @@
+import { PerfilUsuario, StatusUsuario } from '../../enums/user-enums';
+
 export interface UsuarioResponseDTO {
   id: number;
   nome: string;

@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CreateUsuarioRequestDTO, UsuarioResponseDTO } from '../models/dtos';
+import { CreateUsuarioRequestDTO } from '../../../shared/dtos/request/create-user.dto';
+import { UsuarioResponseDTO } from '../../../shared/dtos/response/usuario-response.dto';
+import { environment } from '../../../../environments/environment';
+import { StatusUsuario } from '../../../shared/enums/user-enums';
 
 @Injectable({ providedIn: 'root' })
 export class UsuarioService {

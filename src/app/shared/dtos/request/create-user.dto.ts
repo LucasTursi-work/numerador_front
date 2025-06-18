@@ -1,4 +1,4 @@
-import { PerfilUsuario, StatusUsuario } from '../../../../shared/enums';
+import { PerfilUsuario, StatusUsuario } from '../../enums/user-enums';
 
 export interface CreateUsuarioRequestDTO {
   nome: string;
