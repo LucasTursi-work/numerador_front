@@ -1,9 +1,18 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
+import { ListaUsuariosComponent } from './pages/lista-usuarios/lista-usuarios.component';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
+  },
+  {
+    path: 'listaUsuarios',
+    //component: ListaUsuariosComponent,
+    loadComponent: () =>
+      import('./pages/lista-usuarios/lista-usuarios.component').then(
+        (c) => c.ListaUsuariosComponent
+      ),
   },
 ];

@@ -1,18 +1,22 @@
+import { PerfilUsuario, StatusUsuario } from '../../../shared/enums/user-enums';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CreateUsuarioRequestDTO } from '../../../shared/dtos/request/create-user.dto';
-import { UsuarioResponseDTO } from '../../../shared/dtos/response/usuario-response.dto';
-import { ListarUsuariosParams } from '../../../shared/dtos/request/usuario-params.dto';
+import {
+  UsuarioResponseDTO,
+  UsuariosPaginadosResponse,
+} from '../../../shared/dtos/response/usuario-response.dto';
+import { BuscarUsuariosParams } from '../../../shared/dtos/request/usuario-params.dto';
 import { environment } from '../../../../environments/environment';
-import { StatusUsuario } from '../../../shared/enums/user-enums';
 import { AlterarSenhaRequestDTO } from '../../../shared/dtos/request/alterar-senha.dto';
 
 @Injectable({ providedIn: 'root' })
 export class UsuarioService {
-  private apiUrl = `${environment.apiUrl}/usuarios`;
-
-  constructor(private http: HttpClient) {}
+  private readonly API = `${environment.apiUrl}/usuarios`;
+  constructor(private http: HttpClient) {
+    console.log('API URL:', this.API);
+  }
 
   criarUsuario(dto: CreateUsuarioRequestDTO): Observable<UsuarioResponseDTO> {
     // Remove campos opcionais não preenchidos (evita envio de 'undefined')
@@ -21,75 +25,87 @@ export class UsuarioService {
       status: dto.status || StatusUsuario.ATIVO, // Valor padrão
     };
 
-    return this.http.post<UsuarioResponseDTO>(this.apiUrl, body);
+    return this.http.post<UsuarioResponseDTO>(this.API, body);
   }
 
   deletarUsuario(id: number): Observable<void> {
     // Este método envia uma requisição DELETE para o backend
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.API}/${id}`);
   }
 
-  listarUsuarios(
-    params?: ListarUsuariosParams
-  ): Observable<UsuarioResponseDTO[]> {
-    let httpParams = new HttpParams();
-
-    if (params) {
-      httpParams = httpParams
-        .set('pagina', params.pagina.toString())
-        .set('limite', params.limite.toString());
-      /*
-      if (params.ordenacao) {
-        httpParams = httpParams.set('ordenacao', params.ordenacao);
-      }
-*/
-      if (params.filtro) {
-        httpParams = httpParams.set('filtro', params.filtro);
-      }
-    }
-
-    return this.http.get<UsuarioResponseDTO[]>(this.apiUrl, {
-      params: httpParams,
-    });
-  }
   alterarSenha(dados: AlterarSenhaRequestDTO): Observable<string> {
-    return this.http.post<string>(`${this.apiUrl}/alterar-senha`, dados);
+    return this.http.post<string>(`${this.API}/alterar-senha`, dados);
   }
+
   buscarUsuario(
     valor: string | number,
-    tipo: 'id' | 'cpf' | 'nome'
-  ): Observable<UsuarioResponseDTO> {
+    tipo: 'id' | 'cpf' | 'nome',
+    page: number = 0,
+    size: number = 10,
+    sort: string = ''
+  ): Observable<UsuarioResponseDTO | UsuarioResponseDTO[]> {
     let url = '';
 
     switch (tipo) {
       case 'id':
-        url = `${this.apiUrl}/${valor}/json`;
-        break;
+        url = `${this.API}/${valor}/json`;
+        return this.http.get<UsuarioResponseDTO>(url);
+
       case 'cpf':
-        url = `${this.apiUrl}/cpf/${valor}`;
-        break;
+        url = `${this.API}/buscarPorCpf?cpf=${valor}&page=${page}&size=${size}`;
+        if (sort) url += `&sort=${sort}`;
+        return this.http.get<UsuarioResponseDTO[]>(url);
+
       case 'nome':
-        url = `${this.apiUrl}/nome/${valor}`;
-        break;
+        url = `${this.API}/buscarPorNome?nome=${valor}&page=${page}&size=${size}`;
+        if (sort) url += `&sort=${sort}`;
+        return this.http.get<UsuarioResponseDTO[]>(url);
+
       default:
         throw new Error('Tipo de busca inválido');
     }
+  }
 
-    return this.http.get<UsuarioResponseDTO>(url);
+  listarUsuarios(
+    params: BuscarUsuariosParams
+  ): Observable<UsuariosPaginadosResponse> {
+    let httpParams = new HttpParams();
+
+    // Adiciona parâmetros não nulos/undefined
+    if (params.nome) httpParams = httpParams.append('nome', params.nome);
+    if (params.cpf) httpParams = httpParams.append('cpf', params.cpf);
+    if (params.status) httpParams = httpParams.append('status', params.status);
+    if (params.perfil) httpParams = httpParams.append('perfil', params.perfil);
+    if (params.pagina)
+      httpParams = httpParams.append('page', params.pagina.toString());
+    if (params.limite)
+      httpParams = httpParams.append('size', params.limite.toString());
+    if (params.ordenacao)
+      httpParams = httpParams.append('sort', params.ordenacao);
+
+    return this.http.get<UsuariosPaginadosResponse>(this.API, {
+      params: httpParams,
+    });
   }
 }
 
 /*
-*UTILIZAR ISTO NUM COMPONENTE PARA RODAR A FUNÇÃO DE BUSCA POR JSON DO buscarUsuarioPorID
-==========================
-this.usuarioService.buscarUsuarioPorId(3).subscribe({
-  next: (usuario) => {
-    console.log('Usuário encontrado:', usuario);
-    this.usuario = usuario; // ou preencher um formulário
-  },
-  error: () => {
-    alert('Usuário não encontrado!');
-  }
+*UTILIZAR ISTO NUM COMPONENTE PARA RODAR A FUNÇÃO DE BUSCA
+==========================BUSCA POR ID
+this.usuarioService.buscarUsuario(5, 'id').subscribe({
+  next: (usuario) => console.log('Usuário:', usuario),
+  error: () => alert('Usuário não encontrado')
 });
-============================
+
+============================ BUSCA POR NOME (COM PAGINAÇÃO)
+this.usuarioService.buscarUsuario('João', 'nome', 0, 5).subscribe({
+  next: (usuarios) => console.log('Lista:', usuarios),
+  error: () => alert('Erro ao buscar por nome')
+});
+
+============================ BUSCA POR CPF
+this.usuarioService.buscarUsuario('00000000000', 'cpf', 0, 1).subscribe({
+  next: (usuarios) => console.log('Resultado:', usuarios),
+  error: () => alert('Erro ao buscar por CPF')
+});
 */

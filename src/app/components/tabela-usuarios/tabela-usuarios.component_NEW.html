@@ -1,0 +1,71 @@
+<!-- Container principal -->
+<div class="tabela-container">
+  <!-- Estado de carregamento -->
+  <div *ngIf="carregando" class="carregando">
+    <mat-spinner diameter="40"></mat-spinner>
+    <span>Carregando usuários...</span>
+  </div>
+
+  <!-- Debug: exibe a estrutura completa dos dados recebidos -->
+  <div *ngIf="!carregando && debugMode" class="debug-container">
+    <h4>Dados Recebidos (Debug):</h4>
+    <pre>{{ usuarios | json }}</pre>
+  </div>
+
+  <!-- Tabela de usuários -->
+  <div *ngIf="!carregando && usuarios.length > 0" class="tabela-wrapper">
+    <table class="tabela-usuarios">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>E-mail</th>
+          <th>Perfil</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios">
+          <td>{{ usuario.id }}</td>
+          <td>{{ usuario.nome }}</td>
+          <td>{{ usuario.cpf | cpf }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>
+            <span class="badge perfil-{{ usuario.perfil.toLowerCase() }}">
+              {{ traduzirPerfil(usuario.perfil) }}
+            </span>
+          </td>
+          <td>
+            <span class="badge status-{{ usuario.status.toLowerCase() }}">
+              {{ traduzirStatus(usuario.status) }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Paginação -->
+    <div class="paginacao">
+      <button
+        (click)="mudarPagina(parametros.pagina - 1)"
+        [disabled]="parametros.pagina === 0"
+      >
+        Anterior
+      </button>
+      <span>Página {{ parametros.pagina + 1 }}</span>
+      <button
+        (click)="mudarPagina(parametros.pagina + 1)"
+        [disabled]="usuarios.length < parametros.limite"
+      >
+        Próxima
+      </button>
+      <span>Total: {{ totalElementos }} usuários</span>
+    </div>
+  </div>
+
+  <!-- Mensagem quando não há dados -->
+  <div *ngIf="!carregando && usuarios.length === 0" class="sem-dados">
+    Nenhum usuário encontrado com os filtros atuais.
+  </div>
+</div>
