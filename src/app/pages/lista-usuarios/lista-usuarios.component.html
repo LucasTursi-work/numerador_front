@@ -1,10 +1,28 @@
 <p>lista-usuarios works!</p>
-<!--
+
 <button>Adicionar Usuário</button>
 <div class="separador"></div>
-<input type="text" class="textField" aria-label="campo de texto" />
-<div class="separador"></div>-->
-<app-tabela-usuarios></app-tabela-usuarios>
+<div class="container">
+  <div id="Nome">
+    <label for="nome">Nome</label>
+    <input type="text" class="textField" aria-label="campo de texto" />
+  </div>
+  <div id="Perfil">
+    <label for="Perfil">Perfil</label>
+    <input type="text" class="textField" aria-label="campo de texto" />
+  </div>
+  <div id="CPF">
+    <label for="cpf">CPF</label>
+    <input type="text" class="textField" aria-label="campo de texto" />
+  </div>
+  <div id="botao">
+    <button aria-label="botão de filtro">Filtrar</button>
+  </div>
+</div>
+<div class="separador"></div>
+<div class="content">
+  <app-tabela-usuarios></app-tabela-usuarios>
+</div>
 <!--
   label="{{ value }}"
   placeholder="{{ value }}"-->
