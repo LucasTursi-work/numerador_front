@@ -1,1 +1,83 @@
 <p>tabela-usuarios works!</p>
+<div class="card">
+  <div class="card-header">
+    <h3>Lista de Usuários</h3>
+  </div>
+
+  <div class="card-body">
+    <div *ngIf="(usuarios?.length || 0) > 0" class="tabela-container">
+      <!--<div *ngIf="true" class="table-responsive">-->
+      <table class="tabela-customizada">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Email</th>
+            <th>Perfil</th>
+            <th>Status</th>
+            <th>Data Cadastro</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--
+          <tr *ngFor="let usuario of usuarios">
+            <td>{{ usuario.nome }}</td>
+            <td>{{ usuario.cpf | cpf }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ traduzirPerfil(usuario.perfil) }}</td>
+            <td>
+              <span
+                class="badge-status"
+                [ngClass]="usuario.status.toLowerCase()"
+              >
+                {{ traduzirStatus(usuario.status) }}
+              </span>
+            </td>
+            <td>{{ usuario.dataCadastro | date : "dd/MM/yyyy" }}</td>
+          </tr>-->
+          <tr>
+            <td>Lucas Tursi</td>
+            <td>123.456.789-00</td>
+            <td>lucas_e-mail.com</td>
+            <td>Administrador</td>
+            <td><span class="badge-status ativo">Ativo</span></td>
+            <td>11/07/2025</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="container-paginacao">
+      <div class="numero-usuarios">Total: {{ totalElementos }} usuário(s)</div>
+
+      <nav *ngIf="totalElementos > 0">
+        <ul class="pagination">
+          <!-- Botão Anterior -->
+          <li class="page-item" [class.disabled]="paginaAtual === 1">
+            <a class="page-link" (click)="mudarPagina.emit(paginaAtual - 1)"
+              >Anterior</a
+            >
+          </li>
+
+          <!-- Números das páginas -->
+          <li
+            class="page-item"
+            *ngFor="let i of [].constructor(totalPaginas); let index = index"
+            [class.active]="paginaAtual === index + 1"
+          >
+            <a class="page-link" (click)="mudarPagina.emit(index + 1)">
+              {{ index + 1 }}
+            </a>
+          </li>
+
+          <!-- Botão Próxima -->
+          <li class="page-item" [class.disabled]="paginaAtual >= totalPaginas">
+            <a class="page-link" (click)="mudarPagina.emit(paginaAtual + 1)"
+              >Próxima</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

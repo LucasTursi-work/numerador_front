@@ -8,7 +8,11 @@
   </div>
   <div id="Perfil">
     <label for="Perfil">Perfil</label>
-    <input type="text" class="textField" aria-label="campo de texto" />
+    <select class="textField" [(ngModel)]="perfil">
+      <option [ngValue]="undefined">Todos</option>
+      <option [ngValue]="PerfilUsuario.ADMIN">Administrador</option>
+      <option [ngValue]="PerfilUsuario.USUARIO">Usuário</option>
+    </select>
   </div>
   <div id="CPF">
     <label for="cpf">CPF</label>

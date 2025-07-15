@@ -20,14 +20,17 @@ import {
   UsuarioResponseDTO,
 } from '../../shared/dtos/response/usuario-response.dto';
 import { PerfilUsuario, StatusUsuario } from '../../shared/enums/user-enums';
-import { BuscarUsuariosParams } from '../../shared/dtos/request/usuario-params.dto';
+import {
+  BuscarUsuariosParams,
+  FiltroUsuarios,
+} from '../../shared/dtos/request/usuario-params.dto';
 import { CpfPipe } from '../../shared/pipes/cpf.pipe';
-import { CeilPipe } from '../../shared/pipes/ceil.pipe';
+import { TabelaUsuariosComponent } from '../../components/tabela-usuarios/tabela-usuarios.component';
 
 @Component({
   selector: 'app-lista-usuarios-content',
   standalone: true,
-  imports: [CommonModule, CpfPipe, CeilPipe],
+  imports: [CommonModule, CpfPipe, TabelaUsuariosComponent],
   templateUrl: './lista-usuarios-content.component.html',
   styleUrl: './lista-usuarios-content.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -84,11 +87,6 @@ export class ListaUsuariosContentComponent implements OnInit {
       },
     });
   }
-  get usuarios(): UsuarioResponseDTO[] {
-    const inicio = (this.parametros.pagina - 1) * this.parametros.limite;
-    const fim = inicio + this.parametros.limite;
-    return this.todosUsuarios.slice(inicio, fim);
-  }
 
   mudarPagina(pagina: number): void {
     const totalPaginas = Math.ceil(
@@ -119,5 +117,13 @@ export class ListaUsuariosContentComponent implements OnInit {
       default:
         return status;
     }
+  }
+  aplicarFiltros(filtros: FiltroUsuarios): void {
+    this.parametros = {
+      ...this.parametros,
+      ...filtros,
+      pagina: 1, // reinicia a página
+    };
+    this.carregarUsuarios();
   }
 }

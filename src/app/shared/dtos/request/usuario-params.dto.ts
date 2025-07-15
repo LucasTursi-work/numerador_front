@@ -24,5 +24,12 @@ export interface BuscarUsuariosParams {
   limite: number;
   ordenacao?: string;
 }
+
+export interface FiltroUsuarios {
+  nome?: string;
+  cpf?: string;
+  status?: StatusUsuario;
+  perfil?: PerfilUsuario;
+}
 //ordenacao?: OrdenacaoUsuario;
 // Reusa enum local

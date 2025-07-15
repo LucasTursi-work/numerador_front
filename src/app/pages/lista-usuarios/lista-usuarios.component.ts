@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { TabelaUsuariosComponent } from '../../components/tabela-usuarios/tabela-usuarios.component';
+import { ListaUsuariosContentComponent } from '../../components/lista-usuarios-content/lista-usuarios-content.component';
 
 @Component({
   selector: 'app-lista-usuarios',
   standalone: true,
-  imports: [TabelaUsuariosComponent],
+  imports: [ListaUsuariosContentComponent],
   templateUrl: './lista-usuarios.component.html',
   styleUrl: './lista-usuarios.component.scss',
 })

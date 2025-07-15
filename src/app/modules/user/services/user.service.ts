@@ -83,7 +83,7 @@ export class UsuarioService {
     if (params.ordenacao)
       httpParams = httpParams.append('sort', params.ordenacao);
 
-    return this.http.get<UsuariosPaginadosResponse>(this.API, {
+    return this.http.get<any>(this.API, {
       params: httpParams,
     });
   }
