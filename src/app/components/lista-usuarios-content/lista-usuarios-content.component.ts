@@ -26,11 +26,19 @@ import {
 } from '../../shared/dtos/request/usuario-params.dto';
 import { CpfPipe } from '../../shared/pipes/cpf.pipe';
 import { TabelaUsuariosComponent } from '../../components/tabela-usuarios/tabela-usuarios.component';
+import { FiltrosUsuariosComponent } from '../filtros-usuarios/filtros-usuarios.component';
+import { CeilPipe } from '../../shared/pipes/ceil.pipe';
 
 @Component({
   selector: 'app-lista-usuarios-content',
   standalone: true,
-  imports: [CommonModule, CpfPipe, TabelaUsuariosComponent],
+  imports: [
+    CommonModule,
+    CpfPipe,
+    TabelaUsuariosComponent,
+    FiltrosUsuariosComponent,
+    CeilPipe,
+  ],
   templateUrl: './lista-usuarios-content.component.html',
   styleUrl: './lista-usuarios-content.component.scss',
   encapsulation: ViewEncapsulation.None,

@@ -1,24 +1,38 @@
-<p>filtros-usuarios works!</p>
-<button>Adicionar Usuário</button>
-<div class="separador"></div>
-<div class="container">
-  <div id="Nome">
-    <label for="nome">Nome</label>
-    <input type="text" class="textField" aria-label="campo de texto" />
+<button id="add-user" class="botao">Adicionar usuário</button>
+<button id="logout" class="botao">Sair</button>
+<div class="separador-mini"></div>
+
+<form (ngSubmit)="aplicarFiltros()" class="filtros-container">
+  <div class="name-form-container">
+    <label>Nome</label><br />
+    <input
+      [(ngModel)]="nome"
+      name="nome"
+      placeholder="Nome"
+      class="textField"
+    />
   </div>
-  <div id="Perfil">
-    <label for="Perfil">Perfil</label>
-    <select class="textField" [(ngModel)]="perfil">
-      <option [ngValue]="undefined">Todos</option>
-      <option [ngValue]="PerfilUsuario.ADMIN">Administrador</option>
-      <option [ngValue]="PerfilUsuario.USUARIO">Usuário</option>
+  <div class="cpf-form-container">
+    <label>CPF</label><br />
+    <input [(ngModel)]="cpf" name="cpf" placeholder="CPF" class="textField" />
+  </div>
+  <div class="box-perfil-container">
+    <label>Perfil</label><br />
+    <select [(ngModel)]="perfil" name="perfil">
+      <option value="">Perfil</option>
+      <option *ngFor="let p of perfilOptions" [value]="p">{{ p }}</option>
     </select>
   </div>
-  <div id="CPF">
-    <label for="cpf">CPF</label>
-    <input type="text" class="textField" aria-label="campo de texto" />
+  <div class="box-status-container">
+    <label>Status</label><br />
+    <select [(ngModel)]="status" name="status">
+      <option value="">Status</option>
+      <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
+    </select>
   </div>
-  <div id="botao">
-    <button aria-label="botão de filtro">Filtrar</button>
-  </div>
-</div>
+
+  <button type="submit" class="botao filtrar">Filtrar</button>
+  <button type="button" (click)="limparFiltros()" class="botao limpar">
+    Limpar filtros
+  </button>
+</form>

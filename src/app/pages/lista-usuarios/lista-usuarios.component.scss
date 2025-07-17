@@ -1,44 +1,19 @@
 @use "../styles/colors" as *;
-.root {
+:root {
   margin: 0;
-  padding: 2vh;
+  padding: 0;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
 }
-
+.header {
+  align-items: center;
+  background-color: $primary;
+}
+.menu {
+  float: left;
+  background-color: grey;
+}
 .content {
-  display: flex;
   float: right;
-  //max-width: 20vw;
-  height: auto;
-}
-.container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 0.5rem;
-  max-width: 12vw;
-}
-
-.textField {
-  display: inline-block;
-  height: 2rem;
-  width: 10rem;
-  border-radius: 0.8rem;
-  color: lightgray;
-  border: 2px solid gray;
-  box-shadow: 2px 0 2px 0;
-  &:active {
-    display: inline-block;
-    border-radius: 0.8rem;
-    color: black;
-    border: 2px solid $primary;
-    box-shadow: 4px 0 4px 0;
-  }
-  &:hover {
-    display: inline-block;
-    border-radius: 0.8rem;
-    color: black;
-    border: 2px solid $primary-lighter;
-    box-shadow: 4px 0 4px 0;
-  }
+  //background-color: grey;
 }

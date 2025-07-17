@@ -1,4 +1,3 @@
-<p>tabela-usuarios works!</p>
 <div class="card">
   <div class="card-header">
     <h3>Lista de Usuários</h3>
@@ -19,7 +18,6 @@
           </tr>
         </thead>
         <tbody>
-          <!--
           <tr *ngFor="let usuario of usuarios">
             <td>{{ usuario.nome }}</td>
             <td>{{ usuario.cpf | cpf }}</td>
@@ -34,15 +32,25 @@
               </span>
             </td>
             <td>{{ usuario.dataCadastro | date : "dd/MM/yyyy" }}</td>
-          </tr>-->
-          <tr>
+          </tr>
+
+          <tr
+            *ngFor="
+              let i of preencherLinhasVazias(usuarios.length);
+              index as idx
+            "
+            class="linha-vazia"
+          >
+            <td colspan="6">&nbsp;</td>
+          </tr>
+          <!--<tr>
             <td>Lucas Tursi</td>
             <td>123.456.789-00</td>
             <td>lucas_e-mail.com</td>
             <td>Administrador</td>
             <td><span class="badge-status ativo">Ativo</span></td>
             <td>11/07/2025</td>
-          </tr>
+          </tr>-->
         </tbody>
       </table>
     </div>

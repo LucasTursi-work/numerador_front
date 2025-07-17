@@ -1,6 +1,10 @@
 @use "../styles/colors" as *;
+:root {
+  margin: 0;
+  padding: 0;
+}
 .tabela-container {
-  padding: 1rem;
+  padding: 12px;
 }
 label {
   font-size: 0.75rem;
@@ -18,7 +22,7 @@ label {
   margin: 0;
 }
 .tabela-customizada {
-  width: 100%; //usa o total do container pai
+  width: 32vw; //usa o total do container pai
   border-collapse: collapse;
   font-size: 0.9rem;
   border-radius: 4rem;
@@ -29,7 +33,7 @@ label {
 
     th {
       padding: 0.75rem;
-      text-align: left;
+      text-align: center;
       border-bottom: 2px solid darken($primary-light, 10%);
     }
   }
@@ -49,7 +53,11 @@ label {
     }
   }
 }
-
+.badge-status {
+  color: black;
+  background-color: $primary;
+  border-radius: 2rem;
+}
 .page-item {
   a {
     display: block;
@@ -110,4 +118,10 @@ label {
     margin: 0;
     white-space: pre-wrap;
   }
+}
+table.tabela-customizada tr.linha-vazia td {
+  height: 3rem; // ajuste conforme o tamanho normal de uma linha
+  background-color: transparent !important;
+  border: none;
+  pointer-events: none;
 }
