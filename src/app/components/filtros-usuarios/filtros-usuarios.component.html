@@ -8,31 +8,32 @@
     <input
       [(ngModel)]="nome"
       name="nome"
-      placeholder="Nome"
+      placeholder=" Nome"
       class="textField"
     />
   </div>
   <div class="cpf-form-container">
     <label>CPF</label><br />
-    <input [(ngModel)]="cpf" name="cpf" placeholder="CPF" class="textField" />
+    <input [(ngModel)]="cpf" name="cpf" placeholder=" CPF" class="textField" />
   </div>
   <div class="box-perfil-container">
     <label>Perfil</label><br />
-    <select [(ngModel)]="perfil" name="perfil">
+    <select [(ngModel)]="perfil" name="perfil" class="selector">
       <option value="">Perfil</option>
       <option *ngFor="let p of perfilOptions" [value]="p">{{ p }}</option>
     </select>
   </div>
   <div class="box-status-container">
     <label>Status</label><br />
-    <select [(ngModel)]="status" name="status">
+    <select [(ngModel)]="status" name="status" class="selector">
       <option value="">Status</option>
       <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
     </select>
   </div>
 
-  <button type="submit" class="botao filtrar">Filtrar</button>
+  <button type="submit" class="botao" id="filtrar">Filtrar</button>
   <button type="button" (click)="limparFiltros()" class="botao limpar">
     Limpar filtros
   </button>
 </form>
+<div class="separador-mini"></div>
