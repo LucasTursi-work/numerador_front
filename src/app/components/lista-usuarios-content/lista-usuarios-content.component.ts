@@ -49,7 +49,7 @@ export class ListaUsuariosContentComponent implements OnInit {
   carregando = false;
   parametros: BuscarUsuariosParams = {
     pagina: 1,
-    limite: 10,
+    limite: 15,
   };
   totalElementos = 0;
 

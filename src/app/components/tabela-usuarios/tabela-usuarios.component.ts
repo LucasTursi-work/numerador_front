@@ -16,6 +16,7 @@ import { CpfPipe } from '../../shared/pipes/cpf.pipe';
   standalone: true,
   imports: [CommonModule, CpfPipe],
   templateUrl: './tabela-usuarios.component.html',
+  styleUrl: './tabela-usuarios.component.scss',
 })
 export class TabelaUsuariosComponent implements OnChanges {
   @Input() usuarios: UsuarioResponseDTO[] = [];
@@ -24,7 +25,7 @@ export class TabelaUsuariosComponent implements OnChanges {
   }
   @Input() paginaAtual: number = 1;
   @Input() totalElementos: number = 0;
-  @Input() itensPorPagina: number = 10;
+  @Input() itensPorPagina: number = 15;
   @Input() carregando: boolean = false;
 
   @Output() mudarPagina = new EventEmitter<number>();
@@ -60,7 +61,7 @@ export class TabelaUsuariosComponent implements OnChanges {
   }
 
   preencherLinhasVazias(linhasUsadas: number): number[] {
-    const maxLinhas = 10; // ou `this.parametros.limite`
+    const maxLinhas = 15; // ou `this.parametros.limite`
     const faltantes = maxLinhas - linhasUsadas;
     return Array.from({ length: faltantes > 0 ? faltantes : 0 });
   }

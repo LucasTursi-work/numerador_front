@@ -1,1 +1,22 @@
-<p>modal-alterar-senha works!</p>
+
+<h3>Alterar Senha</h3>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <label>
+    Senha atual:
+    <input type="password" formControlName="senhaAtual" />
+  </label>
+
+  <label>
+    Nova senha:
+    <input type="password" formControlName="novaSenha" />
+  </label>
+
+  <label>
+    Confirmar nova senha:
+    <input type="password" formControlName="confirmarSenha" />
+  </label>
+
+  <div *ngIf="erro" class="erro">{{ erro }}</div>
+
+  <button type="submit">Alterar Senha</button>
+</form>

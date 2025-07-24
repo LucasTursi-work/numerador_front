@@ -4,10 +4,11 @@
   padding: 0;
 }
 .tabela-container {
-  padding: 12px;
+  //padding: 1rem;
+  //max-width: 24vw;
 }
 label {
-  font-size: 0.75rem;
+  font-size: 0.5rem;
   font-weight: bold;
 }
 .carregando {
@@ -23,35 +24,66 @@ label {
 }
 
 table {
-  width: 100%;
+  table-layout: fixed;
+  width: fit-content;
+  max-width: 90%;
   border-collapse: collapse;
   margin-top: 1rem;
-  font-size: 14px;
+  font-size: 1.5rem;
+
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: 28%;
+  } // Nome
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 12%;
+  } // CPF
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: 28%;
+  } // Email
+  th:nth-child(4),
+  td:nth-child(4) {
+    width: 10%;
+  } // Perfil
+  th:nth-child(5),
+  td:nth-child(5) {
+    width: 8%;
+  } // Status
+  th:nth-child(6),
+  td:nth-child(6) {
+    width: 12%;
+  } // Data Cadastro
+  th {
+    background-color: $primary-light;
+    color: white;
+    text-align: left;
+    padding: 1rem;
+  }
+
+  td {
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+  td.Nome {
+    text-align: left;
+  }
+
+  tr:nth-child(even) {
+    background-color: #e6f4ec;
+    border-radius: 2rem;
+    // tom suave esverdeado
+  }
+
+  tr:hover {
+    background-color: #cce6d9;
+  }
 }
 
-th {
-  background-color: $primary-light;
-  color: white;
-  text-align: left;
-  padding: 12px;
-}
-
-td {
-  padding: 10px 12px;
-  border-bottom: 1px solid #ddd;
-}
-
-tr:nth-child(even) {
-  background-color: #e6f4ec;
-  border-radius: 2rem;
-  // tom suave esverdeado
-}
-
-tr:hover {
-  background-color: #cce6d9;
-}
 .tabela-customizada {
-  width: 32vw; //usa o total do container pai
+  width: 100%; //usa o total do container pai
   border-collapse: collapse;
   font-size: 0.9rem;
   border-radius: 4rem;
@@ -83,11 +115,17 @@ tr:hover {
   }
 }
 .badge-status {
-  color: black;
+  font-size: 0.8rem;
+  color: rgb(255, 255, 255);
   background-color: $primary;
   border-radius: 2rem;
+  padding: 0.5rem;
+  &.inativo {
+    background-color: #4c4c4c;
+  }
 }
 .page-item {
+  //menu de navegação - página ativa
   &.disabled .page-link {
     pointer-events: none;
     opacity: 0.5;
@@ -101,13 +139,14 @@ tr:hover {
 }
 
 .page-link {
+  //menu de navegação - páginas não ativas
   display: inline-block;
   padding: 6px 12px;
   border: 1px solid #ddd;
   border-radius: 6px;
   color: $primary-light;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 1.25rem;
   background-color: white;
   transition: background-color 0.2s ease;
 
@@ -130,7 +169,7 @@ tr:hover {
   list-style: none;
   gap: 0.5rem;
   padding: 0;
-  margin: 1.5rem 0;
+  margin: 1rem 0;
   margin-top: 0.5rem;
   justify-content: right;
   flex-wrap: wrap;
@@ -155,7 +194,7 @@ tr:hover {
   }
 }
 table.tabela-customizada tr.linha-vazia td {
-  height: 3rem; // ajuste conforme o tamanho normal de uma linha
+  height: 2rem; // ajuste conforme o tamanho normal de uma linha
   background-color: transparent !important;
   border: none;
   pointer-events: none;

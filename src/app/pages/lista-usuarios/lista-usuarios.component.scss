@@ -2,6 +2,7 @@
 
 .header {
   background-color: $primary;
+  box-shadow: 1px 0 2px 2px lightgray;
 }
 .username {
   text-align: center;
@@ -13,11 +14,17 @@
 
 .menu {
   float: left;
-  padding: 2vw;
-  padding-left: 1vw;
-  background-color: grey;
+  padding: 0;
+
+  // background-color: $primary-lightest;
+  height: 100%;
 }
 .content {
-  float: right;
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
+  height: 100%;
   //background-color: grey;
+}
+.contents {
+  margin: 1vw;
 }

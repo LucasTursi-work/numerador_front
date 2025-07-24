@@ -1,5 +1,5 @@
 <button id="add-user" class="botao">Adicionar usuário</button>
-<button id="logout" class="botao">Sair</button>
+
 <div class="separador-mini"></div>
 
 <form (ngSubmit)="aplicarFiltros()" class="filtros-container">
@@ -8,13 +8,13 @@
     <input
       [(ngModel)]="nome"
       name="nome"
-      placeholder=" Nome"
+      placeholder="Nome"
       class="textField"
     />
   </div>
   <div class="cpf-form-container">
     <label>CPF</label><br />
-    <input [(ngModel)]="cpf" name="cpf" placeholder=" CPF" class="textField" />
+    <input [(ngModel)]="cpf" name="cpf" placeholder="CPF" class="textField" />
   </div>
   <div class="box-perfil-container">
     <label>Perfil</label><br />

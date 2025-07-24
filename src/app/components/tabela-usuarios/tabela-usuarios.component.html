@@ -26,7 +26,10 @@
             <td>
               <span
                 class="badge-status"
-                [ngClass]="usuario.status.toLowerCase()"
+                [ngClass]="{
+                  inativo:
+                    traduzirStatus(usuario.status).toLowerCase() !== 'ativo'
+                }"
               >
                 {{ traduzirStatus(usuario.status) }}
               </span>

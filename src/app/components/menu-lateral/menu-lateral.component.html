@@ -1,16 +1,20 @@
-<div class="conteiner-content">
-  <p>menu-lateral works!</p>
-  <p>Menu</p>
-  <div class="separador"></div>
-  <button>Dashboard</button>
-  <div class="elementos">
-    <div class="separador-mini"></div>
-    <button>proxy1</button>
-    <div class="separador-mini"></div>
-    <button>proxy2</button>
+<div class="container-content">
+  <h5>Menu</h5>
+  <div class="separador-mini"></div>
+  <button class="botao" (click)="navDashboard()">Dashboard</button>
+  <div class="separador-mini"></div>
+  <button class="botao" (click)="navListaUsuarios()">Usuarios</button>
+  <div class="separador-mini"></div>
+  <button class="botao" (click)="navGraficos()">Gráficos</button>
+  <div class="menu-inferior">
+    <button class="botao" (click)="navPerfil()">Perfil</button>
+    <button class="botao" (click)="navConfig()">Configurações</button>
+    <button class="botao" (click)="navLogOut()">Sair</button>
   </div>
-  <div class="separador"></div>
-  <button>Usuarios</button>
-  <div class="separador"></div>
-  <button>Gráficos</button>
 </div>
+
+<!--    
+<button class="botao mini">proxy1</button>
+    <div class="separador-mini"></div>
+    <button class="botao mini">proxy2</button>
+    -->
