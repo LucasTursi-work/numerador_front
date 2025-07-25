@@ -21,7 +21,7 @@
 }
 .content {
   display: grid;
-  grid-template-columns: 1fr 8fr 1fr;
+  grid-template-columns: minmax(6vw, 12vw) 1fr;
   height: 100%;
   //background-color: grey;
 }

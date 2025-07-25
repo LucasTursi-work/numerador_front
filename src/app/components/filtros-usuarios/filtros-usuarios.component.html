@@ -1,7 +1,6 @@
 <button id="add-user" class="botao">Adicionar usuário</button>
 
 <div class="separador-mini"></div>
-
 <form (ngSubmit)="aplicarFiltros()" class="filtros-container">
   <div class="name-form-container">
     <label>Nome</label><br />
@@ -31,7 +30,9 @@
     </select>
   </div>
 
-  <button type="submit" class="botao" id="filtrar">Filtrar</button>
+  <button type="submit" class="botao" id="filtrar" (click)="aplicarFiltros()">
+    Filtrar
+  </button>
   <button type="button" (click)="limparFiltros()" class="botao limpar">
     Limpar filtros
   </button>
