@@ -70,7 +70,6 @@ export class UsuarioService {
     params: BuscarUsuariosParams
   ): Observable<UsuariosPaginadosResponse> {
     let httpParams = new HttpParams();
-
     // Adiciona parâmetros não nulos/undefined
     if (params.nome) httpParams = httpParams.append('nome', params.nome);
     if (params.cpf) httpParams = httpParams.append('cpf', params.cpf);
@@ -82,10 +81,32 @@ export class UsuarioService {
       httpParams = httpParams.append('size', params.limite.toString());
     if (params.ordenacao)
       httpParams = httpParams.append('sort', params.ordenacao);
-
+    console.log('Requisição GET para:', `${this.API}?${httpParams.toString()}`);
+    console.warn('⚠️ Método antigo listarUsuarios() FOI CHAMADO!');
     return this.http.get<any>(this.API, {
       params: httpParams,
     });
+  }
+
+  listarUsuariosPaginado(parametros: any): Observable<any> {
+    //altera a url para a que retorna os usuários com paginação
+    let httpParams = new HttpParams();
+    if (parametros.nome) httpParams = httpParams.set('nome', parametros.nome);
+    if (parametros.cpf) httpParams = httpParams.set('cpf', parametros.cpf);
+    if (parametros.perfil)
+      httpParams = httpParams.set('perfil', parametros.perfil);
+    if (parametros.status)
+      httpParams = httpParams.set('status', parametros.status);
+    const page = parametros.pagina ?? 0;
+    const size = parametros.limite ?? 15;
+    httpParams = httpParams.set('page', page).set('size', size);
+
+    console.log(
+      'Requisição GET para:',
+      `${this.API}/filtrar?${httpParams.toString()}`
+    );
+
+    return this.http.get(`${this.API}/filtrar`, { params: httpParams });
   }
 }
 

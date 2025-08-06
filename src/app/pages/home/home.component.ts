@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { GradeComponent } from '../../components/grade/grade.component';
-import { GraficosComponent } from '../../components/graficos/graficos.component';
 import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral.component';
+import { DashLogicaComponent } from '../../components/dashboard/dash-logica/dash-logica.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [GradeComponent, GraficosComponent, MenuLateralComponent],
+  imports: [MenuLateralComponent, DashLogicaComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

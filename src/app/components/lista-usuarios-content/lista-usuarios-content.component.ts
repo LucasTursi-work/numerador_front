@@ -41,14 +41,14 @@ import { CeilPipe } from '../../shared/pipes/ceil.pipe';
   ],
   templateUrl: './lista-usuarios-content.component.html',
   styleUrl: './lista-usuarios-content.component.scss',
-  encapsulation: ViewEncapsulation.None,
+  //encapsulation: ViewEncapsulation.None,
 })
 export class ListaUsuariosContentComponent implements OnInit {
   todosUsuarios: UsuarioResponseDTO[] = [];
 
   carregando = false;
   parametros: BuscarUsuariosParams = {
-    pagina: 1,
+    pagina: 0,
     limite: 15,
   };
   totalElementos = 0;
@@ -59,15 +59,13 @@ export class ListaUsuariosContentComponent implements OnInit {
     this.carregarUsuarios();
   }
   get usuariosPaginados(): UsuarioResponseDTO[] {
-    const inicio = (this.parametros.pagina - 1) * this.parametros.limite;
-    const fim = inicio + this.parametros.limite;
-    return this.todosUsuarios.slice(inicio, fim);
+    return this.todosUsuarios; // backend já devolve paginado
   }
   carregarUsuarios(): void {
     this.carregando = true;
     this.todosUsuarios = [];
     console.log('Parâmetros enviados:', JSON.stringify(this.parametros));
-    this.usuarioService.listarUsuarios(this.parametros).subscribe({
+    this.usuarioService.listarUsuariosPaginado(this.parametros).subscribe({
       next: (resposta: any) => {
         console.log('Resposta bruta:', resposta);
 
@@ -96,12 +94,14 @@ export class ListaUsuariosContentComponent implements OnInit {
     });
   }
 
-  mudarPagina(pagina: number): void {
+  mudarPagina(paginaAtual: number): void {
     const totalPaginas = Math.ceil(
       this.totalElementos / this.parametros.limite
     );
-    if (pagina < 1 || pagina > totalPaginas) return;
-    this.parametros.pagina = pagina;
+    if (paginaAtual < 0 || paginaAtual > totalPaginas) return;
+
+    this.parametros.pagina = paginaAtual - 1; // ← corrige visual → backend
+    this.carregarUsuarios();
   }
 
   // Métodos auxiliares para exibição
@@ -130,7 +130,7 @@ export class ListaUsuariosContentComponent implements OnInit {
     this.parametros = {
       ...this.parametros,
       ...filtros,
-      pagina: 1, // reinicia a página
+      pagina: 0, // reinicia a página
     };
     this.carregarUsuarios();
   }
