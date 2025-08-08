@@ -1,0 +1,43 @@
+@import "_colors.scss";
+//@import "bootstrap/dist/css/bootstrap.min.css";
+
+#miatablea {
+  border-radius: 0.5rem;
+  background-color: white;
+  table-layout: auto;
+  width: 60%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: $primary;
+  color: white;
+  padding: 2vh 0.5vw; /* Padding vertical maior que horizontal */
+  text-align: center;
+}
+
+td {
+  padding: 0.25rem;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Linhas alternadas */
+tr:nth-child(odd) {
+  background-color: $primary-lighter;
+}
+
+tr:nth-child(even) {
+  background-color: $primary-lightest;
+}
+
+/* Efeito hover */
+tr:hover {
+  background-color: $primary-dark;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+th,
+td {
+  white-space: nowrap;
+}

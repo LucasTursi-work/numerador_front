@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
 export class MenuLateralComponent {
   constructor(private router: Router) {}
   navDashboard() {
+    this.router.navigate(['/dashboard']);
+  }
+  navHome() {
     this.router.navigate(['/home']);
   }
   navListaUsuarios() {

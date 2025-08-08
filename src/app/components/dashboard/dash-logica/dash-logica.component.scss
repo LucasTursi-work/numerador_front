@@ -6,6 +6,7 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 2fr 1fr;
   background-color: lightgray;
+  margin-bottom: 0.5rem;
 }
 .numerador {
   grid-column: 1;
@@ -34,5 +35,4 @@
 }
 .comp {
   border-radius: 1rem;
-  padding: 1rem;
 }
