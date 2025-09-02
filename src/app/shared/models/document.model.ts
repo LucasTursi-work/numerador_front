@@ -1,0 +1,29 @@
+import { DocumentoResponseDTO } from '../../shared/dtos/response/documento-response.dto';
+
+export interface DocumentoNumerador {
+  nome: string;
+  contador: 0;
+}
+export interface Documento {
+  id: number;
+  nome: string; // Mapeia para tipoDocumento.nome
+  contador: number; // Mapeia para numero
+  status: string; // Mapeia para tipoDocumento.status
+  // Apenas campos usados no componente
+}
+
+  // Método de instância (exemplo)
+  public incrementarContador(): void {
+    this.contador++;
+  }
+
+  // Método estático para conversão
+  public static fromDTO(dto: DocumentoResponseDTO): Documento {
+    return new Documento(
+      dto.idDocumento,
+      dto.tipoDocumento.nome,
+      dto.numero,
+      new Date(dto.dataCadastro) // Conversão de tipos
+    );
+  }
+}
