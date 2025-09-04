@@ -1,6 +1,10 @@
 <div class="comp content">
   <!--<p>dash-logica works!</p>-->
-  <app-dash-numerador class="comp numerador"></app-dash-numerador>
+  <app-dash-numerador class="comp numerador"
+  [documento.nome]="documento.nome"
+  [documento.contador]="documento.contador"
+  [i]="i"
+  ></app-dash-numerador>
   <app-dash-graficos class="comp graficos"></app-dash-graficos>
   <app-dash-logs class="comp logs"></app-dash-logs>
 </div>

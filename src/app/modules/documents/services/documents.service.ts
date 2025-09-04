@@ -12,7 +12,7 @@ export interface Documento {
 
 @Injectable({ providedIn: 'root' })
 export class DocumentoService {
-  private apiUrl = `${environment.apiUrl}/documentos`; // ou outro endpoint correto
+  private apiUrl = `${environment.apiUrl}/documentos`;
 
   constructor(private http: HttpClient) {}
 
@@ -23,5 +23,12 @@ export class DocumentoService {
     return this.http.get<DocumentoResponseDTO>(
       `${this.apiUrl}/documentos/${id}`
     );
+  }
+  atualizarDocumento(
+    id: number,
+    documento: UpdateDocumentoDto
+  ): Observable<DocumentoResponseDto> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.put<DocumentoResponseDto>(url, documento);
   }
 }

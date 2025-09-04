@@ -21,7 +21,7 @@ export interface UsuarioSimplificadoDTO {
 export interface TipoDocumentoDTO {
   id: number;
   nome: string;
-  status: 'ATIVO' | 'INATIVO'; // Ou use um enum se existir
+  status: PerfilUsuario; // Ou use um enum se existir
 }
 
 export interface CartorioDTO {

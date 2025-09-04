@@ -11,6 +11,13 @@ export interface Documento {
   status: string; // Mapeia para tipoDocumento.status
   // Apenas campos usados no componente
 }
+export class Documento {
+  constructor(
+    public id: number,
+    public nome: string,
+    public contador: number,
+    public dataCriacao: Date // Já convertido de string
+  ) {}
 
   // Método de instância (exemplo)
   public incrementarContador(): void {
