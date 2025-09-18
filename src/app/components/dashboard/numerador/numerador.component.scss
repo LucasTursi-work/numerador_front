@@ -4,12 +4,11 @@
 #miatablea {
   border-radius: 0.5rem;
   background-color: white;
-  table-layout: auto;
-  width: 60%;
+  table-layout: fixed;
+  width: 80%;
   border-collapse: collapse;
 }
-
-th {
+tbody th {
   background-color: $primary;
   color: white;
   padding: 2vh 0.5vw; /* Padding vertical maior que horizontal */
@@ -40,4 +39,13 @@ tr:hover {
 th,
 td {
   white-space: nowrap;
+}
+.corpo_tabela {
+  max-height: 40%;
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.cabeçalho {
+  display: block;
 }

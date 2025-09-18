@@ -1,15 +1,4 @@
 @use "../styles/colors" as *;
-.header {
-  background-color: $primary;
-  box-shadow: 1px 0 2px 2px lightgray;
-}
-.username {
-  text-align: center;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  font-size: 0.75rem;
-  color: white;
-}
 #page {
   overflow: hidden;
   margin: 0;
@@ -30,28 +19,55 @@
   box-shadow: 8px 2px 4px lightgray;
 }
 
+.header {
+  background-color: $primary;
+  box-shadow: 1px 0 2px 2px lightgray;
+}
+.username {
+  text-align: center;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  font-size: 0.75rem;
+  color: white;
+}
+
+.num-graf {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  $gutter-vertical: 4rem; //40px
+  $gutter-horizontal: 4rem; // 40px
+}
+
+.conteudo-logs {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  $gutter-vertical: 4rem;
+  $gutter-horizontal: 4rem;
+}
+/*
+.numerador {
+  max-height: 10%;
+  max-width: 80%;
+}
+  */
+.graficos {
+  border-radius: 0.5rem;
+  background-color: lightgray;
+  //min-width: 10vw;
+  //min-height: 10vh;
+  height: 240px;
+  width: auto;
+}
+
+.logs {
+  border-radius: 0.5rem;
+  background-color: lightgray;
+  width: 90vw;
+  height: auto;
+}
+
 .content-container {
   padding: 16px;
   display: flex;
   float: center;
-}
-
-#charts {
-  display: flex;
-  float: right;
-  padding: 0.8vw;
-  margin-left: 1vw;
-  width: 60vw;
-  height: auto;
-  // background-color: #4c4c4c;
-  border-radius: 1rem;
-  //box-shadow: 8px 2px 4px lightgray;
-}
-
-#grade {
-  float: left;
-  border-radius: 1rem;
-  overflow: hidden;
-  width: 61%;
-  //padding-left: 2vw;
 }

@@ -9,3 +9,8 @@ export enum TipoOperacaoDocumento {
   ATUALIZACAO = 'ATUALIZACAO',
   CANCELAMENTO = 'CANCELAMENTO',
 }
+
+export enum Status {
+  ATIVO = 'ATIVO',
+  INATIVO = 'INATIVO',
+}

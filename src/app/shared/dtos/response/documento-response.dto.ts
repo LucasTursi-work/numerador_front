@@ -1,5 +1,6 @@
 import { PerfilUsuario, StatusUsuario } from '../../enums/user-enums';
-export interface DocumentoResponseDTO {
+
+export interface DocumentoResponseDto {
   idDocumento: number;
   numero: number;
   dataCadastro: string; // Ou Date se converter

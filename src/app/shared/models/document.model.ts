@@ -1,4 +1,4 @@
-import { DocumentoResponseDTO } from '../../shared/dtos/response/documento-response.dto';
+import { DocumentoResponseDto } from '../../shared/dtos/response/documento-response.dto';
 
 export interface DocumentoNumerador {
   nome: string;
@@ -25,7 +25,7 @@ export class Documento {
   }
 
   // Método estático para conversão
-  public static fromDTO(dto: DocumentoResponseDTO): Documento {
+  public static fromDTO(dto: DocumentoResponseDto): Documento {
     return new Documento(
       dto.idDocumento,
       dto.tipoDocumento.nome,

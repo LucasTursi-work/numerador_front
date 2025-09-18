@@ -1,12 +1,20 @@
 import { Component } from '@angular/core';
 import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral.component';
-import { DashLogicaComponent } from '../../components/dashboard/dash-logica/dash-logica.component';
 import { CommonModule } from '@angular/common';
+import { NumeradorComponent } from '../../components/dashboard/numerador/numerador.component';
+import { GraficosComponent } from '../../components/graficos/graficos.component';
+import { LogsComponent } from '../../components/dashboard/logs/logs.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MenuLateralComponent, DashLogicaComponent],
+  imports: [
+    CommonModule,
+    MenuLateralComponent,
+    NumeradorComponent,
+    GraficosComponent,
+    LogsComponent,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })

@@ -1,0 +1,26 @@
+<p>criar-documento-modal works!</p>
+<div
+  class="modal-backdrop"
+  *ngIf="isModalVisivel"
+  (click)="fecharModal()"
+></div>
+<div class="modal-content" *ngIf="isModalVisivel">
+  <div class="modal-header">
+    <h2>Criar Novo Documento</h2>
+    <button class="close-btn" (click)="fecharModal()">&times;</button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="documentoForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="numero">Número do Documento:</label>
+        <input id="numero" type="number" formControlName="numero" required />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="!documentoForm.valid">
+          Registrar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
