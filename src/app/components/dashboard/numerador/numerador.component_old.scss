@@ -1,0 +1,51 @@
+@import "_colors.scss";
+//@import "bootstrap/dist/css/bootstrap.min.css";
+
+#miatablea {
+  border-radius: 0.5rem;
+  background-color: white;
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+}
+tbody th {
+  background-color: $primary;
+  color: white;
+  padding: 2vh 0.5vw; /* Padding vertical maior que horizontal */
+  text-align: center;
+}
+
+td {
+  padding: 0.25rem;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+tr {
+  height: 4rem;
+  width: 100%;
+  background-color: $primary-darkest;
+}
+/* Linhas alternadas */
+tr:nth-child(odd) {
+  background-color: $primary-lighter;
+}
+
+tr:nth-child(even) {
+  background-color: $primary-lightest;
+}
+
+th,
+td {
+  white-space: nowrap;
+  width: 100%;
+  text-align: center;
+}
+.corpo_tabela {
+  max-height: 40%;
+  display: block;
+  overflow-y: auto;
+  overflow-x: visible;
+}
+.cabeçalho {
+  display: block;
+}
