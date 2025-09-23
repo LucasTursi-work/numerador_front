@@ -1,1 +1,20 @@
-<p>logs works!</p>
+<table id="logs">
+  <thead class="cabeçalho">
+    <tr>
+      <th scope="col">Horário</th>
+      <th scope="col">Data</th>
+      <th scope="col">Nome de usuário</th>
+      <th scope="col">Ação</th>
+    </tr>
+  </thead>
+  <tbody class="corpo_tabela">
+    <tr *ngIf="documentos.length === 0">
+      <td colspan="4">Carregando documentos ou nenhum documento encontrado.</td>
+    </tr>
+    <tr *ngFor="let documento of documentos; let i = index">
+      <td class="col" id="index">{{ i + 1 }}</td>
+      <td class="col">{{ documento.tipoDocumento?.nome }}</td>
+      <td class="col">{{ documento.numero }}</td>
+    </tr>
+  </tbody>
+</table>
