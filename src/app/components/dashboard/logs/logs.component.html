@@ -1,20 +1,39 @@
 <table id="logs">
-  <thead class="cabeçalho">
-    <tr>
+  <thead>
+    <tr class="primeiro-header">
+      <th colspan="5">Logs</th>
+    </tr>
+    <tr class="segundo-header">
       <th scope="col">Horário</th>
       <th scope="col">Data</th>
       <th scope="col">Nome de usuário</th>
+      <th scope="col">Cartório</th>
       <th scope="col">Ação</th>
     </tr>
   </thead>
   <tbody class="corpo_tabela">
-    <tr *ngIf="documentos.length === 0">
-      <td colspan="4">Carregando documentos ou nenhum documento encontrado.</td>
+    <tr>
+      <td>16:00</td>
+      <td>20/09/2025</td>
+      <td>João Filho</td>
+      <td>2</td>
+      <td>Criado documento "Ordem de missão"</td>
     </tr>
-    <tr *ngFor="let documento of documentos; let i = index">
-      <td class="col" id="index">{{ i + 1 }}</td>
-      <td class="col">{{ documento.tipoDocumento?.nome }}</td>
-      <td class="col">{{ documento.numero }}</td>
+
+    <tr>
+      <td>16:00</td>
+      <td>20/09/2025</td>
+      <td>João Filho</td>
+      <td>2</td>
+      <td>Criado documento "Ordem de missão"</td>
+    </tr>
+
+    <tr>
+      <td>16:00</td>
+      <td>20/09/2025</td>
+      <td>João Filho</td>
+      <td>2</td>
+      <td>Criado documento "Ordem de missão"</td>
     </tr>
   </tbody>
 </table>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DocumentsService } from '../../../modules/documents/services/documents.service';
+import { DocumentoService } from '../../../modules/documents/services/documents.service';
 import { DocumentoResponseDto } from '../../../shared/dtos/response/documento-response.dto';
 
 @Component({
@@ -10,12 +10,12 @@ import { DocumentoResponseDto } from '../../../shared/dtos/response/documento-re
   styleUrl: './logs.component.scss',
 })
 export class LogsComponent {
-  logs: DocumentoLog[] = [];
+  logs: DocumentoResponseDto[] = [];
 
-  constructor(private documentsService: DocumentsService) {}
+  constructor(private documentsService: DocumentoService) {}
 
   ngOnInit(): void {
-    this.documentsService.getUltimosDocumentos().subscribe({
+    this.documentsService.buscarUltimosDocumentos().subscribe({
       next: (dados) => {
         this.logs = dados;
       },

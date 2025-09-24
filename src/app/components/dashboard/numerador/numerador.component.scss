@@ -13,13 +13,20 @@ thead {
   display: block;
 }
 
-th {
-  background-color: $primary;
+.primeiro-header {
+  background-color: $primary !important;
   color: white;
-  padding: 2vh 0.5vw; /* Padding vertical maior que horizontal */
   text-align: center;
   width: 100%;
-  height: 4rem;
+  height: 3rem;
+}
+
+.segundo-header {
+  background-color: $primary-light !important;
+  color: white;
+  text-align: center;
+  width: 100%;
+  height: 2rem;
 }
 
 .corpo_tabela {
@@ -41,7 +48,7 @@ tr {
   font-size: 3rem;
   color: black;
 }
-tr:hover {
+td:hover {
   background-color: $primary-dark !important;
   color: white;
 }

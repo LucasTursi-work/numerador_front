@@ -1,51 +1,89 @@
 @import "_colors.scss";
 
-tbody,
-thead {
-  display: block;
-}
-th,
-td {
-  white-space: nowrap;
-  width: 20%;
-  text-align: center;
-}
-
-th {
-  background-color: $primary;
-  color: white;
-  padding: 2vh 0.5vw; /* Padding vertical maior que horizontal */
-  text-align: center;
-  width: 100%;
-  height: 4rem;
-}
-#miatablea {
+#logs {
   border-radius: 0.5rem;
   background-color: white;
-  table-layout: fixed;
-  width: 100%;
-  max-height: 100%;
+  width: 47rem;
   border-collapse: collapse;
 }
 
+/* 1. Define o cabeçalho e o corpo como blocos separados */
+thead,
+tbody {
+  display: block;
+}
+
+/* 2. Define a altura e a rolagem apenas no corpo da tabela */
 .corpo_tabela {
+  height: 35rem; /* A altura que você deseja para a área de rolagem */
   overflow-y: scroll;
   overflow-x: hidden;
 }
-td {
-  padding: 0.25rem;
-  text-align: center;
-  border-bottom: 1px solid #e0e0e0;
-  width: 100%;
-}
+
+/* 3. Garante que as linhas do corpo da tabela tenham a mesma largura que o header */
 tr {
-  height: 3rem;
-  width: 100%;
+  width: 47rem;
+  display: table; /* Faz com que as células se comportem como de uma tabela */
+  table-layout: fixed; /* Força o alinhamento de colunas nas linhas */
+  font-size: 1rem;
   background-color: $primary-lightest;
-  font-size: 3rem;
   color: black;
+  height: 3rem;
 }
-tr:hover {
+
+/* 4. Define a largura de CADA COLUNA INDIVIDUALMENTE */
+/* As larguras aqui são exemplos, ajuste para o seu layout. A soma deve ser 47rem */
+.segundo-header th:nth-child(1),
+.corpo_tabela td:nth-child(1) {
+  width: 8rem; /* Horário */
+}
+.segundo-header th:nth-child(2),
+.corpo_tabela td:nth-child(2) {
+  width: 8rem; /* Data */
+}
+.segundo-header th:nth-child(3),
+.corpo_tabela td:nth-child(3) {
+  width: 15rem; /* Nome de usuário */
+}
+.segundo-header th:nth-child(4),
+.corpo_tabela td:nth-child(4) {
+  width: 6rem; /* Cartório */
+}
+.segundo-header th:nth-child(5),
+.corpo_tabela td:nth-child(5) {
+  width: 10rem; /* Ação */
+}
+
+/* Estilos de célula em geral */
+th,
+td {
+  text-align: center;
+  white-space: nowrap; /* Impede a quebra de linha do texto, mantendo a largura fixa */
+}
+
+/* Estilos de borda e padding para o corpo e cabeçalho */
+.segundo-header th,
+.corpo_tabela td {
+  border-bottom: 1px solid #e0e0e0;
+}
+.segundo-header th {
+  padding: 2vh 0.5vw;
+}
+.primeiro-header,
+.segundo-header {
+  color: white;
+  text-align: center;
+}
+.primeiro-header {
+  background-color: $primary !important;
+  height: 3rem;
+}
+.segundo-header {
+  background-color: $primary-light !important;
+  height: 2rem;
+}
+
+.corpo_tabela:hover {
   background-color: $primary-dark !important;
   color: white;
 }
