@@ -3,7 +3,7 @@
 #logs {
   border-radius: 0.5rem;
   background-color: white;
-  width: 47rem;
+  width: 64rem;
   border-collapse: collapse;
 }
 
@@ -15,43 +15,59 @@ tbody {
 
 /* 2. Define a altura e a rolagem apenas no corpo da tabela */
 .corpo_tabela {
-  height: 35rem; /* A altura que você deseja para a área de rolagem */
+  height: 25rem; /* A altura que você deseja para a área de rolagem */
   overflow-y: scroll;
-  overflow-x: hidden;
+  //overflow-x: hidden;
+  width: 62rem;
 }
 
 /* 3. Garante que as linhas do corpo da tabela tenham a mesma largura que o header */
 tr {
-  width: 47rem;
+  width: 64rem;
   display: table; /* Faz com que as células se comportem como de uma tabela */
   table-layout: fixed; /* Força o alinhamento de colunas nas linhas */
   font-size: 1rem;
-  background-color: $primary-lightest;
   color: black;
-  height: 3rem;
+  height: 2rem;
+}
+tr:nth-child(odd) {
+  background-color: $primary-lighter;
+}
+
+tr:nth-child(even) {
+  background-color: $primary-lightest;
+}
+
+table tr:last-child td:first-child {
+  border-bottom-left-radius: 0.5rem; /* Adjust radius as needed */
+}
+
+table tr:last-child td:last-child {
+  border-bottom-right-radius: 0.5rem; /* Adjust radius as needed */
 }
 
 /* 4. Define a largura de CADA COLUNA INDIVIDUALMENTE */
 /* As larguras aqui são exemplos, ajuste para o seu layout. A soma deve ser 47rem */
 .segundo-header th:nth-child(1),
 .corpo_tabela td:nth-child(1) {
-  width: 8rem; /* Horário */
+  width: 2rem; /* Horário */
 }
 .segundo-header th:nth-child(2),
 .corpo_tabela td:nth-child(2) {
-  width: 8rem; /* Data */
+  width: 4rem; /* Data */
 }
 .segundo-header th:nth-child(3),
 .corpo_tabela td:nth-child(3) {
-  width: 15rem; /* Nome de usuário */
+  width: 4rem; /* Nome de usuário */
 }
 .segundo-header th:nth-child(4),
 .corpo_tabela td:nth-child(4) {
-  width: 6rem; /* Cartório */
+  width: 4rem; /* Cartório */
 }
 .segundo-header th:nth-child(5),
 .corpo_tabela td:nth-child(5) {
-  width: 10rem; /* Ação */
+  width: 12rem; /* Ação */
+  text-align: left;
 }
 
 /* Estilos de célula em geral */
@@ -66,9 +82,7 @@ td {
 .corpo_tabela td {
   border-bottom: 1px solid #e0e0e0;
 }
-.segundo-header th {
-  padding: 2vh 0.5vw;
-}
+
 .primeiro-header,
 .segundo-header {
   color: white;
@@ -83,7 +97,7 @@ td {
   height: 2rem;
 }
 
-.corpo_tabela:hover {
-  background-color: $primary-dark !important;
+tbody tr:hover {
+  background-color: $primary-dark;
   color: white;
 }
