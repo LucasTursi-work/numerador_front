@@ -50,7 +50,9 @@
 
 .graficos {
   border-radius: 0.5rem;
-  background-color: lightgray;
+  border-color: lightgray;
+  border-style: solid 2px;
+  border-width: 2px;
   height: 93vh;
   width: 44vw;
 }

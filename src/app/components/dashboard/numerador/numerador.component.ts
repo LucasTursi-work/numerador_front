@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BotaoComponent } from '../../botao/botao.component';
 import { CommonModule } from '@angular/common';
 import { DocumentoService } from '../../../modules/documents/services/documents.service';
 import { DocumentoResponseDto } from '../../../shared/dtos/response/documento-response.dto';
+import { CriarDocumentoModalComponent } from '../../criar-documento-modal/criar-documento-modal.component';
 
 @Component({
   selector: 'app-numerador',
   standalone: true,
-  imports: [CommonModule, BotaoComponent],
+  imports: [CommonModule, BotaoComponent, CriarDocumentoModalComponent],
   templateUrl: './numerador.component.html',
   styleUrl: './numerador.component.scss',
 })
 export class NumeradorComponent implements OnInit {
+  @ViewChild('modalGerar') modalGerarComponent!: CriarDocumentoModalComponent;
   documentos: DocumentoResponseDto[] = [];
 
   constructor(private documentsService: DocumentoService) {}
@@ -29,6 +31,11 @@ export class NumeradorComponent implements OnInit {
         console.error('Erro ao buscar últimos documentos', err);
       },
     });
+  }
+
+  onGerarClick(): void {
+    // Acessa a instância do componente filho e chama o método
+    this.modalGerarComponent.abrirModal();
   }
 
   gerarDocumento(index: number) {

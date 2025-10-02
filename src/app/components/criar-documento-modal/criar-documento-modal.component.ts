@@ -7,11 +7,12 @@ import {
 } from '@angular/forms';
 import { DocumentoService } from '../../modules/documents/services/documents.service';
 import { CriarDocumentoDto } from '../../shared/dtos/request/criar-documento.dto';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-criar-documento-modal',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgIf],
   templateUrl: './criar-documento-modal.component.html',
   styleUrl: './criar-documento-modal.component.scss',
 })

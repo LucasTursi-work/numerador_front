@@ -1,16 +1,5 @@
 import { DocumentoResponseDto } from '../../shared/dtos/response/documento-response.dto';
 
-export interface DocumentoNumerador {
-  nome: string;
-  contador: 0;
-}
-export interface Documento {
-  id: number;
-  nome: string; // Mapeia para tipoDocumento.nome
-  contador: number; // Mapeia para numero
-  status: string; // Mapeia para tipoDocumento.status
-  // Apenas campos usados no componente
-}
 export class Documento {
   constructor(
     public id: number,
