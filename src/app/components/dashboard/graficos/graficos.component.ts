@@ -1,13 +1,12 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-
-// 1. Resolve o erro "Cannot find name 'Chart'"
-declare var Chart: any;
+import { Chart, ChartConfiguration, ChartType, registerables } from 'chart.js';
 
 @Component({
   selector: 'app-graficos',
-  templateUrl: './graficos.component.html',
   standalone: true,
-  styleUrls: ['./graficos.component.scss'],
+  imports: [],
+  templateUrl: './graficos.component.html',
+  styleUrl: './graficos.component.scss',
 })
 export class GraficosComponent implements AfterViewInit {
   // 2. Resolve o erro "Cannot find name 'ctx'"

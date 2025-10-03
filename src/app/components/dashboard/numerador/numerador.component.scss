@@ -48,8 +48,8 @@ tr {
   font-size: 3rem;
   color: black;
 }
-td:hover {
-  background-color: $primary-dark !important;
+tbody tr:hover {
+  background-color: $primary-dark;
   color: white;
 }
 /* Linhas alternadas */
