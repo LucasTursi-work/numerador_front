@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral.component';
 import { CommonModule } from '@angular/common';
 import { NumeradorComponent } from '../../components/dashboard/numerador/numerador.component';
-import { GraficosComponent } from '../../components/graficos/graficos.component';
+import { GraficosComponent } from '../../components/dashboard/graficos/graficos.component';
 import { LogsComponent } from '../../components/dashboard/logs/logs.component';
 
 @Component({
