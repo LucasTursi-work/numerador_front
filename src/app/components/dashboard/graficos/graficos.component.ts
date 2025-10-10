@@ -64,9 +64,9 @@ export class GraficosComponent implements AfterViewInit {
                   //usando as cores do projeto
                   '#2A7050',
                   '#008241',
-                  '#e3f9f3',
+                  '#55a7b2',
                   '#225b41',
-                  '#184430',
+                  '#87d1e6',
                   '#4ec162',
                 ], // CORRIGIDO: Usa a variável
                 borderColor: '#55a7b2',
@@ -93,9 +93,9 @@ export class GraficosComponent implements AfterViewInit {
                   // Gráficos de pizza geralmente usam um array de cores
                   '#2A7050',
                   '#008241',
-                  '#e3f9f3',
+                  '#55a7b2',
                   '#225b41',
-                  '#184430',
+                  '#87d1e6',
                   '#4ec162',
                 ],
                 borderColor: '#55a7b2',

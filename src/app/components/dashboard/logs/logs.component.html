@@ -1,3 +1,4 @@
+<!--
 <table id="logs">
   <thead>
     <tr class="primeiro-header">
@@ -50,6 +51,28 @@
       <td>João Filho</td>
       <td>2</td>
       <td>Criado documento "Ordem de missão"</td>
+    </tr>
+  </tbody>
+</table>
+-->
+<table id="logs">
+  <thead>
+    <tr class="primeiro-header">
+      <th colspan="1">Logs</th>
+    </tr>
+    <tr class="segundo-header">
+      <th scope="col">Data</th>
+      <th scope="col">Nome de usuário</th>
+      <th scope="col">Cartório</th>
+      <th scope="col">Tipo de Documento</th>
+    </tr>
+  </thead>
+  <tbody class="corpo_tabela">
+    <tr *ngFor="let log of logs">
+      <td>{{ log.dataCadastro }}</td>
+      <td>{{ log.usuario }}</td>
+      <td>{{ log.cartorio }}</td>
+      <td>{{ log.tipoDocumento }}</td>
     </tr>
   </tbody>
 </table>

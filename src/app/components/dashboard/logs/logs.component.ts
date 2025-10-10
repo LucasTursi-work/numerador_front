@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { DocumentoService } from '../../../modules/documents/services/documents.service';
 import { DocumentoResponseDto } from '../../../shared/dtos/response/documento-response.dto';
 
 @Component({
   selector: 'app-logs',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './logs.component.html',
   styleUrl: './logs.component.scss',
 })
-export class LogsComponent {
+export class LogsComponent implements OnInit {
   logs: DocumentoResponseDto[] = [];
 
   constructor(private documentsService: DocumentoService) {}
