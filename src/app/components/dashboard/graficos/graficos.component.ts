@@ -1,5 +1,6 @@
-import { Component, AfterViewInit, ViewEncapsulation } from '@angular/core';
-import { Chart, ChartConfiguration, ChartType, registerables } from 'chart.js';
+import { Component, AfterViewInit } from '@angular/core';
+import { Chart, registerables } from 'chart.js';
+
 console.log('STATUS DO CHART.JS: Módulo importado.');
 
 Chart.register(...registerables);
@@ -13,64 +14,109 @@ console.log('STATUS DO CHART.JS: Componentes registrados.');
   styleUrl: './graficos.component.scss',
 })
 export class GraficosComponent implements AfterViewInit {
-  // 2. Resolve o erro "Cannot find name 'ctx'"
-  // 'meuCanvas' agora é a referência segura ao elemento <canvas #myChart>
+  public meuGrafico: Chart | undefined;
+  public botaoAtivo: number = 1;
 
   constructor() {}
 
-  // 3. Garante que o gráfico só será criado após o elemento ser renderizado
   ngAfterViewInit(): void {
-    // O setTimeout é a solução mais confiável contra falhas de timing do @ViewChild.
+    // A criação inicial do gráfico
     setTimeout(() => {
       this.criarGrafico();
     }, 100);
   }
 
+  // Função para o usuário selecionar um novo tipo de gráfico
+  selecionarBotao(numero: number): void {
+    this.botaoAtivo = numero;
+    // CRÍTICO: Chama a função para redesenhar o gráfico após a mudança
+    this.criarGrafico();
+  }
+
   criarGrafico(): void {
-    // 1. Acessa o elemento DOM e obtém o contexto 2D.
-    // O '?' garante que a aplicação não quebre se o 'meuCanvas' for nulo.
     const canvasElement = document.getElementById(
       'myChart'
     ) as HTMLCanvasElement;
-
     const ctx = canvasElement ? canvasElement.getContext('2d') : null;
-    console.log(
-      'DIAGNÓSTICO (getElementById): O Contexto 2D (ctx) foi obtido?',
-      !!ctx
-    );
+
+    console.log('DIAGNÓSTICO: O Contexto 2D (ctx) foi obtido?', !!ctx);
 
     if (ctx) {
-      console.log('SUCESSO: Contexto 2D pronto. Criando instância Chart.js.');
+      // 1. Destrói qualquer gráfico anterior para evitar sobreposição
+      if (this.meuGrafico) {
+        this.meuGrafico.destroy();
+      }
 
-      new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-          datasets: [
-            {
-              label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 3],
-              backgroundColor: 'rgba(54, 162, 235, 0.5)',
-              borderColor: 'rgba(54, 162, 235, 1)',
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false, // ESSENCIAL para o CSS
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
+      // 3. Prepara a configuração do gráfico (ainda vazia)
+      let config: any;
+
+      // 4. Constrói a configuração baseada no botão ativo
+      if (this.botaoAtivo === 1) {
+        config = {
+          type: 'bar',
+          data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [
+              {
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                  //usando as cores do projeto
+                  '#2A7050',
+                  '#008241',
+                  '#e3f9f3',
+                  '#225b41',
+                  '#184430',
+                  '#4ec162',
+                ], // CORRIGIDO: Usa a variável
+                borderColor: '#55a7b2',
+                borderWidth: 1,
+              },
+            ],
           },
-        },
-      });
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { y: { beginAtZero: true } },
+          },
+        };
+      } else if (this.botaoAtivo === 2) {
+        config = {
+          type: 'pie',
+          data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [
+              {
+                label: '# of Votes',
+                data: [300, 50, 100, 40, 120, 80], // Dados diferentes para o gráfico de pizza
+                backgroundColor: [
+                  // Gráficos de pizza geralmente usam um array de cores
+                  '#2A7050',
+                  '#008241',
+                  '#e3f9f3',
+                  '#225b41',
+                  '#184430',
+                  '#4ec162',
+                ],
+                borderColor: '#55a7b2',
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        };
+      }
+
+      // 5. Cria o novo gráfico com a configuração escolhida
+      if (config) {
+        this.meuGrafico = new Chart(ctx, config);
+        console.log('SUCESSO: Gráfico criado/atualizado. Tipo:', config.type);
+      }
     } else {
-      // Loga o erro se a variável não estiver pronta.
-      console.error(
-        "FALHA CRÍTICA: Elemento canvas não encontrado/pronto ou getContext('2d') falhou. Verifique o timing do ngAfterViewInit."
-      );
+      console.error('FALHA CRÍTICA: Elemento canvas não encontrado/pronto.');
     }
   }
 }
