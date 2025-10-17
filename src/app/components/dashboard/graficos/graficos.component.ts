@@ -1,5 +1,9 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Chart, registerables } from 'chart.js';
+import { NumeradorData } from '../numerador-data.dto';
+import { NumeradorService } from '../numerador.service';
+import { ContagemGraficoDto } from '../contagem-grafico.dto';
 
 console.log('STATUS DO CHART.JS: Módulo importado.');
 
@@ -13,11 +17,28 @@ console.log('STATUS DO CHART.JS: Componentes registrados.');
   templateUrl: './graficos.component.html',
   styleUrl: './graficos.component.scss',
 })
-export class GraficosComponent implements AfterViewInit {
+export class GraficosComponent implements AfterViewInit, OnInit {
   public meuGrafico: Chart | undefined;
   public botaoAtivo: number = 1;
+  public dadosContagem: ContagemGraficoDto[] = [];
 
-  constructor() {}
+  constructor(private numeradorService: NumeradorService) {}
+
+  ngOnInit(): void {
+    // Busca os dados do backend
+    this.numeradorService.contagens$.subscribe({
+      next: (dados: ContagemGraficoDto[]) => {
+        // Espera o novo tipo
+        this.dadosContagem = dados;
+
+        if (this.meuGrafico || dados.length > 0) {
+          this.criarGrafico();
+        }
+      },
+      error: (e: HttpErrorResponse) =>
+        console.error('Erro ao buscar dados do Numerador:', e),
+    });
+  }
 
   ngAfterViewInit(): void {
     // A criação inicial do gráfico
@@ -47,6 +68,9 @@ export class GraficosComponent implements AfterViewInit {
         this.meuGrafico.destroy();
       }
 
+      const labels = this.dadosContagem.map((d) => d.nome);
+      const counts = this.dadosContagem.map((d) => d.contagem);
+
       // 3. Prepara a configuração do gráfico (ainda vazia)
       let config: any;
 
@@ -55,11 +79,11 @@ export class GraficosComponent implements AfterViewInit {
         config = {
           type: 'bar',
           data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: labels,
             datasets: [
               {
                 label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+                data: counts,
                 backgroundColor: [
                   //usando as cores do projeto
                   '#2A7050',
@@ -84,11 +108,11 @@ export class GraficosComponent implements AfterViewInit {
         config = {
           type: 'pie',
           data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: labels,
             datasets: [
               {
                 label: '# of Votes',
-                data: [300, 50, 100, 40, 120, 80], // Dados diferentes para o gráfico de pizza
+                data: counts, // Dados diferentes para o gráfico de pizza
                 backgroundColor: [
                   // Gráficos de pizza geralmente usam um array de cores
                   '#2A7050',

@@ -1,7 +1,7 @@
 import { PerfilUsuario, StatusUsuario } from '../../../shared/enums/user-enums';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { CreateUsuarioRequestDTO } from '../../../shared/dtos/request/create-user.dto';
 import {
   UsuarioResponseDTO,
