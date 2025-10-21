@@ -1,12 +1,15 @@
 import { PerfilUsuario, StatusUsuario } from '../../enums/user-enums';
 
 export interface DocumentoResponseDto {
-  idDocumento: number;
+  id: number;
   numero: number;
   dataCadastro: string; // Ou Date se converter
-  usuario: UsuarioSimplificadoDTO; // Versão simplificada do usuário
-  tipoDocumento: TipoDocumentoDTO;
-  cartorio: CartorioDTO;
+  usuarioId: number;
+  nomeUsuario: string;
+  tipoDocumentoId: number;
+  nomeTipoDocumento: string; // O CAMPO CRÍTICO PARA O NOME
+  cartorioId: number;
+  nomeCartorio: string;
 }
 
 // Versão simplificada do usuário (ajustada ao que você já tem)

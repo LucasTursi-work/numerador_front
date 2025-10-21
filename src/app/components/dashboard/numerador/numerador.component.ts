@@ -60,13 +60,13 @@ export class NumeradorComponent implements OnInit {
     // Validação
     if (
       documento &&
-      documento.tipoDocumento &&
-      documento.cartorio &&
+      documento.tipoDocumentoId > 0 &&
+      documento.cartorioId > 0 &&
       this.idUsuarioLogado // Garantir que o ID da sessão foi carregado
     ) {
       const dadosGeracao: GerarNumeracaoDto = {
-        tipoDocumentoId: documento.tipoDocumento.id,
-        cartorioId: documento.cartorio.id,
+        tipoDocumentoId: documento.tipoDocumentoId,
+        cartorioId: documento.cartorioId,
         usuarioId: this.idUsuarioLogado, // Preenche o campo obrigatório do DTO
         // Os campos 'id', 'numero', 'dataCadastro' são omitidos
       };
@@ -86,7 +86,11 @@ export class NumeradorComponent implements OnInit {
       });
     } else {
       console.error(
-        'Falha na geração: dados críticos faltando (ID: ' +
+        'Falha na geração: dados críticos faltando. IDs necessários: Tipo (' +
+          documento?.tipoDocumentoId +
+          '), Cartório (' +
+          documento?.cartorioId +
+          '), Usuário Logado (' +
           this.idUsuarioLogado +
           ').'
       );

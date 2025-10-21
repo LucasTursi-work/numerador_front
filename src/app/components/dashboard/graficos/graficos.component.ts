@@ -17,7 +17,7 @@ console.log('STATUS DO CHART.JS: Componentes registrados.');
   templateUrl: './graficos.component.html',
   styleUrl: './graficos.component.scss',
 })
-export class GraficosComponent implements AfterViewInit, OnInit {
+export class GraficosComponent implements OnInit {
   public meuGrafico: Chart | undefined;
   public botaoAtivo: number = 1;
   public dadosContagem: ContagemGraficoDto[] = [];
@@ -39,14 +39,14 @@ export class GraficosComponent implements AfterViewInit, OnInit {
         console.error('Erro ao buscar dados do Numerador:', e),
     });
   }
-
+  /*
   ngAfterViewInit(): void {
     // A criação inicial do gráfico
     setTimeout(() => {
       this.criarGrafico();
     }, 100);
   }
-
+*/
   // Função para o usuário selecionar um novo tipo de gráfico
   selecionarBotao(numero: number): void {
     this.botaoAtivo = numero;
