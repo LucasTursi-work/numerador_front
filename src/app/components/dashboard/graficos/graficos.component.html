@@ -7,6 +7,9 @@
     Pizza
   </button>
 </div>
+<br />
 <div class="graf">
-  <canvas id="myChart"></canvas>
+  <div [ngStyle]="{ 'min-width': botaoAtivo === 1 ? '1200px' : 'unset' }">
+    <canvas id="myChart"></canvas>
+  </div>
 </div>

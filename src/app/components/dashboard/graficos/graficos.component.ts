@@ -1,6 +1,7 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Chart, registerables } from 'chart.js';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
+import { Chart, plugins, registerables } from 'chart.js';
 import { NumeradorData } from '../numerador-data.dto';
 import { NumeradorService } from '../numerador.service';
 import { ContagemGraficoDto } from '../contagem-grafico.dto';
@@ -13,7 +14,7 @@ console.log('STATUS DO CHART.JS: Componentes registrados.');
 @Component({
   selector: 'app-graficos',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './graficos.component.html',
   styleUrl: './graficos.component.scss',
 })
@@ -22,7 +23,10 @@ export class GraficosComponent implements OnInit {
   public botaoAtivo: number = 1;
   public dadosContagem: ContagemGraficoDto[] = [];
 
-  constructor(private numeradorService: NumeradorService) {}
+  constructor(
+    private numeradorService: NumeradorService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit(): void {
     // Busca os dados do backend
@@ -39,14 +43,6 @@ export class GraficosComponent implements OnInit {
         console.error('Erro ao buscar dados do Numerador:', e),
     });
   }
-  /*
-  ngAfterViewInit(): void {
-    // A criação inicial do gráfico
-    setTimeout(() => {
-      this.criarGrafico();
-    }, 100);
-  }
-*/
   // Função para o usuário selecionar um novo tipo de gráfico
   selecionarBotao(numero: number): void {
     this.botaoAtivo = numero;
@@ -55,6 +51,13 @@ export class GraficosComponent implements OnInit {
   }
 
   criarGrafico(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      // Se não estiver no navegador (ou seja, no servidor/SSR), saia
+      console.warn(
+        'Tentativa de renderizar gráfico no servidor (SSR). Ignorando.'
+      );
+      return;
+    }
     const canvasElement = document.getElementById(
       'myChart'
     ) as HTMLCanvasElement;
@@ -130,6 +133,13 @@ export class GraficosComponent implements OnInit {
           options: {
             responsive: true,
             maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                //Controle de legenda
+                display: true,
+                position: 'bottom',
+              },
+            },
           },
         };
       }

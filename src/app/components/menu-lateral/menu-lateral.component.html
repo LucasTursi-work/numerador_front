@@ -1,18 +1,27 @@
 <div class="container-content">
-  <h5>Menu</h5>
+  <h4>Menu</h4>
   <div class="separador-mini"></div>
-  <button class="botao" (click)="navHome()">Home</button>
-  <div class="separador-mini"></div>
+
   <button class="botao" (click)="navDashboard()">Dashboard</button>
-  <div class="separador-mini"></div>
+  <br />
+  <br />
   <button class="botao" (click)="navListaUsuarios()">Usuarios</button>
+  <div class="separador"></div>
+  <div class="separador"></div>
+  <span> Opções</span>
   <div class="separador-mini"></div>
-  <button class="botao" (click)="navGraficos()">Gráficos</button>
-  <div class="menu-inferior">
-    <button class="botao" (click)="navPerfil()">Perfil</button>
-    <button class="botao" (click)="navConfig()">Configurações</button>
-    <button class="botao" (click)="navLogOut()">Sair</button>
-  </div>
+  <button class="botao" (click)="navModalDocumento()" style="font-size: 0.8rem">
+    Cadastrar Documento
+  </button>
+  <br />
+  <br />
+  <button class="botao" (click)="navModalCartorio()" style="font-size: 0.8rem">
+    Cadastrar Cartório
+  </button>
+  <div class="separador"></div>
+  <div class="separador"></div>
+  <div class="separador"></div>
+  <button class="botao sair" (click)="navLogOut()">Sair</button>
 </div>
 
 <!--    

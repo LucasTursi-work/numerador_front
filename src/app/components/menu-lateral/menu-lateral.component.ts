@@ -13,20 +13,14 @@ export class MenuLateralComponent {
   navDashboard() {
     this.router.navigate(['/dashboard']);
   }
-  navHome() {
-    this.router.navigate(['/home']);
-  }
   navListaUsuarios() {
     this.router.navigate(['/listaUsuarios']);
   }
-  navGraficos() {
+  navModalDocumento() {
     this.router.navigate(['/graficos']);
   }
-  navPerfil() {
+  navModalCartorio() {
     this.router.navigate(['/Perfil']);
-  }
-  navConfig() {
-    this.router.navigate(['/config']);
   }
   navLogOut() {
     this.router.navigate(['/splashScreen']);

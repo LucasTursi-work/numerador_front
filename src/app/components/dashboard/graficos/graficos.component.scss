@@ -47,6 +47,8 @@ button {
   display: block;
   width: 95%;
   height: 80vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 } /*
 #graficos {
   width: 100%;

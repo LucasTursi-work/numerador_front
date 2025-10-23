@@ -15,8 +15,8 @@ tbody {
 
 /* 2. Define a altura e a rolagem apenas no corpo da tabela */
 .corpo_tabela {
-  height: 100%; /* A altura que você deseja para a área de rolagem */
-  overflow-y: scroll;
+  height: 13rem;
+  overflow-y: scroll !important;
   //overflow-x: hidden;
   width: 100%;
 }

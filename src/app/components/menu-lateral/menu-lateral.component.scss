@@ -7,33 +7,26 @@
   max-width: 36vw;
   //overflow: hidden;
 }
-
+.sair {
+  position: fixed;
+  bottom: 2rem;
+}
 .container-content {
   background-color: $primary-lightest;
   height: 100%;
   box-shadow: 2px 2px 2px 2px lightgray;
-}
-.menu-inferior {
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-gap: 0.5rem;
-  justify-content: center;
-  position: absolute;
-  bottom: 1vh;
-  left: 1vw;
-  // margin-top: 40vh;
 }
 label {
   font-weight: bold;
   font-size: 0.8rem;
 }
 .separador {
-  height: 10vh;
-  width: auto;
+  height: 6vh;
+  width: 5vw;
 }
 .separador-mini {
-  height: 6vh;
-  width: auto;
+  height: 3vh;
+  width: 5vw;
 }
 .container-content {
   min-width: 12vw;
