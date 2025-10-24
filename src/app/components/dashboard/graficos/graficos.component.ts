@@ -78,6 +78,7 @@ export class GraficosComponent implements OnInit {
       let config: any;
 
       // 4. Constrói a configuração baseada no botão ativo
+
       if (this.botaoAtivo === 1) {
         config = {
           type: 'bar',
@@ -103,7 +104,7 @@ export class GraficosComponent implements OnInit {
           },
           options: {
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
             scales: { y: { beginAtZero: true } },
           },
         };
@@ -132,7 +133,7 @@ export class GraficosComponent implements OnInit {
           },
           options: {
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
             plugins: {
               legend: {
                 //Controle de legenda
