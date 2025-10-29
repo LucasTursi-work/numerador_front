@@ -19,10 +19,11 @@
       <td class="col">{{ documento.nomeTipoDocumento }}</td>
       <td class="col">{{ documento.numero }}</td>
       <td>
-        <app-botao [texto]="'Gerar'" (click)="onGerarClick()"></app-botao>
+        <app-botao
+          [texto]="'Gerar'"
+          (click)="gerarDocumento(documento)"
+        ></app-botao>
       </td>
     </tr>
   </tbody>
 </table>
-
-<app-criar-documento-modal #modalGerar></app-criar-documento-modal>

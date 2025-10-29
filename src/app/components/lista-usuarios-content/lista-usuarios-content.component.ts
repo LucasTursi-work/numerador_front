@@ -1,17 +1,3 @@
-/*
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-lista-usuarios-content',
-  standalone: true,
-  imports: [],
-  templateUrl: './lista-usuarios-content.component.html',
-  styleUrl: './lista-usuarios-content.component.scss'
-})
-export class ListaUsuariosContentComponent {
-
-}
-*/
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CommonModule, NgClass, DatePipe } from '@angular/common';
 import { UsuarioService } from '../../modules/user/services/user.service';

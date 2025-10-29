@@ -3,7 +3,6 @@ import { BotaoComponent } from '../../botao/botao.component';
 import { CommonModule } from '@angular/common';
 import { DocumentoService } from '../../../modules/documents/services/documents.service';
 import { DocumentoResponseDto } from '../../../shared/dtos/response/documento-response.dto';
-import { CriarDocumentoModalComponent } from '../../criar-documento-modal/criar-documento-modal.component';
 import { GerarNumeracaoDto } from '../../../shared/dtos/request/gerar-numeracao.dto';
 import { UsuarioService } from '../../../modules/user/services/user.service';
 import { NumeradorService } from '../numerador.service';
@@ -12,12 +11,11 @@ import { AuthService } from '../../../modules/auth/auth.service';
 @Component({
   selector: 'app-numerador',
   standalone: true,
-  imports: [CommonModule, BotaoComponent, CriarDocumentoModalComponent],
+  imports: [CommonModule, BotaoComponent],
   templateUrl: './numerador.component.html',
   styleUrl: './numerador.component.scss',
 })
 export class NumeradorComponent implements OnInit {
-  @ViewChild('modalGerar') modalGerarComponent!: CriarDocumentoModalComponent;
   documentos: DocumentoResponseDto[] = [];
   private idUsuarioLogado: number | undefined;
   constructor(
@@ -29,9 +27,9 @@ export class NumeradorComponent implements OnInit {
   ngOnInit(): void {
     // 1. OBTÉM O ID DO USUÁRIO LOGADO via AuthService
     this.authService.getUsuarioLogadoId().subscribe((id) => {
-      this.idUsuarioLogado = id;
+      // O ID pode ser null no estado inicial, trata-se o valor como number ou undefined
+      this.idUsuarioLogado = id ?? undefined;
     });
-
     // 2. Aciona a carga inicial para o gráfico (via service compartilhado)
     this.numeradorService.carregarECompartilharContagens();
 
@@ -50,13 +48,7 @@ export class NumeradorComponent implements OnInit {
     });
   }
 
-  onGerarClick(): void {
-    // Acessa a instância do componente filho e chama o método
-    this.modalGerarComponent.abrirModal();
-  }
-
-  gerarDocumento(index: number) {
-    const documento = this.documentos[index];
+  gerarDocumento(documento: DocumentoResponseDto) {
     // Validação
     if (
       documento &&

@@ -23,6 +23,6 @@ export class MenuLateralComponent {
     this.router.navigate(['/Perfil']);
   }
   navLogOut() {
-    this.router.navigate(['/splashScreen']);
+    this.router.navigate(['']);
   }
 }
