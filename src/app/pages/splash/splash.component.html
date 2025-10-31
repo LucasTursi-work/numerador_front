@@ -1,110 +1,78 @@
-<div class="separate-big"></div>
-<h2>Área de login</h2>
-<div class="separate"></div>
-<!--LOGIN-->
-<div id="login_section">
-  <!--login section-->
-  <span class="label">CPF</span>
-  <br />
-  <input
-    type="text"
-    class="input_field"
-    id="login"
-    placeholder="Apenas números"
-    inputmode="numeric"
-    minlength="11"
-    required
-    maxlength="11"
-  />
-  <!--input form to login-->
-  <br />
-  <span id="erro_login">CPF inválido!</span>
-  <div>
-    <!-- <input type="checkbox" class="remember_user_button"><span class="legenda">Lembrar meu usuário</span> -->
-  </div>
-</div>
+<div class="bg">
+  <div class="container">
+    <img class="img" src="assets/NOVO-brasão-PC-Ceará.png" />
+    <h2>Sistema Numerador</h2>
+    <div class="separate"></div>
+    <!--LOGIN-->
+    <div id="login_section">
+      <!--login section-->
+      <span class="label">CPF</span>
+      <br />
+      <input
+        type="text"
+        class="input_field"
+        id="login"
+        placeholder="Apenas números"
+        inputmode="numeric"
+        minlength="11"
+        required
+        maxlength="11"
+      />
+      <!--input form to login-->
+      <br />
+      <span id="erro_login">CPF inválido!</span>
+      <div>
+        <!-- <input type="checkbox" class="remember_user_button"><span class="legenda">Lembrar meu usuário</span> -->
+      </div>
+    </div>
 
-<!--separation div-->
-<div class="separate-mini"></div>
+    <!--separation div-->
+    <div class="separate-mini"></div>
 
-<!--PASSWORD-->
-<div id="password_section">
-  <!--password section-->
-  <span class="label">Senha</span>
-  <br />
-  <input
-    type="password"
-    class="input_field"
-    id="password"
-    placeholder=""
-    required
-    minlength="6"
-    required
-    maxlength="12"
-  />
-  <div>
-    <a href="https://www.google.com.br">
-      <span class="link_texto">Esqueci minha senha</span>
-    </a>
-    <!--forgot my password button-->
-    <span id="erro_senha">Senha incorreta!</span>
+    <!--PASSWORD-->
+    <div id="password_section">
+      <!--password section-->
+      <span class="label">Senha</span>
+      <br />
+      <input
+        type="password"
+        class="input_field"
+        id="password"
+        placeholder=""
+        required
+        minlength="6"
+        required
+        maxlength="12"
+      />
+      <div>
+        <a href="https://www.google.com.br">
+          <span class="link_texto">Esqueci minha senha</span>
+        </a>
+        <br />
+        <!--forgot my password button-->
+        <span id="erro_senha">Senha incorreta!</span>
+        <br />
+        <br />
+      </div>
+    </div>
+
+    <div class="separate"></div>
+    <!--Enter button-->
+    <button class="mainbutton" id="Enter" (click)="navDashboard()">
+      ENTRAR
+    </button>
     <br />
-    <br />
-  </div>
-</div>
-
-<!--separation div-->
-<div class="separate"></div>
-
-<!--AUTENTICATION-->
-<div class="auth_section">
-  <!--password section-->
-  <span class="label">Autenticação</span>
-  <br />
-  <input
-    type="text"
-    class="input_field"
-    id="auth"
-    minlength="6"
-    required
-    maxlength="6"
-    required
-    inputmode="numeric"
-  />
-  <div class="pin-mask">
-    <span class="pin-slot"></span>
-    <span class="pin-slot"></span>
-    <span class="pin-slot"></span>
-    <span class="pin-slot"></span>
-    <span class="pin-slot"></span>
-    <span class="pin-slot"></span>
-  </div>
-  <br />
-  <span id="erro_auth">Código inválido!</span>
-  <br />
-  <div>
-    <span class="legenda"
-      >Insira o código do Autenticador Google.<br />
-      Caso queira cadastrar outro aparelho, clique no<br />
-      botão abaixo e um e-mail será enviado com o <br />
-      código para cadastro.</span
-    >
-    <br />
-    <!--forgot my password button-->
     <br />
     <!--separation div-->
-    <div class="separate"></div>
-    <button id="enviar_e-mail" class="mainbutton">Enviar e-mail</button>
+    <div class="separate-big"></div>
+    <h4>Primeiro acesso? Então,</h4>
     <br />
-    <span id="msg_email_enviado">E-mail enviado!</span>
+    <button class="mainbutton" id="Cadastro" (click)="navDashboard()">
+      Cadastre-se
+    </button>
+    <!--separation div-->
+    <div class="separate"></div>
+
+    <img class="footer" src="assets/numerador_footer.svg" />
   </div>
 </div>
-<!--separation div-->
-<div class="separate-big"></div>
-<!--separation div-->
-<div class="separate-big"></div>
-<!--Enter button-->
-<button class="mainbutton" id="Enter" (click)="navDashboard()">ENTRAR</button>
-<br />
-<!--separation div-->
-<div class="separate-big"></div>
