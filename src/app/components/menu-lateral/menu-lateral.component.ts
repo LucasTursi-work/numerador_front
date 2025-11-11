@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { CriarCartorioComponent } from '../criar-cartorio/criar-cartorio.component';
+import { CriarTipoDocumentoComponent } from '../criar-tipo-documento/criar-tipo-documento.component';
+import {
+  ModalComunicacaoService,
+  TipoModal,
+} from '../../modules/navigation/navigation.service';
 @Component({
   selector: 'app-menu-lateral',
   standalone: true,
@@ -9,7 +14,10 @@ import { Router } from '@angular/router';
   styleUrl: './menu-lateral.component.scss',
 })
 export class MenuLateralComponent {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private modalComService: ModalComunicacaoService
+  ) {}
   navDashboard() {
     this.router.navigate(['/dashboard']);
   }
@@ -17,10 +25,10 @@ export class MenuLateralComponent {
     this.router.navigate(['/listaUsuarios']);
   }
   navModalDocumento() {
-    this.router.navigate(['/graficos']);
+    this.modalComService.abrirModal('documento');
   }
   navModalCartorio() {
-    this.router.navigate(['/Perfil']);
+    this.modalComService.abrirModal('cartorio');
   }
   navLogOut() {
     this.router.navigate(['']);

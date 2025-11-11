@@ -1,0 +1,70 @@
+@import "_colors.scss";
+* {
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+:host {
+  /* 1. Ocupa a tela inteira (viewport) */
+  position: fixed; /* Fixado para sobrepor todo o conteúdo */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  /* 2. Fundo semi-transparente para focar no modal */
+  background-color: rgba(0, 0, 0, 0.5);
+
+  /* 3. Centraliza o modal CARD (.container) no meio do overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Garante que fique acima de todos os outros elementos */
+}
+
+.separador-mini {
+  height: 3vh;
+  width: 5vw;
+}
+.container {
+  padding: 1rem;
+  margin: 0.5rem;
+  width: 30vw;
+  height: auto;
+}
+input {
+  border-radius: 1rem;
+  font-size: 1.2rem;
+}
+
+button {
+  width: 15rem;
+  height: auto;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  color: white;
+  background-color: $primary;
+  &:hover {
+    transform: scale(1.05);
+    background-color: $primary-light;
+  }
+  &:active {
+    background-color: $primary-dark;
+    transform: scale(0.95);
+  }
+}
+select {
+  text-align: center;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  height: 1, 5rem;
+  width: 15rem;
+  color: white;
+  border-color: $primary;
+
+  &:hover {
+    border-color: $primary-light;
+  }
+  &:active {
+    border-color: $primary-dark;
+  }
+}

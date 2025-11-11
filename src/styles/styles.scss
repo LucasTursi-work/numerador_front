@@ -18,3 +18,6 @@ body {
   overflow-y: auto;
   overflow: hidden; // Evita scroll
 }
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';

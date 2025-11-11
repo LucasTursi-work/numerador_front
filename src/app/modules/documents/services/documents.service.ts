@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Status } from '../../../shared/enums/documents-enums';
 import { DocumentoResponseDto } from '../../../shared/dtos/response/documento-response.dto';
@@ -19,6 +19,12 @@ export interface Documento {
 @Injectable({ providedIn: 'root' })
 export class DocumentoService {
   private apiUrl = `${environment.apiUrl}/documentos`;
+  // 1. O BehaviorSubject armazena a lista atual e a envia para os ouvintes
+  private documentosSubject = new BehaviorSubject<DocumentoResponseDto[]>([]);
+
+  // 2. O Observable público (os componentes assinam este)
+  public ultimosDocumentos$: Observable<DocumentoResponseDto[]> =
+    this.documentosSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -56,9 +62,19 @@ export class DocumentoService {
     return this.http.post<DocumentoResponseDto>(url, dadosGeracao);
   }
 
-  buscarUltimosDocumentos(): Observable<DocumentoResponseDto[]> {
+  public buscarUltimosDocumentos(): Observable<DocumentoResponseDto[]> {
     const url = `${this.apiUrl}/ultimos`;
-    return this.http.get<DocumentoResponseDto[]>(url);
+    return this.http.get<DocumentoResponseDto[]>(url).pipe(
+      // Atualiza o BehaviorSubject com a lista fresca do servidor
+      tap((data) => this.documentosSubject.next(data))
+    );
+  }
+
+  public recarregarListaUltimosDocumentos(): void {
+    // Chama a busca, que por sua vez, atualiza o Subject.
+    this.buscarUltimosDocumentos().subscribe({
+      error: (err) => console.error('Erro ao recarregar lista:', err),
+    });
   }
 
   atualizarTipoDocumento(

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
 import { BotaoComponent } from '../../botao/botao.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, AsyncPipe } from '@angular/common';
 import { DocumentoService } from '../../../modules/documents/services/documents.service';
 import { DocumentoResponseDto } from '../../../shared/dtos/response/documento-response.dto';
 import { GerarNumeracaoDto } from '../../../shared/dtos/request/gerar-numeracao.dto';
@@ -11,13 +12,14 @@ import { AuthService } from '../../../modules/auth/auth.service';
 @Component({
   selector: 'app-numerador',
   standalone: true,
-  imports: [CommonModule, BotaoComponent],
+  imports: [CommonModule, BotaoComponent, AsyncPipe],
   templateUrl: './numerador.component.html',
   styleUrl: './numerador.component.scss',
 })
 export class NumeradorComponent implements OnInit {
-  documentos: DocumentoResponseDto[] = [];
+  documentos$!: Observable<DocumentoResponseDto[]>;
   private idUsuarioLogado: number | undefined;
+
   constructor(
     private documentsService: DocumentoService,
     private numeradorService: NumeradorService,
@@ -30,24 +32,27 @@ export class NumeradorComponent implements OnInit {
       // O ID pode ser null no estado inicial, trata-se o valor como number ou undefined
       this.idUsuarioLogado = id ?? undefined;
     });
-    // 2. Aciona a carga inicial para o gráfico (via service compartilhado)
+    this.documentos$ = this.documentsService.ultimosDocumentos$;
+    //Assina o Observable do serviço. A lista será carregada quando o service emitir.
+
+    this.documentsService.buscarUltimosDocumentos().subscribe();
+    //Aciona a carga inicial para preencher o Subject pela primeira vez
+
+    //Aciona a carga inicial para o gráfico (via service compartilhado)
     this.numeradorService.carregarECompartilharContagens();
-
-    // 3. Busca os dados para preencher a tabela
-    this.buscarUltimosDocumentos();
   }
-
+  /*
   private buscarUltimosDocumentos() {
     this.documentsService.buscarUltimosDocumentos().subscribe({
       next: (data) => {
-        this.documentos = data;
+        this.documentos$ = data;
       },
       error: (err) => {
         console.error('Erro ao buscar últimos documentos', err);
       },
     });
   }
-
+*/
   gerarDocumento(documento: DocumentoResponseDto) {
     // Validação
     if (
@@ -70,7 +75,6 @@ export class NumeradorComponent implements OnInit {
           // Isso garante que o 'numero' (contagem) atualizado seja buscado.
           this.numeradorService.carregarECompartilharContagens();
           // Recarrega a tabela, atualiza a contagem local
-          this.buscarUltimosDocumentos();
         },
         error: (err) => {
           console.error('Erro ao gerar documento:', err);

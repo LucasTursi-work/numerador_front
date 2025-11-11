@@ -11,19 +11,24 @@
     </tr>
   </thead>
   <tbody class="corpo_tabela">
-    <tr *ngIf="documentos.length === 0">
-      <td colspan="4">Carregando documentos ou nenhum documento encontrado.</td>
-    </tr>
-    <tr *ngFor="let documento of documentos; let i = index">
-      <td class="col" id="index">{{ i + 1 }}</td>
-      <td class="col">{{ documento.nomeTipoDocumento }}</td>
-      <td class="col">{{ documento.numero }}</td>
-      <td>
-        <app-botao
-          [texto]="'Gerar'"
-          (click)="gerarDocumento(documento)"
-        ></app-botao>
-      </td>
-    </tr>
+    <ng-container *ngIf="documentos$ | async as documentos">
+      <tr *ngIf="documentos.length === 0">
+        <td colspan="4">
+          Carregando documentos ou nenhum documento encontrado.
+        </td>
+      </tr>
+
+      <tr *ngFor="let documento of documentos; let i = index">
+        <td class="col" id="index">{{ i + 1 }}</td>
+        <td class="col">{{ documento.nomeTipoDocumento }}</td>
+        <td class="col">{{ documento.numero }}</td>
+        <td>
+          <app-botao
+            [texto]="'Gerar'"
+            (click)="gerarDocumento(documento)"
+          ></app-botao>
+        </td>
+      </tr>
+    </ng-container>
   </tbody>
 </table>
