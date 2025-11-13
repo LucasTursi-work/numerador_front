@@ -11,12 +11,14 @@ input {
 }
 
 button {
+  box-shadow: none;
   border-radius: 1rem;
   font-size: 1.2rem;
   color: white;
   background-color: $primary;
   &:hover {
     background-color: $primary-light;
+    color: $accent;
   }
   &:active {
     background-color: $primary-dark;
@@ -26,6 +28,7 @@ select {
   background-color: $primary;
   &:hover {
     background-color: $primary-light;
+    color: $accent;
   }
   &:active {
     background-color: $primary-dark;

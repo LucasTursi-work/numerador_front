@@ -90,12 +90,18 @@ export class GraficosComponent implements OnInit {
                 data: counts,
                 backgroundColor: [
                   //usando as cores do projeto
-                  '#2A7050',
+                  /* '#2A7050',
                   '#008241',
                   '#55a7b2',
                   '#225b41',
                   '#87d1e6',
                   '#4ec162',
+*/
+                  '#67bec8',
+                  '#3C9AA5',
+                  '#27656D',
+                  '#9ED5DC',
+                  '#D6EDF0',
                 ], // CORRIGIDO: Usa a variável
                 borderColor: '#55a7b2',
                 borderWidth: 1,

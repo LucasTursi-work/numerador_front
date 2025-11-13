@@ -31,11 +31,11 @@ tr {
   height: 2rem;
 }
 tr:nth-child(odd) {
-  background-color: $primary-lighter;
+  background-color: $primary-lightest;
 }
 
 tr:nth-child(even) {
-  background-color: $primary-lightest;
+  background-color: $primary-light;
 }
 
 table tr:last-child td:first-child {
@@ -98,6 +98,6 @@ td {
 }
 
 tbody tr:hover {
-  background-color: $primary-dark;
-  color: white;
+  background-color: $primary;
+  color: $accent;
 }

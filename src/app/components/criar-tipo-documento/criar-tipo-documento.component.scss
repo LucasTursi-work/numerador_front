@@ -26,8 +26,11 @@
   width: 5vw;
 }
 .container {
+  background-color: white;
+  border-radius: 1rem;
   padding: 1rem;
   margin: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   width: 30vw;
   height: auto;
 }
@@ -37,6 +40,7 @@ input {
 }
 
 button {
+  box-shadow: none;
   width: 15rem;
   height: auto;
   border-radius: 1rem;
@@ -46,6 +50,7 @@ button {
   &:hover {
     transform: scale(1.05);
     background-color: $primary-light;
+    color: $accent;
   }
   &:active {
     background-color: $primary-dark;
@@ -62,7 +67,7 @@ select {
   border-color: $primary;
 
   &:hover {
-    border-color: $primary-light;
+    border-color: $accent;
   }
   &:active {
     border-color: $primary-dark;

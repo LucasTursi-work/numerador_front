@@ -16,9 +16,9 @@
   font-weight: bold;
 }
 .botao:hover {
-  color: $txt;
+  color: $accent;
   border-color: none;
-  background: $primary-light;
+  background-color: $primary-light;
   transform: scale(1.1);
   border-radius: 1rem;
   padding: 0.25rem;

@@ -1,4 +1,34 @@
+//NOVA PALETA
+@use "sass:color";
+//variantes primárias
+$primary: #2a7050; // #219e53;
+$primary-light: color.adjust($primary, $lightness: 10%);
+$primary-lighter: color.adjust($primary-light, $lightness: 10%);
+$primary-lightest: color.adjust($primary-lighter, $lightness: 10%);
+$primary-dark: color.adjust($primary, $lightness: -10%);
+$primary-darker: color.adjust($primary-dark, $lightness: -10%);
+$primary-darkest: color.adjust($primary-darker, $lightness: -10%);
+
+//variantes secundárias
+$secondary: #008241;
+$secondary-light: color.adjust($secondary, $lightness: 10%);
+$secondary-lighter: color.adjust($secondary-light, $lightness: 10%);
+$secondary-lightest: color.adjust($secondary-lighter, $lightness: 10%);
+$secondary-dark: color.adjust($secondary, $lightness: -10%);
+$secondary-darker: color.adjust($secondary-dark, $lightness: -10%);
+$secondary-darkest: color.adjust($secondary-darker, $lightness: -10%);
+
+//cores de apoio
+$accent: #ffa000;
+$success: #4ec162;
+$danger: #d2322d;
+$txt: #f0f0f0;
+$txt-alt: #4c4c4c;
+$bg-color: #f0f0f0;
+$bg-color-alt: #4c4c4c;
+
 //$custom-colors: {
+/*
 $primary: #2a7050; // #219e53;
 $primary-light: #008241;
 $primary-lighter: #7fc6b0;
@@ -7,10 +37,14 @@ $primary-dark: #225b41;
 $primary-darkest: #184430;
 $secondary: #55a7b2;
 $secondary-light: #87d1e6;
-$secondary-dark: #44868f;
+$secondary-lightest: #c8eaf4;
+$secondary-dark: #4ab9d9;
+$secondary-darkest: #44868f;
 $terciary: #ffa000;
-$terciary-light: #fab135;
-$terciary-dark: #b57403;
+$terciary-light: #ffbd4d;
+$terciary-lightest: #ffd999;
+$terciary-dark: #b27000;
+$terciary-darkest: #664000;
 $accent: #ffc905;
 $success: #4ec162;
 $danger: #d2322d;
@@ -18,12 +52,70 @@ $txt: #f0f0f0;
 $txt-alt: #4c4c4c;
 $bg-color: #f0f0f0;
 $bg-color-alt: #4c4c4c;
+*/
+
+/*
+//TESTE DE NOVA PALETA
+$primary: #6bab57;
+$primary-light: #adc4a3;
+$primary-lightest: #d5ded1;
+$primary-dark: #327824;
+$primary-darkest: #0c2b09;
+$secondary: #36cfc9;
+$secondary-light: #87e8de;
+$secondary-lightest: #e6fffb;
+$secondary-dark: #08979c;
+$secondary-darkest: #00474f;
+$terciary: #ffe95c;
+$terciary-light: #fffaad;
+$terciary-lightest: #fffff0;
+$terciary-dark: #d9b421;
+$terciary-darkest: #8c6907;
+$accent: #ffc905;
+$success: #4ec162;
+$danger: #d2322d;
+$txt: #f0f0f0;
+$txt-alt: #4c4c4c;
+$bg-color: #f0f0f0;
+$bg-color-alt: #4c4c4c;
+*/
+
+//TESTE DE NOVISSIMA PALETA
+/*
+$primary: #39a53b;
+$primary-light: #64c965;
+$primary-lightest: #9cdd9e;
+$primary-dark: #266e27;
+$primary-darkest: #123513;
+$secondary: #67bec8;
+$secondary-light: #9ed5dc;
+$secondary-lightest: #d6edf0;
+$secondary-dark: #3c9aa5;
+$secondary-darkest: #27656d;
+$terciary: #ffe95c;
+$terciary-light: #fffaad;
+$terciary-lightest: #fffff0;
+$terciary-dark: #d9b421;
+$terciary-darkest: #8c6907;
+$accent: #ffc905;
+$success: #4ec162;
+$danger: #d2322d;
+$txt: #f0f0f0;
+$txt-alt: #4c4c4c;
+$bg-color: #f0f0f0;
+$bg-color-alt: #4c4c4c;
+*/
 //css variables
 :root {
   --primary: #{$primary};
   --primary-light: #{$primary-light};
-  --primary-lighter: #{$primary-lighter};
   --primary-lightest: #{$primary-lightest};
   --primary-dark: #{$primary-dark};
   --primary-darkest: #{$primary-darkest};
+
+  --secondary: #{$secondary};
+  --secondary-light: #{$secondary-light};
+  --secondary-lightest: #{$secondary-lightest};
+  --secondary-dark: #{$secondary-dark};
+  --secondary-darkest: #{$secondary-darkest};
 }

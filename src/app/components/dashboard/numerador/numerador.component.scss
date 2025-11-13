@@ -50,16 +50,16 @@ tr {
   color: black;
 }
 tbody tr:hover {
-  background-color: $primary-dark;
-  color: white;
+  background-color: $primary;
+  color: $accent;
 }
 /* Linhas alternadas */
 tr:nth-child(odd) {
-  background-color: $primary-lighter;
+  background-color: $primary-lightest;
 }
 
 tr:nth-child(even) {
-  background-color: $primary-lightest;
+  background-color: $primary-light;
 }
 
 th,

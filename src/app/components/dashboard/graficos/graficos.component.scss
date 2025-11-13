@@ -20,26 +20,28 @@
   column-gap: 1rem;
 }
 button {
-  background-color: $primary-light;
-  color: white !important;
+  background-color: $primary;
+  color: white;
   border: none;
   cursor: pointer;
 
   &:hover:not(:disabled) {
-    background-color: $primary-lighter;
+    background-color: $primary-light;
+    color: $accent;
     //color: white;
   }
   &:active:not(:disabled) {
-    background-color: $primary-darkest;
-    // color: white;
+    background-color: $primary-darker;
+    color: white;
   }
   &.selecionado {
     // Usa a classe CSS '.selecionado'
     background-color: $primary-dark; // Cor: $primary-dark
     cursor: default;
-    //color: white;
+    color: white;
     &:hover {
       background-color: $primary-dark;
+      color: white;
     }
   }
 }

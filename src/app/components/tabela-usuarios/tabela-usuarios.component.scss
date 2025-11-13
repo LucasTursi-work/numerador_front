@@ -95,7 +95,7 @@ table {
     th {
       padding: 0.75rem;
       text-align: center;
-      border-bottom: 2px solid darken($primary-light, 10%);
+      border-bottom: 2px solid adjust($primary-light, 10%);
     }
   }
 
@@ -105,12 +105,12 @@ table {
     }
 
     tr:nth-child(even) {
-      background-color: $primary-lighter;
+      background-color: $primary-light;
     }
 
     td {
       padding: 0.75rem;
-      //border-bottom: 1px solid lighten($primary-light, 20%);
+      //border-bottom: 1px solid adjust($primary-light, 20%);
     }
   }
 }
