@@ -22,7 +22,7 @@
 }
 
 .separador-mini {
-  height: 3vh;
+  height: 2vh;
   width: 5vw;
 }
 .container {
@@ -37,9 +37,11 @@
 input {
   border-radius: 1rem;
   font-size: 1.2rem;
+  width: 100%;
 }
 
 button {
+  margin: 0 auto;
   box-shadow: none;
   width: 15rem;
   height: auto;
@@ -62,7 +64,7 @@ select {
   border-radius: 1rem;
   font-size: 1.2rem;
   height: 1, 5rem;
-  width: 15rem;
+  width: 100%;
   color: white;
   border-color: $primary;
 
@@ -72,4 +74,9 @@ select {
   &:active {
     border-color: $primary-dark;
   }
+}
+.button-container {
+  display: block;
+  width: 30vw;
+  height: auto;
 }

@@ -1,13 +1,16 @@
 <div class="container">
-  <h6>Criar novo tipo de documento</h6>
+  <h6 style="font-weight: bold">Criar novo tipo de documento</h6>
   <div class="separador-mini"></div>
   <span>Digite o tipo do documento:</span>
-  <br />
   <br />
   <input type="text" [(ngModel)]="tipoDocumento" />
   <br />
   <br />
-  <select class="select"></select>
+  <span>Selecione o cartório:</span>
+  <br />
+  <select class="select" placeholder="selecione..."></select>
   <div class="separador-mini"></div>
-  <button>Cadastrar</button>
+  <div class="button-container">
+    <button>Cadastrar</button>
+  </div>
 </div>

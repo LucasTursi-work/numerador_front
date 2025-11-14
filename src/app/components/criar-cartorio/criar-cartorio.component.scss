@@ -1,19 +1,32 @@
 @import "_colors.scss";
+/*
 * {
+  padding: 0.5rem;
+}
+  */
+.container {
+  width: 30vw;
+  height: fit-content;
   padding: 1rem;
   margin: 0.5rem;
   border-radius: 1rem;
 }
-
 input {
   border-radius: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
+  width: 100%;
+}
+.separador-mini {
+  height: 2vh;
+  width: 5vw;
 }
 
 button {
   box-shadow: none;
+  margin: 0 auto;
   border-radius: 1rem;
   font-size: 1.2rem;
+  width: 15rem;
   color: white;
   background-color: $primary;
   &:hover {
@@ -33,4 +46,9 @@ select {
   &:active {
     background-color: $primary-dark;
   }
+}
+.button-container {
+  display: block;
+  width: 30vw;
+  height: auto;
 }
