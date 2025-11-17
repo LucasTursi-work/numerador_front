@@ -1,24 +1,25 @@
+//dependências externas
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, tap } from 'rxjs';
+import { Observable, BehaviorSubject, tap, of } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Status } from '../../../shared/enums/documents-enums';
+
+//dependências locais
+import { Cartorio } from '../../../shared/interfaces/cartorio.interface';
+import { Documento } from '../../../shared/interfaces/documento.interface';
 import { DocumentoResponseDto } from '../../../shared/dtos/response/documento-response.dto';
 import { UpdateDocumentoDto } from '../../../shared/dtos/request/update-documento.dto';
 import { CriarDocumentoDto } from '../../../shared/dtos/request/criar-documento.dto';
 import { GerarNumeracaoDto } from '../../../shared/dtos/request/gerar-numeracao.dto';
 import { TipoDocumento } from '../../../shared/interfaces/tipo-documento.interface';
 import { CreateTipoDocumentoDto } from '../../../shared/dtos/request/criar-tipo-documento.dto';
-
-export interface Documento {
-  id: number;
-  nome: string;
-  contador: number;
-}
+import { CartorioCadastroDto } from '../../../shared/dtos/request/cartorio-cadastro.dto';
 
 @Injectable({ providedIn: 'root' })
 export class DocumentoService {
   private apiUrl = `${environment.apiUrl}/documentos`;
+  private apiCartorioUrl = `${environment.apiUrl}/cartorios`;
   // 1. O BehaviorSubject armazena a lista atual e a envia para os ouvintes
   private documentosSubject = new BehaviorSubject<DocumentoResponseDto[]>([]);
 
@@ -27,6 +28,23 @@ export class DocumentoService {
     this.documentosSubject.asObservable();
 
   constructor(private http: HttpClient) {}
+
+  public cadastrarCartorio(dto: CartorioCadastroDto): Observable<any> {
+    const url = this.apiCartorioUrl;
+    console.log('API POST: Cadastrar Cartório', dto);
+    return this.http.post<any>(url, dto);
+  }
+
+  public listarCartoriosAtivos(): Observable<Cartorio[]> {
+    const url = `${this.apiCartorioUrl}/ativos`; // URL provável
+    // return this.http.get<Cartorio[]>(url); // Chamada HTTP real
+
+    // Mock para testes, remova em produção:
+    return of([
+      { id: 1, nome: 'Primeiro Cartório de Notas', cartorioAtivo: true },
+      { id: 2, nome: 'Registro Civil - Zona Oeste', cartorioAtivo: true },
+    ] as Cartorio[]);
+  }
 
   listarDocumentos(): Observable<Documento[]> {
     return this.http.get<Documento[]>(this.apiUrl);

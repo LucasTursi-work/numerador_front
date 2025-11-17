@@ -1,6 +1,6 @@
 import { DocumentoResponseDto } from '../../shared/dtos/response/documento-response.dto';
 
-export class Documento {
+export class DocumentoModel {
   constructor(
     public id: number,
     public nome: string,
@@ -14,10 +14,10 @@ export class Documento {
   }
 
   // Método estático para conversão
-  public static fromDTO(dto: DocumentoResponseDto): Documento {
-    return new Documento(
-      dto.idDocumento,
-      dto.tipoDocumento.nome,
+  public static fromDTO(dto: DocumentoResponseDto): DocumentoModel {
+    return new DocumentoModel(
+      dto.id,
+      dto.nomeTipoDocumento,
       dto.numero,
       new Date(dto.dataCadastro) // Conversão de tipos
     );

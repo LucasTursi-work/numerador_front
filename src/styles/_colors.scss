@@ -2,21 +2,21 @@
 @use "sass:color";
 //variantes primárias
 $primary: #2a7050; // #219e53;
-$primary-light: color.adjust($primary, $lightness: 10%);
-$primary-lighter: color.adjust($primary-light, $lightness: 10%);
-$primary-lightest: color.adjust($primary-lighter, $lightness: 10%);
-$primary-dark: color.adjust($primary, $lightness: -10%);
-$primary-darker: color.adjust($primary-dark, $lightness: -10%);
-$primary-darkest: color.adjust($primary-darker, $lightness: -10%);
+$primary-light: color.adjust($primary, $lightness: 15%);
+$primary-lighter: color.adjust($primary-light, $lightness: 15%);
+$primary-lightest: color.adjust($primary-lighter, $lightness: 15%);
+$primary-dark: color.adjust($primary, $lightness: -15%);
+$primary-darker: color.adjust($primary-dark, $lightness: -15%);
+$primary-darkest: color.adjust($primary-darker, $lightness: -15%);
 
 //variantes secundárias
 $secondary: #008241;
-$secondary-light: color.adjust($secondary, $lightness: 10%);
-$secondary-lighter: color.adjust($secondary-light, $lightness: 10%);
-$secondary-lightest: color.adjust($secondary-lighter, $lightness: 10%);
-$secondary-dark: color.adjust($secondary, $lightness: -10%);
-$secondary-darker: color.adjust($secondary-dark, $lightness: -10%);
-$secondary-darkest: color.adjust($secondary-darker, $lightness: -10%);
+$secondary-light: color.adjust($secondary, $lightness: 15%);
+$secondary-lighter: color.adjust($secondary-light, $lightness: 15%);
+$secondary-lightest: color.adjust($secondary-lighter, $lightness: 15%);
+$secondary-dark: color.adjust($secondary, $lightness: -15%);
+$secondary-darker: color.adjust($secondary-dark, $lightness: -15%);
+$secondary-darkest: color.adjust($secondary-darker, $lightness: -15%);
 
 //cores de apoio
 $accent: #ffa000;

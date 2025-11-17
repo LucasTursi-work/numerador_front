@@ -8,9 +8,24 @@
   <br />
   <span>Selecione o cartório:</span>
   <br />
-  <select class="select" placeholder="selecione..."></select>
+  <select
+    class="select"
+    placeholder="selecione..."
+    [(ngModel)]="cartorioSelecionadoId"
+  >
+    <option [ngValue]="null" disabled selected>Selecione um cartório</option>
+
+    <option *ngFor="let cartorio of cartorios$ | async" [ngValue]="cartorio.id">
+      {{ cartorio.nome }}
+    </option>
+  </select>
   <div class="separador-mini"></div>
   <div class="button-container">
-    <button>Cadastrar</button>
+    <button
+      (click)="cadastrar()"
+      [disabled]="!tipoDocumento || !cartorioSelecionadoId"
+    >
+      Cadastrar
+    </button>
   </div>
 </div>

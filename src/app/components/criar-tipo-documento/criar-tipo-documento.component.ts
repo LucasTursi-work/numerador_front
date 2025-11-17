@@ -1,6 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+
+import { DocumentoService } from '../../modules/documents/services/documents.service';
+//import { UsuarioService } from '../../modules/user/services/user.service';
+import { AuthService } from '../../modules/auth/auth.service';
+import { Cartorio } from '../../shared/interfaces/cartorio.interface';
+import { CreateTipoDocumentoDto } from '../../shared/dtos/request/criar-tipo-documento.dto';
+//import { Documento } from '../../shared/models/document.model';
+import { Status } from '../../shared/enums/documents-enums';
+
 @Component({
   selector: 'app-criar-tipo-documento',
   standalone: true,
@@ -8,21 +19,55 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './criar-tipo-documento.component.html',
   styleUrl: './criar-tipo-documento.component.scss',
 })
-export class CriarTipoDocumentoComponent {
+export class CriarTipoDocumentoComponent implements OnInit {
   tipoDocumento: string = '';
-  constructor(public activeModal: NgbActiveModal) {
+
+  cartorios$!: Observable<Cartorio[]>; // Lista de cartórios para o <select>
+  cartorioSelecionadoId: number | null = null; // O ID selecionado pelo usuário
+  usuarioIdLogado: number | null = null; // ID do usuário logado
+
+  constructor(
+    public activeModal: NgbActiveModal,
+    private documentoService: DocumentoService,
+    private authService: AuthService
+  ) {
     // O 'public' torna o activeModal acessível no HTML/Template
   }
-  cadastrar() {
-    // 1. **Implementar a lógica de cadastro aqui (Chamar o serviço de API)**
-    console.log(`Cadastrando tipo de documento: ${this.tipoDocumento}`);
 
-    // 2. Fechar o modal com um resultado (e.g., 'success')
-    // Isso aciona o .then() na promessa do modalRef.result no DashboardComponent
-    this.activeModal.close('success');
+  ngOnInit(): void {}
+  cadastrar() {
+    if (
+      !this.tipoDocumento ||
+      !this.cartorioSelecionadoId ||
+      !this.usuarioIdLogado
+    ) {
+      alert('Por favor, preencha todos os campos e tente novamente.');
+      return;
+    }
+
+    // Construção do DTO completo para o POST
+    const dto: CreateTipoDocumentoDto = {
+      nome: this.tipoDocumento,
+      status: Status.ATIVO,
+      cartorioId: this.cartorioSelecionadoId!, // Chave estrangeira
+      usuarioCriadorId: this.usuarioIdLogado!, // Chave estrangeira
+    };
+
+    this.documentoService.criarTipoDocumento(dto).subscribe({
+      next: (response) => {
+        console.log(
+          'Cadastro de Tipo de Documento realizado com sucesso:',
+          response
+        );
+        this.activeModal.close('success');
+      },
+      error: (err) => {
+        console.error('Erro ao cadastrar Tipo de Documento:', err);
+        alert('Falha ao cadastrar. Verifique o console para detalhes.');
+      },
+    });
   }
 
-  // Opcional: Para fechar o modal sem sucesso (e.g., botão 'Cancelar' ou 'X')
   fecharSemSalvar() {
     this.activeModal.dismiss('cancel');
   }

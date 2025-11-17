@@ -3,10 +3,12 @@
   <div class="separador-mini"></div>
   <span>Digite o nome do cartório:</span>
   <br />
-  <input type="text" />
+  <input type="text" [(ngModel)]="nomeCartorio" />
   <br />
   <br />
   <div class="button-container">
-    <button>Cadastrar</button>
+    <button (click)="salvarECadastrar()" [disabled]="!nomeCartorio">
+      Cadastrar
+    </button>
   </div>
 </div>
