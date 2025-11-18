@@ -17,10 +17,11 @@
         minlength="11"
         required
         maxlength="11"
+        [(ngModel)]="cpf"
       />
       <!--input form to login-->
       <br />
-      <span id="erro_login">CPF inválido!</span>
+      <span id="erro_login" *ngIf="loginErro">CPF ou senha inválidos!</span>
       <div>
         <!-- <input type="checkbox" class="remember_user_button"><span class="legenda">Lembrar meu usuário</span> -->
       </div>
@@ -35,11 +36,12 @@
         type="password"
         class="input_field"
         id="password"
-        placeholder=""
         required
         minlength="6"
         required
         maxlength="12"
+        [(ngModel)]="senha"
+        (keyup.enter)="fazerLogin()"
       />
       <div>
         <a href="https://www.google.com.br">
@@ -53,20 +55,15 @@
       </div>
     </div>
 
-    <div class="separate"></div>
+    <div class="separate-mini"></div>
     <!--Enter button-->
-    <button class="mainbutton" id="Enter" (click)="navDashboard()">
-      ENTRAR
-    </button>
+    <button class="mainbutton" id="Enter" (click)="fazerLogin()">ENTRAR</button>
     <br />
     <br />
     <!--separation div-->
     <div class="separate-big"></div>
-    <h4>Primeiro acesso? Então,</h4>
+
     <br />
-    <button class="mainbutton" id="Cadastro" (click)="navDashboard()">
-      Cadastre-se
-    </button>
     <!--separation div-->
     <div class="separate"></div>
 

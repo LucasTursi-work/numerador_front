@@ -24,7 +24,7 @@ export class CriarCartorioComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getUsuarioLogadoId().subscribe((id) => {
-      // <--- CORREÇÃO: Chamando o método do AuthService
+      //recebe o usuário logado do authService na inicialização
       this.usuarioIdLogado = id;
     });
   }

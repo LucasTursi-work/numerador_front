@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../modules/auth/auth.service';
 import { CriarCartorioComponent } from '../criar-cartorio/criar-cartorio.component';
 import { CriarTipoDocumentoComponent } from '../criar-tipo-documento/criar-tipo-documento.component';
 import {
@@ -16,7 +17,8 @@ import {
 export class MenuLateralComponent {
   constructor(
     private router: Router,
-    private modalComService: ModalComunicacaoService
+    private modalComService: ModalComunicacaoService,
+    private authService: AuthService
   ) {}
   navDashboard() {
     this.router.navigate(['/dashboard']);
@@ -31,6 +33,7 @@ export class MenuLateralComponent {
     this.modalComService.abrirModal('cartorio');
   }
   navLogOut() {
+    this.authService.logout();
     this.router.navigate(['']);
   }
 }

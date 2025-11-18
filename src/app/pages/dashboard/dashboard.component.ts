@@ -13,6 +13,7 @@ import { NumeradorService } from '../../components/dashboard/numerador.service';
 import { NumeradorComponent } from '../../components/dashboard/numerador/numerador.component';
 import { GraficosComponent } from '../../components/dashboard/graficos/graficos.component';
 import { LogsComponent } from '../../components/dashboard/logs/logs.component';
+import { HeaderComponent } from '../../components/header/header.component';
 import { CriarCartorioComponent } from '../../components/criar-cartorio/criar-cartorio.component';
 import { CriarTipoDocumentoComponent } from '../../components/criar-tipo-documento/criar-tipo-documento.component';
 import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral.component';
@@ -26,6 +27,7 @@ import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral
     NumeradorComponent,
     GraficosComponent,
     LogsComponent,
+    HeaderComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',

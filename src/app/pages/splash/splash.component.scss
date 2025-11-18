@@ -98,6 +98,9 @@ body {
   border-radius: 0.75rem;
   border: 1px solid disabled;
 }
+.input_field:hover {
+  border: 2px solid $accent;
+}
 .input_field:focus {
   border: 2px solid $primary;
   outline: none;
@@ -140,6 +143,9 @@ body {
   font-weight: 300;
   color: blue;
   padding: 8px;
+  &:hover {
+    color: $accent !important;
+  }
 }
 .link-texto:visited {
   color: purple;
@@ -169,6 +175,7 @@ body {
   background-color: $primary-light;
   box-shadow: 5px 5px 8px lightgray;
   transform: scale(1.05);
+  color: $accent !important;
 }
 .mainbutton:active {
   background-color: $primary-dark;

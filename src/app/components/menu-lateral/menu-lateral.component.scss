@@ -47,16 +47,16 @@ label {
   padding-left: 0.1rem;
   padding-right: 1rem;
   &:hover {
-    background-color: $secondary;
+    background-color: $primary;
     transform: scale(1.05);
     color: $accent;
   }
   &:focus {
     outline: none;
-    background-color: $secondary-dark;
+    background-color: $primary-dark;
   }
   &:active {
-    background-color: $secondary-darker;
+    background-color: $primary-darker;
     transform: scale(0.95);
   }
 }
