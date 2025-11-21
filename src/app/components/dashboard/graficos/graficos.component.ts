@@ -125,12 +125,11 @@ export class GraficosComponent implements OnInit {
                 data: counts, // Dados diferentes para o gráfico de pizza
                 backgroundColor: [
                   // Gráficos de pizza geralmente usam um array de cores
-                  '#2A7050',
-                  '#008241',
-                  '#55a7b2',
-                  '#225b41',
-                  '#87d1e6',
-                  '#4ec162',
+                  '#67bec8',
+                  '#3C9AA5',
+                  '#27656D',
+                  '#9ED5DC',
+                  '#D6EDF0',
                 ],
                 borderColor: '#55a7b2',
                 borderWidth: 1,

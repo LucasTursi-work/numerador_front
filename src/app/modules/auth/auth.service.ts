@@ -5,6 +5,7 @@ import { tap } from 'rxjs/operators';
 import { LoginRequestDto } from '../../shared/dtos/request/login-request.dto';
 import { UsuarioResponseDTO } from '../../shared/dtos/response/usuario-response.dto';
 import { StatusUsuario, PerfilUsuario } from '../../shared/enums/user-enums';
+import { environment } from '../../../environments/environment';
 
 interface UsuarioLogadoState {
   id: number | null;
@@ -17,7 +18,7 @@ interface UsuarioLogadoState {
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'https://sua-api.com/api/login'; // Endpoint específico para login
+  private apiUrl = `${environment.apiUrl}/login`; // Endpoint específico para login
 
   // 1. O BehaviorSubject para gerenciar o estado global do usuário
   private usuarioLogadoSubject = new BehaviorSubject<UsuarioLogadoState>({

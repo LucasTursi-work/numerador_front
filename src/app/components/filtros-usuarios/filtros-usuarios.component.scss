@@ -105,6 +105,16 @@ label {
   color: white;
   font-weight: bold;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.05);
+    color: $accent;
+    background-color: $primary-light;
+  }
+  &:active {
+    transform: scale(0.95);
+    color: $accent;
+    background-color: $primary-dark;
+  }
 }
 
 .selector {
@@ -125,8 +135,7 @@ label {
     transform: scale(0.95);
   }
   &:hover {
-    border-color: $primary-light;
-    color: $accent;
+    border-color: $accent;
     transform: scale(1.05);
   }
 }
