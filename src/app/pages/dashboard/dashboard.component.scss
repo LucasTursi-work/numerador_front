@@ -47,10 +47,8 @@
 
 .graf {
   max-width: 50vw;
-  max-height: 70vh;
-  display: grid;
-  grid-template-rows: 4fr 1fr;
-  row-gap: 1rem;
+  max-height: 80vh;
+  border-radius: 0.5rem;
 }
 .numerador {
   max-height: 60vh;
@@ -64,7 +62,7 @@
   border-style: solid 2px;
   border-width: 2px;
   max-height: 90vh;
-  width: 100%;
+  width: 80%;
 }
 
 .logs {
@@ -80,14 +78,15 @@
   float: center;
 }
 .footer-container {
-  width: 24rem;
-  height: 6rem;
+  width: 50rem;
+  height: 5rem;
+  z-index: 998;
 }
 .footer-principal {
   position: fixed;
   bottom: 0;
   right: 0;
-  max-width: 22rem;
-  max-height: 6rem;
+  width: 18rem;
+  height: 6rem;
   z-index: 999;
 }

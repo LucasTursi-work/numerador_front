@@ -21,6 +21,7 @@ label {
   border-radius: 24px;
   padding: 0;
   margin: 0;
+  margin-left: 1rem;
 }
 
 table {
@@ -87,6 +88,7 @@ table {
   border-collapse: collapse;
   font-size: 0.9rem;
   border-radius: 1rem;
+  left: 1rem;
 
   thead {
     background-color: $primary-light;
@@ -156,12 +158,13 @@ table {
 }
 .container-paginacao {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 0.2fr;
 }
 .numero-usuarios {
   max-width: 10vw;
   display: flex;
   float: left;
+  left: 1rem;
 }
 .pagination {
   cursor: pointer;
@@ -175,6 +178,7 @@ table {
   justify-content: right;
   flex-wrap: wrap;
   max-width: 30vw;
+  right: 2rem;
 }
 
 .sem-dados {

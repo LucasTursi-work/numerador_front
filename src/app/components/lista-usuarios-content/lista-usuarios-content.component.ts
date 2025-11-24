@@ -35,7 +35,7 @@ export class ListaUsuariosContentComponent implements OnInit {
   carregando = false;
   parametros: BuscarUsuariosParams = {
     pagina: 0,
-    limite: 15,
+    limite: 10,
   };
   totalElementos = 0;
 
@@ -52,18 +52,19 @@ export class ListaUsuariosContentComponent implements OnInit {
     this.todosUsuarios = [];
     console.log('Parâmetros enviados:', JSON.stringify(this.parametros));
     this.usuarioService.listarUsuariosPaginado(this.parametros).subscribe({
+      // Caso a resposta tenha a estrutura paginada (content)
       next: (resposta: any) => {
         console.log('Resposta bruta:', resposta);
 
-        // Verifica se a resposta JÁ É o array (caso novo)
+        // Verifica se a resposta já é o array
         if (Array.isArray(resposta)) {
           this.todosUsuarios = resposta;
           this.totalElementos = resposta.length;
         }
         // Caso a resposta tenha a estrutura paginada (content)
         else if (resposta.content && Array.isArray(resposta.content)) {
-          this.todosUsuarios = resposta.content;
-          this.totalElementos = resposta.totalElements;
+          this.todosUsuarios = resposta.content; // Array de usuários
+          this.totalElementos = resposta.totalElements; // Total de elementos para calcular o número de páginas
         }
         // Caso inesperado
         else {
@@ -86,7 +87,7 @@ export class ListaUsuariosContentComponent implements OnInit {
     );
     if (paginaAtual < 0 || paginaAtual > totalPaginas) return;
 
-    this.parametros.pagina = paginaAtual - 1; // ← corrige visual → backend
+    this.parametros.pagina = paginaAtual - 1;
     this.carregarUsuarios();
   }
 

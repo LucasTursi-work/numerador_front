@@ -56,8 +56,8 @@
       <nav *ngIf="totalElementos > 0">
         <ul class="pagination">
           <!-- Botão Anterior -->
-          <li class="page-item" [class.disabled]="paginaAtual === 0">
-            <a class="page-link" (click)="mudarPagina.emit(paginaAtual)"
+          <li class="page-item" [class.disabled]="paginaAtual <= 1">
+            <a class="page-link" (click)="mudarPagina.emit(paginaAtual - 1)"
               >Anterior</a
             >
           </li>
@@ -66,16 +66,16 @@
           <li
             class="page-item"
             *ngFor="let i of [].constructor(totalPaginas); let index = index"
-            [class.active]="paginaAtual === index"
+            [class.active]="paginaAtual === index + 1"
           >
-            <a class="page-link" (click)="mudarPagina.emit(index)">
+            <a class="page-link" (click)="mudarPagina.emit(index + 1)">
               {{ index + 1 }}
             </a>
           </li>
 
           <!-- Botão Próxima -->
           <li class="page-item" [class.disabled]="paginaAtual >= totalPaginas">
-            <a class="page-link" (click)="mudarPagina.emit(paginaAtual)"
+            <a class="page-link" (click)="mudarPagina.emit(paginaAtual + 1)"
               >Próxima</a
             >
           </li>
