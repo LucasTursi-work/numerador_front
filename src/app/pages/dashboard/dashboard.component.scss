@@ -77,16 +77,18 @@
   display: flex;
   float: center;
 }
+/*
 .footer-container {
   width: 50rem;
   height: 5rem;
   z-index: 998;
 }
+  */
 .footer-principal {
   position: fixed;
-  bottom: 0;
+  bottom: -3rem;
   right: 0;
-  width: 18rem;
-  height: 6rem;
+  width: 45vw;
+  height: 18vh;
   z-index: 999;
 }

@@ -30,3 +30,11 @@
 .contents {
   margin: 1vw;
 }
+.footer-principal {
+  position: fixed;
+  bottom: -3rem;
+  right: 0;
+  width: 45vw;
+  height: 18vh;
+  z-index: 999;
+}
