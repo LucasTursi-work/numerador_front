@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { isPlatformBrowser } from '@angular/common';
 import { Observable, of, BehaviorSubject, map } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { LoginRequestDto } from '../../shared/dtos/request/login-request.dto';
@@ -31,7 +32,10 @@ export class AuthService {
   // Observable público para outros componentes se inscreverem
   public usuarioLogado$ = this.usuarioLogadoSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   login(credenciais: LoginRequestDto): Observable<UsuarioResponseDTO> {
     // 1. Faz a chamada HTTP para o backend
@@ -58,17 +62,26 @@ export class AuthService {
       )
     );
   }
-
+  public getToken(): string | null {
+    if (isPlatformBrowser(this.platformId)) {
+      // Assumindo que você armazena o token sob a chave 'jwt_token'
+      return localStorage.getItem('jwt_token');
+    }
+    return null;
+  }
   getUsuarioLogadoId(): Observable<number | null> {
     // Retorna o ID do objeto de estado
     return this.usuarioLogado$.pipe(map((state) => state.id));
   }
-  logout(): void {
-    this.usuarioLogadoSubject.next({
-      id: null,
-      nome: null, // ⚠️ Reseta o nome para null
-      perfil: null,
-      status: null,
-    });
+  public logout(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('jwt_token');
+      this.usuarioLogadoSubject.next({
+        id: null,
+        nome: null, // ⚠️ Reseta o nome para null
+        perfil: null,
+        status: null,
+      });
+    }
   }
 }

@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // 2. Estrutura de Assinatura OK: Delega a chamada para funções específicas
+    // Estrutura de Assinatura: Delega a chamada para funções específicas
     this.modalSubscription = this.modalComService.modalRequest$.subscribe(
       (tipo) => {
         if (tipo === 'cartorio') {
@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     );
   }
 
-  // 3. CORREÇÃO: Implementação da função específica para Cartório
+  // Implementação da função específica para Cartório
   private abrirModalCartorio() {
     const modalRef = this.modalService.open(CriarCartorioComponent, {
       centered: true,
@@ -66,7 +66,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       (result) => {
         if (result === 'success') {
           console.log(`Cadastro de cartório realizado com sucesso.`);
-          // LÓGICA DE RECARREGAMENTO DE DADOS AQUI
+          // LÓGICA DE RECARREGAMENTO DE DADOS
         }
       },
       () => {
@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     );
   }
 
-  // 4. CORREÇÃO: Implementação da função específica para Tipo de Documento
+  //Implementação da função específica para Tipo de Documento
   private abrirModalDocumento() {
     const modalRef = this.modalService.open(CriarTipoDocumentoComponent, {
       centered: true,
@@ -86,7 +86,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       (result) => {
         if (result === 'success') {
           console.log(`Cadastro de documento realizado com sucesso.`);
-          // LÓGICA DE RECARREGAMENTO DE DADOS AQUI
+          // LÓGICA DE RECARREGAMENTO DE DADOS
         }
       },
       () => {
@@ -95,7 +95,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     );
   }
 
-  // 5. CORREÇÃO: Método ngOnDestroy no local correto
+  // Método ngOnDestroy no local correto
   ngOnDestroy() {
     // Limpeza obrigatória para evitar vazamento de memória
     this.modalSubscription.unsubscribe();

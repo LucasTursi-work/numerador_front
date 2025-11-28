@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { DocumentoService } from '../../modules/documents/services/documents.service';
 import { CartorioCadastroDto } from '../../shared/dtos/request/cartorio-cadastro.dto';
 import { AuthService } from '../../modules/auth/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-criar-cartorio',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './criar-cartorio.component.html',
   styleUrl: './criar-cartorio.component.scss',
 })

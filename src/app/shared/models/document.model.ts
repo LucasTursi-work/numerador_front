@@ -9,10 +9,10 @@ export class DocumentoModel {
   ) {}
 
   // Método de instância (exemplo)
-  public incrementarContador(): void {
+  /*public incrementarContador(): void {
     this.contador++;
   }
-
+*/
   // Método estático para conversão
   public static fromDTO(dto: DocumentoResponseDto): DocumentoModel {
     return new DocumentoModel(
