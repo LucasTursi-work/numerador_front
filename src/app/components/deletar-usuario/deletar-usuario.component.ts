@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioService } from '../../modules/user/services/user.service';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { UsuarioResponseDTO } from '../../shared/dtos/response/usuario-response.dto';
 
 @Component({
   selector: 'app-excluir-usuario',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [],
   template: `
     <div>
       <h2>Excluir Usuário</h2>
@@ -16,25 +16,23 @@ import { FormsModule } from '@angular/forms';
     </div>
   `,
 })
-export class ExcluirUsuarioComponent {
-  id: number = 0;
+export class DeletarUsuarioComponent {
+  @Input() usuario!: UsuarioResponseDTO;
 
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(
+    public activeModal: NgbActiveModal,
+    private usuarioService: UsuarioService
+  ) {}
 
-  excluir() {
-    if (!this.id || this.id <= 0) {
-      alert('ID inválido.');
-      return;
-    }
-
-    this.usuarioService.deletarUsuario(this.id).subscribe({
+  confirmarExclusao() {
+    this.usuarioService.deleteUsuario(this.usuario.id).subscribe({
       next: () => {
-        console.log(`Usuário ${this.id} excluído com sucesso.`);
-        alert(`Usuário ${this.id} excluído.`);
+        // Fechamos passando 'deletado' para o componente pai saber que deu certo
+        this.activeModal.close('deletado');
       },
       error: (err) => {
-        console.error('Erro ao excluir usuário:', err);
-        alert('Erro ao excluir usuário. Verifique o ID.');
+        console.error('Erro ao deletar usuário', err);
+        // Aqui você poderia adicionar um alerta de erro para o usuário
       },
     });
   }

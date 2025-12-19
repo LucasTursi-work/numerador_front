@@ -1,1 +1,18 @@
-<p>deletar-usuario works!</p>
+<div class="modal-body text-center">
+  <h3>Excluir Usuário</h3>
+  <p>
+    Tem certeza de que deseja deletar o usuário
+    <strong>{{ usuario.nome }}</strong
+    >?
+  </p>
+  <p class="text-danger"><small>Esta ação não poderá ser desfeita.</small></p>
+
+  <div class="d-flex justify-content-center gap-3">
+    <button type="button" class="btn-cancelar" (click)="activeModal.dismiss()">
+      Cancelar
+    </button>
+    <button type="button" class="btn-excluir" (click)="confirmarExclusao()">
+      Confirmar Exclusão
+    </button>
+  </div>
+</div>

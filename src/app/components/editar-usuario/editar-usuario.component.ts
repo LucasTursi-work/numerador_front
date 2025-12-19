@@ -1,55 +1,62 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { UsuarioService } from '../../modules/user/services/user.service';
 import { CreateUsuarioRequestDTO } from '../../shared/dtos/request/create-user.dto';
-import { PerfilUsuario } from '../../shared/enums/user-enums';
-import { CommonModule } from '@angular/common';
+import { UsuarioResponseDTO } from '../../shared/dtos/response/usuario-response.dto';
+import { PerfilUsuario, StatusUsuario } from '../../shared/enums/user-enums';
 
 @Component({
-  selector: 'app-criar-usuario',
+  selector: 'app-editar-usuario',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './editar-usuario.component.html',
   styleUrl: './editar-usuario.component.scss',
 })
-export class CriarUsuarioComponent {
-  // Lista de perfis para o <select>
-  perfis = Object.values(PerfilUsuario);
+export class EditarUsuarioComponent implements OnInit {
+  @Input() usuario!: UsuarioResponseDTO; // Recebe os dados da tabela
+
   form!: FormGroup;
+  // Expondo os Enums para o HTML
+  perfis = Object.values(PerfilUsuario);
+  statusOpcoes = Object.values(StatusUsuario);
 
   constructor(
     private fb: FormBuilder,
+    public activeModal: NgbActiveModal,
     private usuarioService: UsuarioService
   ) {}
 
-  // Formulário reativo com validações
-ngOnInit(): void {
-    // Inicialização segura após o construtor
+  ngOnInit(): void {
+    // Inicializa o formulário com os valores que vieram do DTO
     this.form = this.fb.group({
-      nome: ['', [Validators.required, Validators.minLength(3)]],
-      cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
-      email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required, Validators.minLength(6)]],
-      perfil: [PerfilUsuario.USUARIO, Validators.required],
-      codigoValidador: [''],
+      nome: [this.usuario.nome, [Validators.required]],
+      email: [this.usuario.email, [Validators.required, Validators.email]],
+      perfil: [this.usuario.perfil, [Validators.required]],
+      status: [this.usuario.status, [Validators.required]],
     });
   }
 
-  onSubmit() {
+  salvar(): void {
     if (this.form.valid) {
-      // Converte o FormGroup para o DTO
-      const dto: CreateUsuarioRequestDTO = this.form.value as CreateUsuarioRequestDTO;
+      // Mesclamos o ID original com os novos valores do formulário
+      const dadosParaAtualizar = {
+        ...this.form.value,
+        id: this.usuario.id,
+      };
 
-      this.usuarioService.criarUsuario(dto).subscribe({
-        next: (res) => {
-          console.log('Usuário criado:', res);
-          alert('Usuário cadastrado com sucesso!');
-        },
-        error: (err) => {
-          console.error('Erro ao criar usuário:', err);
-          alert('Erro no cadastro. Verifique os dados.');
-        },
-      });
+      this.usuarioService
+        .patchUsuario(this.usuario.id, dadosParaAtualizar)
+        .subscribe({
+          next: () => this.activeModal.close('salvo'),
+          error: (err) => console.error('Erro ao atualizar:', err),
+        });
     }
   }
 }

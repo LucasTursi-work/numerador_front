@@ -8,5 +8,7 @@
   [itensPorPagina]="parametros.limite"
   (mudarPagina)="mudarPagina($event)"
   class="tabela"
+  (editar)="abrirModalEdicao($event)"
+  (excluir)="abrirModalExclusao($event)"
 >
 </app-tabela-usuarios>

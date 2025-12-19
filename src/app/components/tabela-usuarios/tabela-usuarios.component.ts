@@ -29,6 +29,16 @@ export class TabelaUsuariosComponent implements OnChanges {
   @Input() carregando: boolean = false;
 
   @Output() mudarPagina = new EventEmitter<number>();
+  @Output() editar = new EventEmitter<UsuarioResponseDTO>();
+  @Output() excluir = new EventEmitter<UsuarioResponseDTO>();
+
+  onEditar(usuario: UsuarioResponseDTO) {
+    this.editar.emit(usuario);
+  }
+
+  onExcluir(usuario: UsuarioResponseDTO) {
+    this.excluir.emit(usuario);
+  }
 
   get totalPaginas(): number {
     return Math.ceil(this.totalElementos / this.itensPorPagina);
@@ -59,10 +69,11 @@ export class TabelaUsuariosComponent implements OnChanges {
   alterarPagina(pagina: number) {
     this.mudarPagina.emit(pagina);
   }
-
+  /*
   preencherLinhasVazias(linhasUsadas: number): number[] {
     const maxLinhas = 10; // ou `this.parametros.limite`
     const faltantes = maxLinhas - linhasUsadas;
     return Array.from({ length: faltantes > 0 ? faltantes : 0 });
   }
+    */
 }

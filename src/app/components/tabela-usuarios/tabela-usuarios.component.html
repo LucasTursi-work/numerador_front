@@ -15,6 +15,7 @@
             <th>Perfil</th>
             <th>Status</th>
             <th>Data Cadastro</th>
+            <th width="6rem;" height="2rem;">Edição</th>
           </tr>
         </thead>
         <tbody>
@@ -35,8 +36,18 @@
               </span>
             </td>
             <td>{{ usuario.dataCadastro | date : "dd/MM/yyyy" }}</td>
+            <td>
+              <div class="edicao">
+                <button id="bt_editar" (click)="onEditar(usuario)">
+                  Editar
+                </button>
+                <button id="bt_excluir" (click)="onExcluir(usuario)">
+                  Excluir
+                </button>
+              </div>
+            </td>
           </tr>
-
+          <!--
           <tr
             *ngFor="
               let i of preencherLinhasVazias(usuarios.length);
@@ -44,8 +55,10 @@
             "
             class="linha-vazia"
           >
+        
             <td colspan="6">&nbsp;</td>
           </tr>
+          -->
         </tbody>
       </table>
     </div>

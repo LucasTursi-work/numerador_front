@@ -1,0 +1,63 @@
+@use "../styles/colors" as *;
+@use "sass:color";
+
+* {
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.container {
+  min-height: fit-content;
+  max-height: 33vh;
+  min-width: fit-content;
+  max-width: 45vw;
+}
+button {
+  background-color: $primary;
+  height: 4rem;
+  width: 8rem;
+  color: white;
+  margin: 0.2rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  border-width: 0;
+  box-shadow: 2px 2px 2px gray;
+  &:hover {
+    background-color: $primary-light;
+    box-shadow: 4px 3px 5px lightgray;
+  }
+  &:active {
+    background-color: $primary-dark;
+    box-shadow: 2px 2px 2px darkgray;
+  }
+}
+
+#cancelar {
+  background-color: $danger;
+  &:hover {
+    background-color: lighten($danger, 15%);
+    box-shadow: 4px 3px 5px lightgray;
+  }
+  &:active {
+    background-color: darken($danger, 15%);
+  }
+}
+input {
+  padding: 0.5rem;
+  margin: 1rem;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  height: 3rem;
+  width: 100%;
+}
+.ipt_lg {
+  width: 12vw;
+  font-size: 1.5rem;
+}
+
+.ipt_sm {
+  width: 6vw;
+  font-size: 1.5rem;
+}

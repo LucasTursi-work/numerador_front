@@ -1,11 +1,35 @@
 @use "../styles/colors" as *;
+@use "sass:color";
 :root {
   margin: 0;
   padding: 0;
 }
+#bt_editar {
+  background-color: $primary-light;
+  &:hover {
+    background-color: $primary-lighter;
+    box-shadow: 4px 3px 5px lightgray;
+  }
+  &:active {
+    background-color: $primary-dark;
+    box-shadow: 2px 2px 2px darkgray;
+  }
+}
+
+#bt_excluir {
+  background-color: $danger;
+  &:hover {
+    background-color: lighten($danger, 15%);
+    box-shadow: 4px 3px 5px lightgray;
+  }
+  &:active {
+    background-color: darken($danger, 15%);
+    box-shadow: 2px 2px 2px darkgray;
+  }
+}
 .tabela-container {
   //padding: 1rem;
-  //max-width: 24vw;
+  //max-width: 80vw;
 }
 label {
   font-size: 0.5rem;
@@ -23,26 +47,40 @@ label {
   margin: 0;
   margin-left: 1rem;
 }
-
+.edicao {
+  display: grid;
+  grid-template-columns: 0.1fr 1fr 1fr 0.1fr;
+  width: 12rem;
+}
+button {
+  color: white;
+  margin: 0.2rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  padding: 0.2rem;
+  border-radius: 0.5rem;
+  border-width: 0;
+  box-shadow: 2px 2px 2px gray;
+}
 table {
   table-layout: fixed;
   width: fit-content;
-  max-width: 90%;
+  max-width: 99%;
   border-collapse: collapse;
   margin-top: 1rem;
   font-size: 1.5rem;
 
   th:nth-child(1),
   td:nth-child(1) {
-    width: 28%;
+    width: 25%;
   } // Nome
   th:nth-child(2),
   td:nth-child(2) {
-    width: 12%;
+    width: 10%;
   } // CPF
   th:nth-child(3),
   td:nth-child(3) {
-    width: 28%;
+    width: 25%;
   } // Email
   th:nth-child(4),
   td:nth-child(4) {
@@ -56,6 +94,10 @@ table {
   td:nth-child(6) {
     width: 12%;
   } // Data Cadastro
+  th:nth-child(7),
+  td:nth-child(7) {
+    width: 10%;
+  } //Utilidade
   th {
     background-color: $primary-light;
     color: white;
@@ -84,12 +126,12 @@ table {
 }
 
 .tabela-customizada {
-  width: 100%; //usa o total do container pai
+  width: 100vw; //usa o total do container pai
   border-collapse: collapse;
   font-size: 0.9rem;
   border-radius: 1rem;
   left: 1rem;
-
+  //white-space: nowrap;
   thead {
     background-color: $primary-light;
     color: white;

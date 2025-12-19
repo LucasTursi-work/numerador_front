@@ -33,6 +33,18 @@ export class UsuarioService {
     return this.http.delete<void>(`${this.API}/${id}`);
   }
 
+  patchUsuario(
+    id: number,
+    dados: Partial<UsuarioResponseDTO>
+  ): Observable<UsuarioResponseDTO> {
+    // A data de atualização pode ser gerada no momento do envio
+    const payload = {
+      ...dados,
+      dataAtualizacao: new Date().toISOString(),
+    };
+    return this.http.patch<UsuarioResponseDTO>(`${this.API}/${id}`, payload);
+  }
+
   alterarSenha(dados: AlterarSenhaRequestDTO): Observable<string> {
     return this.http.post<string>(`${this.API}/alterar-senha`, dados);
   }

@@ -1,1 +1,33 @@
-<p>editar-usuario works!</p>
+<div class="container" [formGroup]="form">
+  <h3>Editar usuário {{ usuario.nome }}</h3>
+
+  <label>Nome</label><br />
+  <input type="text" formControlName="nome" class="ipt_lg" />
+
+  <br />
+
+  <label>E-mail</label><br />
+  <input type="email" formControlName="email" class="ipt_lg" />
+
+  <br />
+
+  <div class="row-selects">
+    <select formControlName="perfil" class="ipt_sm">
+      <option *ngFor="let p of perfis" [value]="p">{{ p }}</option>
+    </select>
+
+    <div class="footer-btns">
+      <button
+        type="submit"
+        (click)="salvar()"
+        [disabled]="form.invalid"
+        class="btn-save"
+      >
+        Salvar Alterações
+      </button>
+      <button type="button" (click)="activeModal.dismiss()" id="cancelar">
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>

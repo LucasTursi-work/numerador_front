@@ -10,7 +10,7 @@ export interface UsuarioResponseDTO {
   dataCadastro: string; // Ou Date se converter
   dataLogin?: string;
   codigoValidador: string;
-}
+} //checar coerência do DTO na aplicação da edição do patch de usuário
 
 export interface PageableResponse {
   pageNumber: number;
