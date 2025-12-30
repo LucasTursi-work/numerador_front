@@ -18,6 +18,57 @@ body {
   overflow-y: auto;
   overflow: hidden; // Evita scroll
 }
+input {
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  width: 100%;
+}
 
+.separador-mini {
+  height: 2vh;
+  width: 5vw;
+}
+
+.separador {
+  height: 4vh;
+  width: 5vw;
+}
+
+.separador-big {
+  height: 6vh;
+  width: 5vw;
+}
+
+button {
+  box-shadow: none;
+  margin: 0 auto;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  width: 15rem;
+  color: white;
+  background-color: $primary;
+  &:hover {
+    background-color: $primary-light;
+    color: $accent;
+  }
+  &:active {
+    background-color: $primary-dark;
+  }
+}
+
+input,
+select {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-light;
+    box-shadow: 0 0 0 2px rgba($primary-light, 0.2);
+  }
+}
 /* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";

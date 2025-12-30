@@ -1,0 +1,11 @@
+@use "../styles/colors" as *;
+@use "sass:color";
+
+* {
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.txt-danger {
+  color: $danger;
+}

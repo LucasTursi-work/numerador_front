@@ -1,33 +1,34 @@
 <div class="container" [formGroup]="form">
   <h3>Editar usuário {{ usuario.nome }}</h3>
-
-  <label>Nome</label><br />
-  <input type="text" formControlName="nome" class="ipt_lg" />
-
   <br />
+  <div>
+    <label>Nome</label><br />
+    <input type="text" formControlName="nome" class="ipt_lg" />
+  </div>
 
-  <label>E-mail</label><br />
-  <input type="email" formControlName="email" class="ipt_lg" />
-
-  <br />
+  <div>
+    <label>E-mail</label><br />
+    <input type="email" formControlName="email" class="ipt_lg" />
+  </div>
 
   <div class="row-selects">
+    <label>Tipo de usuário</label><br />
     <select formControlName="perfil" class="ipt_sm">
       <option *ngFor="let p of perfis" [value]="p">{{ p }}</option>
     </select>
-
-    <div class="footer-btns">
-      <button
-        type="submit"
-        (click)="salvar()"
-        [disabled]="form.invalid"
-        class="btn-save"
-      >
-        Salvar Alterações
-      </button>
-      <button type="button" (click)="activeModal.dismiss()" id="cancelar">
-        Cancelar
-      </button>
-    </div>
+  </div>
+  <br />
+  <div class="footer-btns">
+    <button
+      type="submit"
+      (click)="salvar()"
+      [disabled]="form.invalid"
+      class="btn-save"
+    >
+      Salvar Alterações
+    </button>
+    <button type="button" (click)="activeModal.dismiss()" id="cancelar">
+      Cancelar
+    </button>
   </div>
 </div>

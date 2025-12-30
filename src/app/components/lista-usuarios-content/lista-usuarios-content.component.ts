@@ -27,6 +27,8 @@ import { CeilPipe } from '../../shared/pipes/ceil.pipe';
     TabelaUsuariosComponent,
     FiltrosUsuariosComponent,
     CeilPipe,
+    EditarUsuarioComponent,
+    DeletarUsuarioComponent,
   ],
   templateUrl: './lista-usuarios-content.component.html',
   styleUrl: './lista-usuarios-content.component.scss',
@@ -89,7 +91,7 @@ export class ListaUsuariosContentComponent implements OnInit {
 
   abrirModalEdicao(usuario: UsuarioResponseDTO) {
     const modalRef = this.modalService.open(EditarUsuarioComponent, {
-      size: 'lg',
+      size: 'sm',
       centered: true,
       backdrop: 'static', // Impede fechar ao clicar fora
     });

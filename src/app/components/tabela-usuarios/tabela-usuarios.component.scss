@@ -27,6 +27,13 @@
     box-shadow: 2px 2px 2px darkgray;
   }
 }
+
+.edicao {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
 .tabela-container {
   //padding: 1rem;
   //max-width: 80vw;
@@ -47,11 +54,13 @@ label {
   margin: 0;
   margin-left: 1rem;
 }
+/*
 .edicao {
   display: grid;
   grid-template-columns: 0.1fr 1fr 1fr 0.1fr;
   width: 12rem;
 }
+  */
 button {
   color: white;
   margin: 0.2rem;
