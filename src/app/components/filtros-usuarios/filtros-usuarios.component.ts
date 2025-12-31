@@ -6,6 +6,7 @@ import {
   FiltroUsuarios,
 } from '../../shared/dtos/request/usuario-params.dto';
 import { StatusUsuario, PerfilUsuario } from '../../shared/enums/user-enums';
+import { UsuarioResponseDTO } from '../../shared/dtos/response/usuario-response.dto';
 
 @Component({
   selector: 'app-filtros-usuarios',
@@ -21,7 +22,11 @@ export class FiltrosUsuariosComponent {
   perfil: PerfilUsuario | null = null;
 
   @Output() filtrosAplicados = new EventEmitter<FiltroUsuarios>();
+  @Output() adicionar = new EventEmitter<void>();
 
+  onAdicionar() {
+    this.adicionar.emit();
+  }
   aplicarFiltros(): void {
     this.filtrosAplicados.emit({
       nome: this.nome || undefined,

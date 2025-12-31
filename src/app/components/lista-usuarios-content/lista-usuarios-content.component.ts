@@ -17,6 +17,7 @@ import { FiltrosUsuariosComponent } from '../filtros-usuarios/filtros-usuarios.c
 import { EditarUsuarioComponent } from '../editar-usuario/editar-usuario.component';
 import { DeletarUsuarioComponent } from '../deletar-usuario/deletar-usuario.component';
 import { CeilPipe } from '../../shared/pipes/ceil.pipe';
+import { CriarUsuarioComponent } from '../criar-usuario/criar-usuario.component';
 
 @Component({
   selector: 'app-lista-usuarios-content',
@@ -29,6 +30,7 @@ import { CeilPipe } from '../../shared/pipes/ceil.pipe';
     CeilPipe,
     EditarUsuarioComponent,
     DeletarUsuarioComponent,
+    CriarUsuarioComponent,
   ],
   templateUrl: './lista-usuarios-content.component.html',
   styleUrl: './lista-usuarios-content.component.scss',
@@ -87,6 +89,26 @@ export class ListaUsuariosContentComponent implements OnInit {
         this.carregando = false;
       },
     });
+  }
+  abrirModalAdicionarUsuario() {
+    const modalRef = this.modalService.open(CriarUsuarioComponent, {
+      centered: true,
+      size: 'md', // ou 'lg' se o formulário for grande
+      backdrop: 'static', // Impede fechar ao clicar fora (evita perda de dados)
+    });
+
+    modalRef.result.then(
+      (resultado) => {
+        // Se o componente de criação disparar activeModal.close('salvo')
+        if (resultado === 'salvo') {
+          this.carregarUsuarios(); // Atualiza a tabela com o novo usuário
+        }
+      },
+      (reason) => {
+        // Modal fechado ou cancelado
+        console.log('Criação de usuário cancelada');
+      }
+    );
   }
 
   abrirModalEdicao(usuario: UsuarioResponseDTO) {

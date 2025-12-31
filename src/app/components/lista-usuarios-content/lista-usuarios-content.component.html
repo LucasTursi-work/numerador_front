@@ -1,5 +1,6 @@
 <app-filtros-usuarios
   (filtrosAplicados)="aplicarFiltros($event)"
+  (adicionar)="abrirModalAdicionarUsuario()"
 ></app-filtros-usuarios>
 <app-tabela-usuarios
   [usuarios]="usuariosPaginados"

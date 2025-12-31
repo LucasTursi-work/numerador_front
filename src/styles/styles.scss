@@ -40,19 +40,50 @@ input {
 }
 
 button {
-  box-shadow: none;
-  margin: 0 auto;
-  border-radius: 1rem;
-  font-size: 1.2rem;
-  width: 15rem;
-  color: white;
-  background-color: $primary;
+  color: $txt;
+  border-color: none;
+  background: $primary;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin: 0.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  //box-shadow: 4px 3px 4px darkgrey;
+  border: none;
+  font-size: 12px;
+  font-weight: bold;
+
   &:hover {
-    background-color: $primary-light;
     color: $accent;
+    border-color: none;
+    background-color: $primary-light;
+    transform: scale(1.1);
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin: 0.2rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    //box-shadow: 8px 5px 6px gray;
+    border: none;
   }
-  &:active {
-    background-color: $primary-dark;
+  &:focus {
+    color: $txt;
+    border-color: none;
+    background: $primary-darkest;
+    transform: scale(0.9);
+    border-radius: 1rem;
+    padding: 0.25rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    box-shadow: none;
+    border: none;
   }
 }
 

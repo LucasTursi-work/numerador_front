@@ -16,7 +16,13 @@
   <!-- Campo CPF -->
   <div>
     <label>CPF:</label>
-    <input type="text" formControlName="cpf" placeholder="Apenas números" />
+    <input
+      type="text"
+      formControlName="cpf"
+      (input)="formatarCpf($event)"
+      maxlength="14"
+      placeholder="000.000.000-00"
+    />
     <small *ngIf="form.get('cpf')?.hasError('required')"
       >Campo obrigatório</small
     >
