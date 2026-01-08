@@ -64,7 +64,7 @@ export class ListaUsuariosContentComponent implements OnInit {
     this.usuarioService.listarUsuariosPaginado(this.parametros).subscribe({
       // Caso a resposta tenha a estrutura paginada (content)
       next: (resposta: any) => {
-        console.log('Resposta bruta:', resposta);
+        //console.log('Resposta bruta:', resposta);
 
         // Verifica se a resposta já é o array
         if (Array.isArray(resposta)) {

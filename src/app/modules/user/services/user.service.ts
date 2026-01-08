@@ -14,6 +14,7 @@ import { AlterarSenhaRequestDTO } from '../../../shared/dtos/request/alterar-sen
 @Injectable({ providedIn: 'root' })
 export class UsuarioService {
   private readonly API = `${environment.apiUrl}/usuarios`;
+  //private readonly API = 'http://localhost:8080/numerador/usuarios';
   constructor(private http: HttpClient) {
     console.log('API URL:', this.API);
   }
@@ -25,7 +26,8 @@ export class UsuarioService {
       status: dto.status || StatusUsuario.ATIVO, // Valor padrão
     };
 
-    return this.http.post<UsuarioResponseDTO>(this.API, body);
+    return this.http.post<UsuarioResponseDTO>(`${this.API}`, dto);
+    //return this.http.post<UsuarioResponseDTO>(this.API, dto);
   }
 
   deletarUsuario(id: number): Observable<void> {

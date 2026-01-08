@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 import { LoginRequestDto } from '../../shared/dtos/request/login-request.dto';
 import { UsuarioResponseDTO } from '../../shared/dtos/response/usuario-response.dto';
 import { StatusUsuario, PerfilUsuario } from '../../shared/enums/user-enums';
+import { LoginResponseDto } from '../../shared/dtos/response/login-response.dto';
 import { environment } from '../../../environments/environment';
 
 interface UsuarioLogadoState {
@@ -37,17 +38,24 @@ export class AuthService {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
-  login(credenciais: LoginRequestDto): Observable<UsuarioResponseDTO> {
-    // 1. Faz a chamada HTTP para o backend
-    return this.http.post<UsuarioResponseDTO>(this.apiUrl, credenciais).pipe(
-      // 2. Usa 'tap' para fazer um efeito colateral (salvar o estado)
-      tap((resposta: UsuarioResponseDTO) => {
-        // 3. Atualiza o BehaviorSubject com os dados do usuário
+  login(credenciais: LoginRequestDto): Observable<LoginResponseDto> {
+    return this.http.post<LoginResponseDto>(this.apiUrl, credenciais).pipe(
+      tap((resposta: LoginResponseDto) => {
+        // 1. VERIFICAÇÃO DE SEGURANÇA PARA SSR (Angular 18)
+        if (isPlatformBrowser(this.platformId)) {
+          // 2. SALVA O TOKEN (O interceptor vai ler 'jwt_token' aqui)
+          localStorage.setItem('jwt_token', resposta.token);
+          localStorage.setItem('usuarioId', resposta.usuarioId.toString());
+
+          console.log('Token salvo com sucesso no LocalStorage!');
+        }
+
+        // 3. ATUALIZA O ESTADO (Para os componentes saberem quem logou)
         this.usuarioLogadoSubject.next({
-          id: resposta.id,
-          nome: resposta.nome,
-          perfil: resposta.perfil,
-          status: resposta.status,
+          id: resposta.usuarioId,
+          nome: resposta.nome || 'Usuário',
+          perfil: resposta.perfil as any,
+          status: resposta.status as any,
         });
       })
     );
