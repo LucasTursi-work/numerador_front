@@ -1,6 +1,6 @@
 export enum PerfilUsuario {
   ADMIN = 'ADMIN',
-  USUARIO = 'USUARIO',
+  USUARIO = 'USER',
 }
 
 export enum StatusUsuario {
