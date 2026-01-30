@@ -11,6 +11,7 @@
   font-weight: bold;
 }
 #secondheader {
+  all: unset;
   background-color: $primary-light;
   color: white;
   height: 2rem;
@@ -19,7 +20,9 @@
   grid-template-columns: 1fr 1fr;
   column-gap: 1rem;
 }
-button {
+.tabs {
+  all: unset;
+  text-align: center;
   background-color: $primary;
   color: white;
   border: none;

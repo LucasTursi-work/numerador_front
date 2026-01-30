@@ -70,7 +70,7 @@ button {
     //box-shadow: 8px 5px 6px gray;
     border: none;
   }
-  &:focus {
+  &:active {
     color: $txt;
     border-color: none;
     background: $primary-darkest;

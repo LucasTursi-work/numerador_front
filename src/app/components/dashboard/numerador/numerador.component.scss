@@ -1,5 +1,10 @@
 @import "_colors.scss";
 
+:host {
+  display: block;
+  width: 100%;
+}
+
 #miatablea {
   border-radius: 0.5rem;
   background-color: white;
@@ -44,6 +49,7 @@ td {
 tr {
   height: 2rem;
   min-width: 12vw;
+
   width: 100%;
   background-color: $primary-lightest;
   font-size: 2rem;

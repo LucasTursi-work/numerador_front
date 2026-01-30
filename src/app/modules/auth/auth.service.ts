@@ -25,7 +25,7 @@ export class AuthService {
   // 1. O BehaviorSubject para gerenciar o estado global do usuário
   private usuarioLogadoSubject = new BehaviorSubject<UsuarioLogadoState>({
     id: null,
-    nome: null,
+    nome: null, 
     perfil: null,
     status: null,
   });

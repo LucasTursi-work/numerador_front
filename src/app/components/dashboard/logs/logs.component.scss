@@ -50,7 +50,7 @@ table tr:last-child td:last-child {
 /* As larguras aqui são exemplos, ajuste para o seu layout. A soma deve ser 47rem */
 .segundo-header th:nth-child(1),
 .corpo_tabela td:nth-child(1) {
-  width: 2rem; /* Horário */
+  width: 4rem; /* Horário */
 }
 .segundo-header th:nth-child(2),
 .corpo_tabela td:nth-child(2) {
@@ -66,7 +66,7 @@ table tr:last-child td:last-child {
 }
 .segundo-header th:nth-child(5),
 .corpo_tabela td:nth-child(5) {
-  width: 12rem; /* Ação */
+  width: 8rem; /* Ação */
   text-align: left;
 }
 

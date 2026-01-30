@@ -41,18 +41,7 @@ export class NumeradorComponent implements OnInit {
     //Aciona a carga inicial para o gráfico (via service compartilhado)
     this.numeradorService.carregarECompartilharContagens();
   }
-  /*
-  private buscarUltimosDocumentos() {
-    this.documentsService.buscarUltimosDocumentos().subscribe({
-      next: (data) => {
-        this.documentos$ = data;
-      },
-      error: (err) => {
-        console.error('Erro ao buscar últimos documentos', err);
-      },
-    });
-  }
-*/
+
   gerarDocumento(documento: DocumentoResponseDto) {
     // Validação
     if (
@@ -71,7 +60,7 @@ export class NumeradorComponent implements OnInit {
       this.documentsService.gerarNumeracao(dadosGeracao).subscribe({
         next: (resposta) => {
           console.log('Documento gerado com sucesso:', resposta);
-          // ⚠️ CHAVE: Notifica o serviço para recarregar as contagens do backend.
+          // Notifica o serviço para recarregar as contagens do backend.
           // Isso garante que o 'numero' (contagem) atualizado seja buscado.
           this.numeradorService.carregarECompartilharContagens();
           // Recarrega a tabela, atualiza a contagem local
