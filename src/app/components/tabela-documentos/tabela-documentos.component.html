@@ -1,0 +1,44 @@
+<div class="conteudo">
+  <table id="document-types">
+    <thead>
+      <tr class="primeiro-header">
+        <th colspan="4">Tipos de Documentos</th>
+      </tr>
+    </thead>
+    <tbody class="corpo_tabela">
+      @for (item of listaDocumentos; track item.id) {
+        <tr>
+          <td class="nome-documento">{{ item.nome }}</td>
+          <td>
+            <label class="switch">
+              <input
+                type="checkbox"
+                [checked]="item.status === 'ATIVO'"
+                (change)="toggleStatus(item)"
+              />
+              <span class="slider"></span>
+            </label>
+          </td>
+          <td>
+            <app-botao
+              [texto]="'Editar'"
+              class="btn-editar"
+              (click)="editar(item)"
+            ></app-botao>
+          </td>
+          <td>
+            <app-botao
+              [texto]="'Excluir'"
+              class="btn-excluir"
+              (click)="excluir(item.id)"
+            ></app-botao>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="4">Nenhum documento cadastrado.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

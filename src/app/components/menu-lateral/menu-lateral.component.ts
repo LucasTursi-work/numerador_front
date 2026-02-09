@@ -18,13 +18,16 @@ export class MenuLateralComponent {
   constructor(
     private router: Router,
     private modalComService: ModalComunicacaoService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
   navDashboard() {
     this.router.navigate(['/dashboard']);
   }
   navListaUsuarios() {
     this.router.navigate(['/listaUsuarios']);
+  }
+  navTiposDocumentos() {
+    this.router.navigate(['/tiposDocumentos']);
   }
   navModalDocumento() {
     this.modalComService.abrirModal('documento');

@@ -1,0 +1,25 @@
+<p>modal-editar-tipo-doc works!</p>
+<div class="modal-header">
+  <h4 class="modal-title">Editar Tipo de Documento</h4>
+  <button
+    type="button"
+    class="btn-close"
+    (click)="activeModal.dismiss()"
+  ></button>
+</div>
+<div class="modal-body">
+  <label for="nome">Nome do Documento</label>
+  <input type="text" id="nome" class="form-control" [(ngModel)]="tipo.nome" />
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-secondary"
+    (click)="activeModal.dismiss()"
+  >
+    Cancelar
+  </button>
+  <button type="button" class="btn btn-primary" (click)="salvar()">
+    Salvar
+  </button>
+</div>
