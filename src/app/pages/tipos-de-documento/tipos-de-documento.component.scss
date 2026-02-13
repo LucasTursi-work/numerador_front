@@ -1,0 +1,28 @@
+@use "../styles/colors" as *;
+@use "sass:color";
+:root {
+  margin: 0;
+  padding: 0;
+}
+.header {
+  width: 100vw;
+  height: 6rem;
+  background-color: $primary;
+  box-shadow: 1px 0 2px 2px lightgray;
+}
+.menu {
+  float: left;
+  padding: 0;
+
+  // background-color: $primary-lightest;
+  height: 100%;
+}
+.content {
+  //display: grid;
+  //grid-template-columns: minmax(6vw, 12vw) 1fr;
+  width: 70%;
+  float: left;
+  margin-left: 1rem;
+  height: 100%;
+  //background-color: grey;
+}

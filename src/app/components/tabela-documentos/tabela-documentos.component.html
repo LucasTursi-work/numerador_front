@@ -8,7 +8,7 @@
     <tbody class="corpo_tabela">
       @for (item of listaDocumentos; track item.id) {
         <tr>
-          <td class="nome-documento">{{ item.nome }}</td>
+          <td class="nome-documento">{{ item.nomeTipoDocumento }}</td>
           <td>
             <label class="switch">
               <input
@@ -16,20 +16,20 @@
                 [checked]="item.status === 'ATIVO'"
                 (change)="toggleStatus(item)"
               />
-              <span class="slider"></span>
+              <span class="slider round"></span>
             </label>
           </td>
           <td>
             <app-botao
               [texto]="'Editar'"
-              class="btn-editar"
+              id="bt-editar"
               (click)="editar(item)"
             ></app-botao>
           </td>
           <td>
             <app-botao
               [texto]="'Excluir'"
-              class="btn-excluir"
+              id="bt_excluir"
               (click)="excluir(item.id)"
             ></app-botao>
           </td>

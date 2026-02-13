@@ -1,4 +1,5 @@
 import { PerfilUsuario, StatusUsuario } from '../../enums/user-enums';
+import { Status } from '../../enums/documents-enums';
 
 export interface DocumentoResponseDto {
   id: number;
@@ -24,8 +25,8 @@ export interface UsuarioSimplificadoDTO {
 
 export interface TipoDocumentoDTO {
   id: number;
-  nome: string;
-  status: PerfilUsuario; // Ou use um enum se existir
+  nomeTipoDocumento: string;
+  status: Status;
 }
 
 export interface CartorioDTO {

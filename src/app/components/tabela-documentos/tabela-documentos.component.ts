@@ -35,25 +35,27 @@ export class TabelaDocumentosComponent implements OnInit {
     this.carregarDocumentos();
   }
 
+  // No carregarDocumentos
   carregarDocumentos() {
     this.documentoService.listarTodosTiposDocumentos().subscribe((dados) => {
-      this.listaDocumentos = dados;
+      this.listaDocumentos = dados.content; // Pega o conteúdo da paginação do Java
     });
   }
 
+  // No toggleStatus
   toggleStatus(documento: TipoDocumentoDTO) {
-    // Define o novo status baseado no atual
     const novoStatus =
       documento.status === Status.ATIVO ? Status.INATIVO : Status.ATIVO;
-
+    // O endpoint PATCH do Java apenas inverte o status atual
     this.documentoService
       .alterarStatusTipoDocumento(documento.id, novoStatus)
       .subscribe({
-        next: (docAtualizado) => {
-          // Atualiza o objeto na lista local para refletir no HTML
-          documento.status = docAtualizado.status as Status;
+        next: (docAtualizado: any) => {
+          // Converte o retorno booleano do Java de volta para o Enum
+          documento.status = docAtualizado.tipoDocumentoAtivo
+            ? Status.ATIVO
+            : Status.INATIVO;
         },
-        error: (err) => console.error('Erro ao mudar status', err),
       });
   }
 
@@ -72,7 +74,7 @@ export class TabelaDocumentosComponent implements OnInit {
             .subscribe({
               next: (docAtualizado) => {
                 // Atualiza a linha na tabela com o novo nome vindo do servidor
-                doc.nome = docAtualizado.nome;
+                doc.nomeTipoDocumento = docAtualizado.nome;
               },
             });
         }

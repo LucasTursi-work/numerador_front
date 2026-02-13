@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
 }
-#bt_editar {
+.button #bt_editar {
   background-color: $primary-light;
   &:hover {
     background-color: $primary-lighter;
@@ -16,15 +16,16 @@
   }
 }
 
-#bt_excluir {
-  background-color: $danger;
+.button #bt_excluir {
+  all: unset;
+  background-color: $danger !important;
   &:hover {
     background-color: lighten($danger, 15%);
-    box-shadow: 4px 3px 5px lightgray;
+    //box-shadow: 4px 3px 5px lightgray;
   }
   &:active {
     background-color: darken($danger, 15%);
-    box-shadow: 2px 2px 2px darkgray;
+    //box-shadow: 2px 2px 2px darkgray;
   }
 }
 
@@ -35,7 +36,7 @@ label {
 
 table {
   table-layout: fixed;
-  width: 80vw;
+  width: 90vw;
   max-width: 99%;
   border-radius: 1rem;
   border-collapse: collapse;
@@ -55,16 +56,23 @@ table {
   }
   td.Nome {
     text-align: left;
+    color: black;
+  }
+
+  tr:nth-child(odd) {
+    background-color: $primary-lightest;
   }
 
   tr:nth-child(even) {
-    background-color: #e6f4ec;
-    border-radius: 2rem;
-    // tom suave esverdeado
+    background-color: $primary-lighter;
   }
 
   tr:hover {
     background-color: $primary-light;
     color: white;
   }
+}
+
+.corpo_tabela td:nth-child(1) {
+  width: 16rem; /* Nome */
 }

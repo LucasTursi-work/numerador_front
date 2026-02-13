@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, tap, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 import { Status } from '../../../shared/enums/documents-enums';
 
@@ -13,6 +14,7 @@ import { UpdateDocumentoDto } from '../../../shared/dtos/request/update-document
 import { CriarDocumentoDto } from '../../../shared/dtos/request/criar-documento.dto';
 import { GerarNumeracaoDto } from '../../../shared/dtos/request/gerar-numeracao.dto';
 import { TipoDocumento } from '../../../shared/interfaces/tipo-documento.interface';
+import { TipoDocumentoDTO } from '../../../shared/dtos/response/documento-response.dto';
 import { CreateTipoDocumentoDto } from '../../../shared/dtos/request/criar-tipo-documento.dto';
 import { CartorioCadastroDto } from '../../../shared/dtos/request/cartorio-cadastro.dto';
 
@@ -51,12 +53,12 @@ export class DocumentoService {
   }
   buscarPorId(id: number): Observable<DocumentoResponseDto> {
     return this.http.get<DocumentoResponseDto>(
-      `${this.apiUrl}/documentos/${id}`
+      `${this.apiUrl}/documentos/${id}`,
     );
   }
   atualizarDocumento(
     id: number,
-    documento: UpdateDocumentoDto
+    documento: UpdateDocumentoDto,
   ): Observable<DocumentoResponseDto> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.put<DocumentoResponseDto>(url, documento);
@@ -68,13 +70,13 @@ export class DocumentoService {
   }
 
   criarDocumento(
-    documento: CriarDocumentoDto
+    documento: CriarDocumentoDto,
   ): Observable<DocumentoResponseDto> {
     return this.http.post<DocumentoResponseDto>(this.apiUrl, documento);
   }
 
   gerarNumeracao(
-    dadosGeracao: GerarNumeracaoDto
+    dadosGeracao: GerarNumeracaoDto,
   ): Observable<DocumentoResponseDto> {
     const url = `${this.apiUrl}/gerar`;
     return this.http.post<DocumentoResponseDto>(url, dadosGeracao);
@@ -84,7 +86,7 @@ export class DocumentoService {
     const url = `${this.apiUrl}/ultimos`;
     return this.http.get<DocumentoResponseDto[]>(url).pipe(
       // Atualiza o BehaviorSubject com a lista fresca do servidor
-      tap((data) => this.documentosSubject.next(data))
+      tap((data) => this.documentosSubject.next(data)),
     );
   }
 
@@ -97,7 +99,7 @@ export class DocumentoService {
 
   atualizarTipoDocumento(
     id: number,
-    tipoDocumento: TipoDocumento
+    tipoDocumento: TipoDocumento,
   ): Observable<TipoDocumento> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.put<TipoDocumento>(url, tipoDocumento);
@@ -108,19 +110,28 @@ export class DocumentoService {
     return this.http.delete(url);
   }
 
-  listarTodosTiposDocumentos(): Observable<TipoDocumento[]> {
-    return this.http.get<TipoDocumento[]>(this.apiUrl);
+  listarTodosTiposDocumentos(): Observable<any> {
+    return this.http.get<any>(this.apiUrl).pipe(
+      map((res) => {
+        // Convertendo o booleano do Java para o seu Enum do Angular
+        res.content = res.content.map((item: any) => ({
+          ...item,
+          status: item.tipoDocumentoAtivo ? Status.ATIVO : Status.INATIVO,
+        }));
+        return res;
+      }),
+    );
   }
 
   criarTipoDocumento(
-    tipoDocumento: CreateTipoDocumentoDto
+    tipoDocumento: CreateTipoDocumentoDto,
   ): Observable<TipoDocumento> {
     return this.http.post<TipoDocumento>(this.apiUrl, tipoDocumento);
   }
 
   alterarStatusTipoDocumento(
     id: number,
-    status: Status
+    status: Status,
   ): Observable<TipoDocumento> {
     const url = `${this.apiUrl}/${id}/status?status=${status}`;
     // A requisição PATCH não precisa de corpo (body) para esta chamada
