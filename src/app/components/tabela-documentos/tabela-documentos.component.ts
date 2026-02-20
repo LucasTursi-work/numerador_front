@@ -37,8 +37,9 @@ export class TabelaDocumentosComponent implements OnInit {
 
   // No carregarDocumentos
   carregarDocumentos() {
-    this.documentoService.listarTodosTiposDocumentos().subscribe((dados) => {
-      this.listaDocumentos = dados.content; // Pega o conteúdo da paginação do Java
+    this.documentoService.listarTodosTiposDocumentos().subscribe((res) => {
+      // Agora o 'res.content' já vem limpo e com os nomes certos
+      this.listaDocumentos = res.content;
     });
   }
 
@@ -74,7 +75,7 @@ export class TabelaDocumentosComponent implements OnInit {
             .subscribe({
               next: (docAtualizado) => {
                 // Atualiza a linha na tabela com o novo nome vindo do servidor
-                doc.nomeTipoDocumento = docAtualizado.nome;
+                doc.nome = docAtualizado.nome;
               },
             });
         }

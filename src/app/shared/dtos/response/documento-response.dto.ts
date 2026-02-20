@@ -25,7 +25,7 @@ export interface UsuarioSimplificadoDTO {
 
 export interface TipoDocumentoDTO {
   id: number;
-  nomeTipoDocumento: string;
+  nome: string;
   status: Status;
 }
 

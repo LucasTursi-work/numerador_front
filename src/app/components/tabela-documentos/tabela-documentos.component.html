@@ -1,3 +1,4 @@
+<!-- COMENTADO
 <div class="conteudo">
   <table id="document-types">
     <thead>
@@ -7,7 +8,7 @@
     </thead>
     <tbody class="corpo_tabela">
       @for (item of listaDocumentos; track item.id) {
-        <tr>
+        <tr *ngFor="let item of listaDocumentos">
           <td class="nome-documento">{{ item.nomeTipoDocumento }}</td>
           <td>
             <label class="switch">
@@ -39,6 +40,35 @@
           <td colspan="4">Nenhum documento cadastrado.</td>
         </tr>
       }
+    </tbody>
+  </table>
+</div>
+-->
+
+<div class="conteudo">
+  <table id="document-types">
+    <thead>
+      <tr class="primeiro-header">
+        <th colspan="4">Tipos de Documentos</th>
+      </tr>
+    </thead>
+    <tbody class="corpo_tabela">
+      <tr *ngFor="let item of listaDocumentos">
+        <td class="nome-documento">{{ item.nome }}</td>
+        <td>
+          <label class="switch">
+            <input
+              type="checkbox"
+              [checked]="item.status === 'ATIVO'"
+              (change)="toggleStatus(item)"
+            />
+            <span class="slider"></span>
+          </label>
+        </td>
+      </tr>
+      <tr *ngIf="listaDocumentos.length === null">
+        <td colspan="4">Nenhum documento cadastrado.</td>
+      </tr>
     </tbody>
   </table>
 </div>

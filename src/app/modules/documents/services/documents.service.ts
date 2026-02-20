@@ -110,14 +110,20 @@ export class DocumentoService {
     return this.http.delete(url);
   }
 
-  listarTodosTiposDocumentos(): Observable<any> {
+  listarTodosTiposDocumentos(): Observable<{ content: TipoDocumentoDTO[] }> {
     return this.http.get<any>(this.apiUrl).pipe(
       map((res) => {
-        // Convertendo o booleano do Java para o seu Enum do Angular
-        res.content = res.content.map((item: any) => ({
-          ...item,
-          status: item.tipoDocumentoAtivo ? Status.ATIVO : Status.INATIVO,
-        }));
+        // O 'map' aqui serve para "limpar" o que vem do Java
+        res.content = res.content.map(
+          (item: any) =>
+            ({
+              id: item.id,
+              // Garante que o nome seja mapeado corretamente, não importa como venha do Java
+              nome: item.nome || item.nomeTipoDocumento,
+              // Converte o status para o seu Enum
+              status: item.status as Status,
+            }) as TipoDocumentoDTO,
+        );
         return res;
       }),
     );

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../modules/auth/auth.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CriarCartorioComponent } from '../criar-cartorio/criar-cartorio.component';
 import { CriarTipoDocumentoComponent } from '../criar-tipo-documento/criar-tipo-documento.component';
 import {

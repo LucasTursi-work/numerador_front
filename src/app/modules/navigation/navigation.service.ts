@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CriarCartorioComponent } from '../../components/criar-cartorio/criar-cartorio.component';
+import { CriarTipoDocumentoComponent } from '../../components/criar-tipo-documento/criar-tipo-documento.component';
 
 // Tipos de modal para evitar strings soltas
 export type TipoModal = 'documento' | 'cartorio';
