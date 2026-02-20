@@ -11,16 +11,16 @@ export type TipoModal = 'documento' | 'cartorio';
   providedIn: 'root', // Disponível globalmente (Standalone friendly)
 })
 export class ModalComunicacaoService {
-  // O Subject é o "sino" que emite o evento
-  private modalRequest = new Subject<TipoModal>();
+  constructor(private modalService: NgbModal) {} // Injetamos o NgbModal aqui
 
-  // O Observable é o "ouvinte" que outros componentes assinam
-  modalRequest$ = this.modalRequest.asObservable();
-
-  constructor() {}
-
-  // Método que o MenuLateralComponent irá chamar
   abrirModal(tipo: TipoModal): void {
-    this.modalRequest.next(tipo);
+    if (tipo === 'cartorio') {
+      this.modalService.open(CriarCartorioComponent, {
+        size: 'lg',
+        backdrop: 'static',
+      });
+    } else if (tipo === 'documento') {
+      this.modalService.open(CriarTipoDocumentoComponent, { size: 'md' });
+    }
   }
 }
