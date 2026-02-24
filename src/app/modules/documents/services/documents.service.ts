@@ -109,26 +109,55 @@ export class DocumentoService {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete(url);
   }
-
+  /*
   listarTodosTiposDocumentos(): Observable<{ content: TipoDocumentoDTO[] }> {
     return this.http.get<any>(this.apiUrl).pipe(
       map((res) => {
         // O 'map' aqui serve para "limpar" o que vem do Java
-        res.content = res.content.map(
-          (item: any) =>
-            ({
+        res.content = res.content.map((item: any) => {
+          res.content = res.content.map((item: any) => {
+            return {
               id: item.id,
-              // Garante que o nome seja mapeado corretamente, não importa como venha do Java
-              nome: item.nome || item.nomeTipoDocumento,
-              // Converte o status para o seu Enum
-              status: item.status as Status,
-            }) as TipoDocumentoDTO,
-        );
+              // Se nomeTipoDocumento vier null, ele tenta pegar 'nome'.
+              // Se ambos forem null, ele coloca 'Sem Nome' para você ver algo na tela.
+              nome: item.nomeTipoDocumento || item.nome || 'Documento sem nome',
+
+              // Se o status vier null do Java, definimos um padrão para o switch não quebrar
+              status: item.status ? (item.status as Status) : Status.INATIVO,
+            } as TipoDocumentoDTO;
+          });
+        });
         return res;
       }),
     );
   }
+*/
 
+  listarTodosTiposDocumentos(): Observable<any> {
+    return this.http.get<any>(this.apiUrl).pipe(
+      map((res) => {
+        // Determina qual é a lista de itens (seja paginada ou array direto)
+        let itens =
+          res && res.content ? res.content : Array.isArray(res) ? res : [];
+
+        // Normaliza os itens
+        itens = itens.map((item: any) => ({
+          ...item,
+          nome:
+            item.nome || item.nomeTipoDocumento || `Documento ID ${item.id}`,
+          status:
+            item.status || (item.tipoDocumentoAtivo ? 'ATIVO' : 'INATIVO'),
+        }));
+
+        // Retorna estrutura compatível com o componente (sempre com .content)
+        if (res && res.content) {
+          res.content = itens;
+          return res;
+        }
+        return { content: itens };
+      }),
+    );
+  }
   criarTipoDocumento(
     tipoDocumento: CreateTipoDocumentoDto,
   ): Observable<TipoDocumento> {

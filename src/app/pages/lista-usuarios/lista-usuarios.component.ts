@@ -27,27 +27,16 @@ import {
   styleUrl: './lista-usuarios.component.scss',
 })
 export class ListaUsuariosComponent implements OnInit, OnDestroy {
-  private modalSubscription!: Subscription;
+  private modalSubscription: Subscription = new Subscription();
 
   constructor(
     private modalService: NgbModal,
     private modalComService: ModalComunicacaoService,
     private documentsService: DocumentoService,
-    private numeradorService: NumeradorService
+    private numeradorService: NumeradorService,
   ) {}
 
-  ngOnInit() {
-    // Estrutura de Assinatura OK: Delega a chamada para funções específicas
-    this.modalSubscription = this.modalComService.modalRequest$.subscribe(
-      (tipo) => {
-        if (tipo === 'cartorio') {
-          this.abrirModalCartorio();
-        } else if (tipo === 'documento') {
-          this.abrirModalDocumento();
-        }
-      }
-    );
-  }
+  ngOnInit() {}
 
   private abrirModalCartorio() {
     const modalRef = this.modalService.open(CriarCartorioComponent, {
@@ -64,7 +53,7 @@ export class ListaUsuariosComponent implements OnInit, OnDestroy {
       },
       () => {
         // Modal descartado
-      }
+      },
     );
   }
 
@@ -84,7 +73,7 @@ export class ListaUsuariosComponent implements OnInit, OnDestroy {
       },
       () => {
         // Modal descartado
-      }
+      },
     );
   }
 

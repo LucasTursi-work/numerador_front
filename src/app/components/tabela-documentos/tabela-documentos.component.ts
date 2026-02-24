@@ -37,9 +37,15 @@ export class TabelaDocumentosComponent implements OnInit {
 
   // No carregarDocumentos
   carregarDocumentos() {
-    this.documentoService.listarTodosTiposDocumentos().subscribe((res) => {
-      // Agora o 'res.content' já vem limpo e com os nomes certos
-      this.listaDocumentos = res.content;
+    this.documentoService.listarTodosTiposDocumentos().subscribe({
+      next: (res: any) => {
+        // O SEGREDO: res é o objeto Page, res.content é o array de 6 itens
+        this.listaDocumentos = res.content || (Array.isArray(res) ? res : []);
+
+        // GARANTIA: Se o HTML estiver usando 'dados' em vez de 'listaDocumentos', isso resolve.
+        this.dados = this.listaDocumentos;
+        console.log('Itens na variável listaDocumentos:', this.listaDocumentos);
+      },
     });
   }
 

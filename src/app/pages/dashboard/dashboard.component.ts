@@ -33,27 +33,16 @@ import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  private modalSubscription!: Subscription;
+  //private modalSubscription!: Subscription;
 
   constructor(
     private modalService: NgbModal,
     private modalComService: ModalComunicacaoService,
     private documentsService: DocumentoService,
-    private numeradorService: NumeradorService
+    private numeradorService: NumeradorService,
   ) {}
 
-  ngOnInit() {
-    // Estrutura de Assinatura: Delega a chamada para funções específicas
-    this.modalSubscription = this.modalComService.modalRequest$.subscribe(
-      (tipo) => {
-        if (tipo === 'cartorio') {
-          this.abrirModalCartorio();
-        } else if (tipo === 'documento') {
-          this.abrirModalDocumento();
-        }
-      }
-    );
-  }
+  ngOnInit() {}
 
   // Implementação da função específica para Cartório
   private abrirModalCartorio() {
@@ -71,7 +60,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       },
       () => {
         // Modal descartado
-      }
+      },
     );
   }
 
@@ -91,13 +80,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       },
       () => {
         // Modal descartado
-      }
+      },
     );
   }
 
-  // Método ngOnDestroy no local correto
-  ngOnDestroy() {
-    // Limpeza obrigatória para evitar vazamento de memória
-    this.modalSubscription.unsubscribe();
-  }
+  ngOnDestroy() {}
 }
