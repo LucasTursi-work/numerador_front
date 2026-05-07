@@ -21,7 +21,9 @@ import { CartorioCadastroDto } from '../../../shared/dtos/request/cartorio-cadas
 @Injectable({ providedIn: 'root' })
 export class DocumentoService {
   private apiUrl = `${environment.apiUrl}/documentos`;
+  private apiTiposDocumentoUrl = `${environment.apiUrl}/tipos-documentos`;
   private apiCartorioUrl = `${environment.apiUrl}/cartorios`;
+
   // 1. O BehaviorSubject armazena a lista atual e a envia para os ouvintes
   private documentosSubject = new BehaviorSubject<DocumentoResponseDto[]>([]);
 
@@ -74,13 +76,16 @@ export class DocumentoService {
   ): Observable<DocumentoResponseDto> {
     return this.http.post<DocumentoResponseDto>(this.apiUrl, documento);
   }
-
+/* --LEGADO
   gerarNumeracao(
     dadosGeracao: GerarNumeracaoDto,
   ): Observable<DocumentoResponseDto> {
     const url = `${this.apiUrl}/gerar`;
     return this.http.post<DocumentoResponseDto>(url, dadosGeracao);
-  }
+  }*/
+  gerarNumeracao(dadosGeracao: GerarNumeracaoDto): Observable<void> {
+  return this.http.post<void>(`${this.apiUrl}/gerar`, dadosGeracao);
+}
 
   public buscarUltimosDocumentos(): Observable<DocumentoResponseDto[]> {
     const url = `${this.apiUrl}/ultimos`;
@@ -134,7 +139,7 @@ export class DocumentoService {
 */
 
   listarTodosTiposDocumentos(): Observable<any> {
-    return this.http.get<any>(this.apiUrl).pipe(
+    return this.http.get<any>(this.apiTiposDocumentoUrl).pipe(
       map((res) => {
         // Determina qual é a lista de itens (seja paginada ou array direto)
         let itens =
@@ -161,7 +166,7 @@ export class DocumentoService {
   criarTipoDocumento(
     tipoDocumento: CreateTipoDocumentoDto,
   ): Observable<TipoDocumento> {
-    return this.http.post<TipoDocumento>(this.apiUrl, tipoDocumento);
+    return this.http.post<TipoDocumento>(this.apiTiposDocumentoUrl, tipoDocumento);
   }
 
   alterarStatusTipoDocumento(
@@ -174,7 +179,7 @@ export class DocumentoService {
   }
 
   listarTiposDocumentosAtivos(): Observable<TipoDocumento[]> {
-    const url = `${this.apiUrl}/ativos`;
+    const url = `${this.apiTiposDocumentoUrl}/ativos`;
     return this.http.get<TipoDocumento[]>(url);
   }
 }

@@ -4,8 +4,16 @@
   margin: 0;
   padding: 0;
 }
-.button #bt_editar {
+.edicao {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+:host{
+#bt_editar {
   background-color: $primary-light;
+  border-radius: 0.5rem;
   &:hover {
     background-color: $primary-lighter;
     box-shadow: 4px 3px 5px lightgray;
@@ -15,10 +23,11 @@
     box-shadow: 2px 2px 2px darkgray;
   }
 }
-
-.button #bt_excluir {
-  all: unset;
-  background-color: $danger !important;
+}
+:host{
+#bt_excluir {
+  border-radius: 0.5rem;
+  background-color: $danger;
   &:hover {
     background-color: lighten($danger, 15%);
     //box-shadow: 4px 3px 5px lightgray;
@@ -28,14 +37,14 @@
     //box-shadow: 2px 2px 2px darkgray;
   }
 }
-
+}
 label {
   font-size: 0.5rem;
   font-weight: bold;
 }
 
 table {
-  table-layout: fixed;
+  table-layout: auto;
   width: 90vw;
   max-width: 99%;
   border-radius: 1rem;
@@ -73,6 +82,10 @@ table {
   }
 }
 
-.corpo_tabela td:nth-child(1) {
-  width: 16rem; /* Nome */
+table td:last-child {
+  width: 20rem; /* Nome */
+}
+
+table tr:last-child {
+  border-radius: 0 0 1rem 1rem;
 }

@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BotaoComponent } from '../../botao/botao.component';
-import { CommonModule, AsyncPipe } from '@angular/common';
+import { CommonModule, AsyncPipe, isPlatformBrowser } from '@angular/common';
 import { DocumentoService } from '../../../modules/documents/services/documents.service';
 import { DocumentoResponseDto } from '../../../shared/dtos/response/documento-response.dto';
 import { GerarNumeracaoDto } from '../../../shared/dtos/request/gerar-numeracao.dto';
@@ -23,9 +23,10 @@ export class NumeradorComponent implements OnInit {
   constructor(
     private documentsService: DocumentoService,
     private numeradorService: NumeradorService,
-    private authService: AuthService
+    private authService: AuthService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
-
+/*
   ngOnInit(): void {
     // 1. OBTÉM O ID DO USUÁRIO LOGADO via AuthService
     this.authService.getUsuarioLogadoId().subscribe((id) => {
@@ -41,6 +42,19 @@ export class NumeradorComponent implements OnInit {
     //Aciona a carga inicial para o gráfico (via service compartilhado)
     this.numeradorService.carregarECompartilharContagens();
   }
+  */
+
+  ngOnInit(): void {
+   if (!isPlatformBrowser(this.platformId)) return;
+  this.authService.getUsuarioLogadoId().subscribe((id) => {
+    this.idUsuarioLogado = id ?? undefined;
+  });
+
+  this.documentos$ = this.documentsService.ultimosDocumentos$;
+  
+  // apenas esta linha — ela já atualiza o documentosSubject internamente
+  this.numeradorService.carregarECompartilharContagens();
+}
   /*
   private buscarUltimosDocumentos() {
     this.documentsService.buscarUltimosDocumentos().subscribe({

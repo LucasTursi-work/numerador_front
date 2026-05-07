@@ -32,11 +32,29 @@ export class AuthService {
 
   // Observable público para outros componentes se inscreverem
   public usuarioLogado$ = this.usuarioLogadoSubject.asObservable();
-
+/*
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
+  */
+ constructor(
+  private http: HttpClient,
+  @Inject(PLATFORM_ID) private platformId: Object
+) {
+  // Recupera o estado salvo ao inicializar
+  if (isPlatformBrowser(this.platformId)) {
+    const usuarioIdSalvo = localStorage.getItem('usuarioId');
+    if (usuarioIdSalvo) {
+      this.usuarioLogadoSubject.next({
+        id: Number(usuarioIdSalvo),
+        nome: 'Usuário',
+        perfil: null,
+        status: null,
+      });
+    }
+  }
+}
 
   login(credenciais: LoginRequestDto): Observable<LoginResponseDto> {
     return this.http.post<LoginResponseDto>(this.apiUrl, credenciais).pipe(
@@ -49,17 +67,38 @@ export class AuthService {
 
           console.log('Token salvo com sucesso no LocalStorage!');
         }
-
         // 3. ATUALIZA O ESTADO (Para os componentes saberem quem logou)
         this.usuarioLogadoSubject.next({
           id: resposta.usuarioId,
           nome: resposta.nome || 'Usuário',
+          /*
           perfil: resposta.perfil as any,
           status: resposta.status as any,
+          */
+         perfil:null,
+         status:null,
         });
       })
     );
   }
+
+  /*
+login(credenciais: LoginRequestDto): Observable<any> {
+  return this.http.post<any>(this.apiUrl, credenciais).pipe(
+    tap((resposta) => {
+      if (isPlatformBrowser(this.platformId)) {
+        localStorage.setItem('jwt_token', resposta.token);
+      }
+      this.usuarioLogadoSubject.next({
+        id: resposta.usuarioId,
+        nome: null, // backend não retorna no login
+        perfil: null,
+        status: null,
+      });
+    })
+  );
+}
+*/
 
   isAdminAtivo(): Observable<boolean> {
     return this.usuarioLogado$.pipe(

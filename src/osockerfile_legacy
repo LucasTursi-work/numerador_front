@@ -1,0 +1,25 @@
+# Etapa 1: Builder
+FROM node:20-alpine AS builder
+
+# Define o diretório de trabalho
+WORKDIR /app
+
+# Copia os arquivos necessários
+COPY package*.json package-lock.json ./
+RUN npm ci --quiet && \
+RUN npm install -g @angular/cli@$(grep -oP '"@angular/cli": "\K[^"]+' package.json)
+
+# Copia o restante do projeto
+COPY . .
+
+# Compila a aplicação Angular
+RUN ng build --configuration production
+
+# Etapa 2: Servidor nginx (ou outro)
+FROM nginx:alpine
+
+# Copia os arquivos compilados do builder para o nginx
+COPY --from=builder /app/dist/nome-do-seu-projeto /usr/share/nginx/html
+
+# Exponha a porta (caso use nginx)
+EXPOSE 80

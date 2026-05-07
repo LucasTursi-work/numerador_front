@@ -3,7 +3,7 @@
 #miatablea {
   border-radius: 0.5rem;
   background-color: white;
-  table-layout: fixed;
+  table-layout: auto;
   width: 100%;
   max-height: 100%;
   border-collapse: collapse;
@@ -65,6 +65,6 @@ tr:nth-child(even) {
 th,
 td {
   white-space: nowrap;
-  width: 15%;
+  width:11%;
   text-align: center;
 }
