@@ -1,24 +1,30 @@
 # Etapa 1: Builder
-FROM node:18 AS builder
+FROM node:18-alpine AS builder
 
-# Define o diretório de trabalho
 WORKDIR /app
 
-# Copia os arquivos necessários
+# 1. Copia apenas arquivos de dependências (otimiza cache de camadas)
 COPY package*.json ./
-RUN npx ng build --configuration production
 
-# Copia o restante do projeto
+# 2. Instala as dependências (npm ci é mais rápido e limpo para CI/CD)
+RUN npm ci
+
+# 3. Copia todo o código fonte
 COPY . .
 
-# Compila a aplicação Angular
-RUN ng build --configuration production
+# 4. Compila a aplicação (usando o script do package.json)
+RUN npm run build -- --configuration production
 
-# Etapa 2: Servidor nginx (ou outro)
+# Etapa 2: Servidor Nginx
 FROM nginx:alpine
 
-# Copia os arquivos compilados do builder para o nginx
-COPY --from=builder /app/dist/nome-do-seu-projeto /usr/share/nginx/html
+# 5. Ajuste o caminho de origem: Angular 18 coloca os arquivos em /browser/
+# Substitua 'nome-do-seu-projeto' pelo "name" que está no seu package.json
+COPY --from=builder /app/dist/nome-do-seu-projeto/browser /usr/share/nginx/html
 
-# Exponha a porta (caso use nginx)
+# 6. Copia uma configuração customizada do Nginx (Essencial para Angular)
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

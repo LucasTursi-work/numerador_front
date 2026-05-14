@@ -26,7 +26,7 @@ export class CriarUsuarioComponent {
   constructor(
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
-    public activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal,
   ) {
     this.form = this.fb.group({
       nome: ['', [Validators.required, Validators.minLength(3)]],
@@ -40,7 +40,6 @@ export class CriarUsuarioComponent {
       email: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required, Validators.minLength(6)]],
       perfil: [PerfilUsuario.USUARIO, Validators.required],
-      codigoValidador: [''],
     });
   }
 
@@ -56,7 +55,7 @@ export class CriarUsuarioComponent {
     // Atualiza o valor no formulário com a máscara
     this.form.get('cpf')?.setValue(valor, { emitEvent: false });
   }
-
+  /*
   onSubmit() {
     if (this.form.valid) {
       this.carregando = true;
@@ -83,6 +82,30 @@ export class CriarUsuarioComponent {
       console.error('Formulário inválido!', this.form.errors);
       // Dica: Se o botão está habilitado mas não entra no subscribe,
       // é porque o formulário caiu aqui no else.
+    }
+  }
+  */
+  onSubmit() {
+    if (this.form.valid) {
+      this.carregando = true;
+
+      // Limpa o CPF para enviar apenas números
+      const dadosParaEnviar: CreateUsuarioRequestDTO = {
+        ...this.form.value,
+        cpf: this.form.get('cpf')?.value.replace(/\D/g, ''),
+      };
+
+      this.usuarioService.criarUsuario(dadosParaEnviar).subscribe({
+        next: (response) => {
+          this.carregando = false;
+          this.activeModal.close('salvo');
+        },
+        error: (err) => {
+          this.carregando = false;
+          alert('Erro ao comunicar com o servidor. Verifique o console.');
+          console.error(err);
+        },
+      });
     }
   }
 }

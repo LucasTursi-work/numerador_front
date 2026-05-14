@@ -7,5 +7,4 @@ export interface CreateUsuarioRequestDTO {
   senha: string;
   perfil: PerfilUsuario;
   status?: StatusUsuario; // Opcional
-  codigoValidador?: string;
 }

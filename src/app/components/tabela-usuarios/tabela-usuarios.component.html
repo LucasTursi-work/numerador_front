@@ -6,7 +6,7 @@
   <div class="card-body">
     <div *ngIf="(usuarios?.length || 0) > 0" class="tabela-container">
       <!--<div *ngIf="true" class="table-responsive">-->
-      <table class="tabela-customizada">
+      <table *ngIf="usuarios && usuarios.length > 0" class="tabela-customizada">
         <thead>
           <tr>
             <th>Nome</th>
@@ -29,13 +29,13 @@
                 class="badge-status"
                 [ngClass]="{
                   inativo:
-                    traduzirStatus(usuario.status).toLowerCase() !== 'ativo'
+                    traduzirStatus(usuario.status).toLowerCase() !== 'ativo',
                 }"
               >
                 {{ traduzirStatus(usuario.status) }}
               </span>
             </td>
-            <td>{{ usuario.dataCadastro | date : "dd/MM/yyyy" }}</td>
+            <td>{{ usuario.dataCadastro | date: "dd/MM/yyyy" }}</td>
             <td>
               <div class="edicao">
                 <button id="bt_editar" (click)="onEditar(usuario)">
@@ -64,7 +64,9 @@
     </div>
 
     <div class="container-paginacao">
-      <div class="numero-usuarios">Total: {{ totalElementos }} usuário(s)</div>
+      <div *ngIf="usuarios && usuarios.length === 0" class="numero-usuarios">
+        Total: {{ totalElementos }} usuário(s)
+      </div>
 
       <nav *ngIf="totalElementos > 0">
         <ul class="pagination">

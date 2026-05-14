@@ -23,11 +23,10 @@ export class UsuarioService {
     // Remove campos opcionais não preenchidos (evita envio de 'undefined')
     const body = {
       ...dto,
-      status: dto.status || StatusUsuario.ATIVO, // Valor padrão
+      Status: dto.Status || StatusUsuario.ATIVO, // Valor padrão
     };
 
-    return this.http.post<UsuarioResponseDTO>(`${this.API}`, dto);
-    //return this.http.post<UsuarioResponseDTO>(this.API, dto);
+    return this.http.post<UsuarioResponseDTO>(`${this.API}`, body);
   }
 
   deletarUsuario(id: number): Observable<void> {
@@ -37,7 +36,7 @@ export class UsuarioService {
 
   patchUsuario(
     id: number,
-    dados: Partial<UsuarioResponseDTO>
+    dados: Partial<UsuarioResponseDTO>,
   ): Observable<UsuarioResponseDTO> {
     // A data de atualização pode ser gerada no momento do envio
     const payload = {
@@ -56,7 +55,7 @@ export class UsuarioService {
     tipo: 'id' | 'cpf' | 'nome',
     page: number = 0,
     size: number = 10,
-    sort: string = ''
+    sort: string = '',
   ): Observable<UsuarioResponseDTO | UsuarioResponseDTO[]> {
     let url = '';
 
@@ -81,7 +80,7 @@ export class UsuarioService {
   }
 
   listarUsuarios(
-    params: BuscarUsuariosParams
+    params: BuscarUsuariosParams,
   ): Observable<UsuariosPaginadosResponse> {
     let httpParams = new HttpParams();
     // Adiciona parâmetros não nulos/undefined
@@ -117,7 +116,7 @@ export class UsuarioService {
 
     console.log(
       'Requisição GET para:',
-      `${this.API}/filtrar?${httpParams.toString()}`
+      `${this.API}/filtrar?${httpParams.toString()}`,
     );
 
     return this.http.get(`${this.API}/filtrar`, { params: httpParams });
