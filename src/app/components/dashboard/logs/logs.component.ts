@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DocumentoService } from '../../../modules/documents/services/documents.service';
+import { NumeradorService } from '../../dashboard/numerador.service';
 import { DocumentoResponseDto } from '../../../shared/dtos/response/documento-response.dto';
 
 @Component({
@@ -13,16 +13,16 @@ import { DocumentoResponseDto } from '../../../shared/dtos/response/documento-re
 export class LogsComponent implements OnInit {
   logs: DocumentoResponseDto[] = [];
 
-  constructor(private documentsService: DocumentoService) {}
+  constructor(private numeradorService: NumeradorService) {}
 
   ngOnInit(): void {
-    this.documentsService.buscarUltimosDocumentos().subscribe({
+    // Escuta o canal reativo que o Numerador atualiza a cada clique em "Gerar"
+    this.numeradorService.historicoDocumentos$.subscribe({
       next: (dados) => {
         this.logs = dados;
       },
       error: (e) => {
-        console.error('Erro ao buscar logs de documentos:', e);
-        // Implementar tratamento de erro (ex: mostrar mensagem ao usuário)
+        console.error('Erro ao receber fluxo reativo de logs:', e);
       },
     });
   }

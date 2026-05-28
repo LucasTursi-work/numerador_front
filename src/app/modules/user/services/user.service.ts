@@ -14,16 +14,13 @@ import { AlterarSenhaRequestDTO } from '../../../shared/dtos/request/alterar-sen
 @Injectable({ providedIn: 'root' })
 export class UsuarioService {
   private readonly API = `${environment.apiUrl}/usuarios`;
-  //private readonly API = 'http://localhost:8080/numerador/usuarios';
-  constructor(private http: HttpClient) {
-    console.log('API URL:', this.API);
-  }
+  constructor(private http: HttpClient) {}
 
   criarUsuario(dto: CreateUsuarioRequestDTO): Observable<UsuarioResponseDTO> {
     // Remove campos opcionais não preenchidos (evita envio de 'undefined')
     const body = {
       ...dto,
-      Status: dto.Status || StatusUsuario.ATIVO, // Valor padrão
+      Status: dto.status || StatusUsuario.ATIVO, // Valor padrão
     };
 
     return this.http.post<UsuarioResponseDTO>(`${this.API}`, body);

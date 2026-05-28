@@ -32,29 +32,29 @@ export class AuthService {
 
   // Observable público para outros componentes se inscreverem
   public usuarioLogado$ = this.usuarioLogadoSubject.asObservable();
-/*
+  /*
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
   */
- constructor(
-  private http: HttpClient,
-  @Inject(PLATFORM_ID) private platformId: Object
-) {
-  // Recupera o estado salvo ao inicializar
-  if (isPlatformBrowser(this.platformId)) {
-    const usuarioIdSalvo = localStorage.getItem('usuarioId');
-    if (usuarioIdSalvo) {
-      this.usuarioLogadoSubject.next({
-        id: Number(usuarioIdSalvo),
-        nome: 'Usuário',
-        perfil: null,
-        status: null,
-      });
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object,
+  ) {
+    // Recupera o estado salvo ao inicializar
+    if (isPlatformBrowser(this.platformId)) {
+      const usuarioIdSalvo = localStorage.getItem('usuarioId');
+      if (usuarioIdSalvo) {
+        this.usuarioLogadoSubject.next({
+          id: Number(usuarioIdSalvo),
+          nome: 'Usuário',
+          perfil: null,
+          status: null,
+        });
+      }
     }
   }
-}
 
   login(credenciais: LoginRequestDto): Observable<LoginResponseDto> {
     return this.http.post<LoginResponseDto>(this.apiUrl, credenciais).pipe(
@@ -75,10 +75,10 @@ export class AuthService {
           perfil: resposta.perfil as any,
           status: resposta.status as any,
           */
-         perfil:null,
-         status:null,
+          perfil: null,
+          status: null,
         });
-      })
+      }),
     );
   }
 
@@ -105,8 +105,8 @@ login(credenciais: LoginRequestDto): Observable<any> {
       map(
         (state) =>
           state.perfil === PerfilUsuario.ADMIN &&
-          state.status === StatusUsuario.ATIVO
-      )
+          state.status === StatusUsuario.ATIVO,
+      ),
     );
   }
   public getToken(): string | null {

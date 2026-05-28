@@ -20,8 +20,8 @@
 
       <tr *ngFor="let documento of documentos; let i = index">
         <td class="col" id="index">{{ i + 1 }}</td>
-        <td class="col">{{ documento.nomeTipoDocumento }}</td>
-        <td class="col">{{ documento.numero }}</td>
+        <td class="col">{{ documento.nome }}</td>
+        <td class="col">{{ documento.id }}</td>
         <td>
           <app-botao
             [texto]="'Gerar'"

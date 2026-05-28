@@ -18,7 +18,7 @@ export class CriarTipoDocumentoComponent {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private documentoService: DocumentoService
+    private documentoService: DocumentoService,
   ) {}
 
   cadastrar() {
@@ -37,7 +37,7 @@ export class CriarTipoDocumentoComponent {
       next: (response) => {
         console.log(
           'Cadastro de Tipo de Documento realizado com sucesso:',
-          response
+          response,
         );
         this.activeModal.close('success');
       },

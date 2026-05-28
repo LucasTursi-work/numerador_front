@@ -1,8 +1,7 @@
-<!--
 <table id="logs">
   <thead>
     <tr class="primeiro-header">
-      <th colspan="1">Logs</th>
+      <th colspan="5">Logs</th>
     </tr>
     <tr class="segundo-header">
       <th scope="col">Horário</th>
@@ -13,69 +12,19 @@
     </tr>
   </thead>
   <tbody class="corpo_tabela">
-    <tr>
-      <td>16:00</td>
-      <td>20/09/2025</td>
-      <td>João Filho</td>
-      <td>2</td>
-      <td>Criado documento "Ordem de missão"</td>
-    </tr>
-
-    <tr>
-      <td>16:00</td>
-      <td>20/09/2025</td>
-      <td>João Filho</td>
-      <td>2</td>
-      <td>Criado documento "Ordem de missão"</td>
-    </tr>
-
-    <tr>
-      <td>16:00</td>
-      <td>20/09/2025</td>
-      <td>João Filho</td>
-      <td>2</td>
-      <td>Criado documento "Ordem de missão"</td>
-    </tr>
-
-    <tr>
-      <td>16:00</td>
-      <td>20/09/2025</td>
-      <td>João Filho</td>
-      <td>2</td>
-      <td>Criado documento "Ordem de missão"</td>
-    </tr>
-
-    <tr>
-      <td>16:00</td>
-      <td>20/09/2025</td>
-      <td>João Filho</td>
-      <td>2</td>
-      <td>Criado documento "Ordem de missão"</td>
-    </tr>
-  </tbody>
-</table>
--->
-<table id="logs">
-  <thead>
-    <tr class="primeiro-header">
-      <th colspan="1">Logs</th>
-    </tr>
-    <tr class="segundo-header">
-      <th scope="col">Data</th>
-      <th scope="col">Nome de usuário</th>
-      <th scope="col">Cartório</th>
-      <th scope="col">Tipo de Documento</th>
-    </tr>
-  </thead>
-  <tbody class="corpo_tabela">
     <tr *ngIf="logs.length === 0">
-      <td colspan="4">Nenhum log encontrado.</td>
+      <td colspan="5">Nenhum log encontrado.</td>
     </tr>
     <tr *ngFor="let log of logs">
-      <td>{{ log.dataCadastro }}</td>
-      <td>{{ log.nomeUsuario }}</td>
+      <td>{{ log.dataCadastro | date: "HH:mm" }}</td>
+
+      <td>{{ log.dataCadastro | date: "dd/MM/yyyy" }}</td>
+
+      <td>{{ log.nomeUsuario || "Sistema" }}</td>
+
       <td>{{ log.cartorioId }}</td>
-      <td>{{ log.tipoDocumentoId }}</td>
+
+      <td>Criado documento "{{ log.nomeTipoDocumento }}"</td>
     </tr>
   </tbody>
 </table>
