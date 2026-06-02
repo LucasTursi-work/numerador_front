@@ -36,16 +36,18 @@
               </span>
             </td>
             <td>{{ usuario.dataCadastro | date: "dd/MM/yyyy" }}</td>
-            <td>
-              <div class="edicao">
-                <button id="bt_editar" (click)="onEditar(usuario)">
-                  Editar
-                </button>
-                <button id="bt_excluir" (click)="onExcluir(usuario)">
-                  Excluir
-                </button>
-              </div>
-            </td>
+            @if (ehAdmin) {
+              <td>
+                <div class="edicao">
+                  <button id="bt_editar" (click)="onEditar(usuario)">
+                    Editar
+                  </button>
+                  <button id="bt_excluir" (click)="onExcluir(usuario)">
+                    Excluir
+                  </button>
+                </div>
+              </td>
+            }
           </tr>
           <!--
           <tr

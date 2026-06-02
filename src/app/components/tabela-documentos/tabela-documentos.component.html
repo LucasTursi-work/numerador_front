@@ -66,18 +66,18 @@
               <span class="slider"></span>
             </label>
           </td>
-<td>
-        <div class="edicao">
-          <!-- Passamos o objeto 'item' completo para editar -->
-          <button id="bt_editar" (click)="editar(item)">
-            Editar
-          </button>
-          <!-- Passamos apenas o 'item.id' para excluir -->
-          <button id="bt_excluir" (click)="excluir(item.id)">
-            Excluir
-          </button>
-        </div>
-      </td>
+          <td>
+            @if (ehAdmin) {
+              <div class="edicao">
+                <!-- Passamos o objeto 'item' completo para editar -->
+                <button id="bt_editar" (click)="editar(item)">Editar</button>
+                <!-- Passamos apenas o 'item.id' para excluir -->
+                <button id="bt_excluir" (click)="excluir(item.id)">
+                  Excluir
+                </button>
+              </div>
+            }
+          </td>
         </tr>
       }
     </tbody>

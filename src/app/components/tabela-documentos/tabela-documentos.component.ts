@@ -9,15 +9,15 @@ import {
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DocumentoService } from '../../modules/documents/services/documents.service';
-import { BotaoComponent } from '../../components/botao/botao.component';
 import { ModalEditarTipoDocComponent } from '../../components/modal-editar-tipo-doc/modal-editar-tipo-doc.component';
 import { TipoDocumentoDTO } from '../../shared/dtos/response/documento-response.dto';
 import { Status } from '../../shared/enums/documents-enums';
+import { AuthService } from '../../modules/auth/auth.service';
 
 @Component({
   selector: 'app-tabela-documentos',
   standalone: true,
-  imports: [CommonModule, BotaoComponent],
+  imports: [CommonModule],
   templateUrl: './tabela-documentos.component.html',
   styleUrl: './tabela-documentos.component.scss',
 })
@@ -29,10 +29,13 @@ export class TabelaDocumentosComponent implements OnInit {
   private modalService = inject(NgbModal);
   private documentoService = inject(DocumentoService);
   public readonly StatusEnum = Status;
+  private authService = inject(AuthService);
+  public ehAdmin: boolean = false;
   listaDocumentos: TipoDocumentoDTO[] = [];
 
   ngOnInit(): void {
     this.carregarDocumentos();
+    this.ehAdmin = this.authService.isAdmin();
   }
 
   // No carregarDocumentos
@@ -51,6 +54,7 @@ export class TabelaDocumentosComponent implements OnInit {
 
   // No toggleStatus
   toggleStatus(documento: TipoDocumentoDTO) {
+    if (!this.ehAdmin) return;
     const novoStatus =
       documento.status === Status.ATIVO ? Status.INATIVO : Status.ATIVO;
     // O endpoint PATCH do Java apenas inverte o status atual
@@ -67,6 +71,7 @@ export class TabelaDocumentosComponent implements OnInit {
   }
 
   editar(doc: TipoDocumentoDTO) {
+    if (!this.ehAdmin) return;
     const modalRef = this.modalService.open(ModalEditarTipoDocComponent);
 
     // Passamos uma CÓPIA do documento para não alterar a lista antes de salvar
@@ -92,6 +97,7 @@ export class TabelaDocumentosComponent implements OnInit {
   }
 
   excluir(id: number) {
+    if (!this.ehAdmin) return;
     if (confirm('Tem certeza que deseja excluir?')) {
       this.documentoService.deletarTipoDocumento(id).subscribe(() => {
         // Remove da lista local sem precisar recarregar tudo do banco

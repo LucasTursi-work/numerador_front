@@ -13,28 +13,37 @@
     <button class="botao" (click)="navTiposDocumentos()">
       Tipos de Documentos
     </button>
-  </div>
-  <div>
-    <span> Opções</span>
     <br />
-    <button
-      class="botao"
-      (click)="navModalDocumento()"
-      style="font-size: 0.8rem"
-    >
-      Cadastrar Documento
-    </button>
     <br />
-    <button
-      class="botao"
-      (click)="navModalCartorio()"
-      style="font-size: 0.8rem"
-    >
-      Cadastrar Cartório
-    </button>
+    <button class="botao" (click)="navCartCad()">Cartórios Cadastrados</button>
   </div>
+  @if (ehAdmin) {
+    <div>
+      <span> Opções</span>
+      <br />
+      <button
+        class="botao"
+        (click)="navModalDocumento()"
+        style="font-size: 0.8rem"
+      >
+        Cadastrar Documento
+      </button>
+      <br />
+      <button
+        class="botao"
+        (click)="navModalCartorio()"
+        style="font-size: 0.8rem"
+      >
+        Cadastrar Cartório
+      </button>
+    </div>
+  }
   <div class="separador"></div>
 
+  <span>Você está logado como:</span>
+  <br />
+  <span>{{ nomeUsuario }}</span>
+  <br />
   <button class="botao sair" (click)="navLogOut()">Sair</button>
 </div>
 

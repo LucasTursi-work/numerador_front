@@ -28,9 +28,3 @@ export interface TipoDocumentoDTO {
   nome: string;
   status: Status;
 }
-
-export interface CartorioDTO {
-  id: number;
-  nome: string;
-  cartorioAtivo: boolean;
-}

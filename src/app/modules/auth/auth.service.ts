@@ -116,6 +116,38 @@ login(credenciais: LoginRequestDto): Observable<any> {
     }
     return null;
   }
+
+  public isAdmin(): boolean {
+    const token = this.getToken();
+    if (!token) return false;
+
+    try {
+      // O JWT é composto por: HEADER.PAYLOAD.SIGNATURE
+      // Pegamos a segunda parte (índice 1) que contém as claims/informações do usuário
+      const payloadBase64 = token.split('.')[1];
+
+      // Decodifica a string Base64 tratada para caracteres UTF-8
+      const payloadString = atob(payloadBase64);
+      const payload = JSON.parse(payloadString);
+
+      // 🔍 PRINT DE DIAGNÓSTICO:
+      console.log('>>> Payload do JWT:', payload);
+
+      // O Spring Security costuma guardar as autoridades em uma propriedade chamada 'roles', 'role' ou 'authorities'.
+      // Vamos validar de forma ampla para cobrir o padrão do seu token:
+      const permissoes =
+        payload.roles || payload.authorities || payload.role || [];
+
+      // Converte para string caso venha um array de objetos ou string pura
+      const permissoesStr = JSON.stringify(permissoes);
+
+      return permissoesStr.includes('ROLE_ADMIN');
+    } catch (error) {
+      console.error('Erro ao decodificar o token JWT:', error);
+      return false;
+    }
+  }
+
   getUsuarioLogadoId(): Observable<number | null> {
     // Retorna o ID do objeto de estado
     return this.usuarioLogado$.pipe(map((state) => state.id));

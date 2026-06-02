@@ -1,0 +1,46 @@
+<div class="conteudo">
+  <table id="tipos-cartorio">
+    <thead>
+      <tr class="primeiro-header">
+        <th [attr.colspan]="ehAdmin ? 3 : 2">Cartórios Cadastrados</th>
+      </tr>
+    </thead>
+    <tbody class="corpo_tabela">
+      @for (item of dados; track item.id) {
+        <tr>
+          <td class="nome-documento">{{ item.nome }}</td>
+          @if (ehAdmin) {
+            <td>
+              <label class="switch">
+                <input
+                  type="checkbox"
+                  [checked]="item.cartorioAtivo"
+                  (change)="toggleStatus(item)"
+                  [disabled]="!ehAdmin"
+                />
+                <span class="slider"></span>
+              </label>
+            </td>
+            <td>
+              <div class="edicao">
+                <button id="bt_excluir" (click)="excluir(item.id)">
+                  Excluir
+                </button>
+              </div>
+            </td>
+          }
+        </tr>
+      } @empty {
+        <tr>
+          <td [attr.colspan]="ehAdmin ? 3 : 2" class="text-center py-3">
+            Nenhum cartório encontrado.
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <div class="tabela-footer mt-2">
+    {{ dados.length }} cartórios disponíveis.
+  </div>
+</div>

@@ -55,36 +55,7 @@ export class CriarUsuarioComponent {
     // Atualiza o valor no formulário com a máscara
     this.form.get('cpf')?.setValue(valor, { emitEvent: false });
   }
-  /*
-  onSubmit() {
-    if (this.form.valid) {
-      this.carregando = true;
-      const dto: CreateUsuarioRequestDTO = this.form.value;
-      const dadosParaEnviar = {
-        ...this.form.value,
-        cpf: this.form.value.cpf.replace(/\D/g, ''),
-      };
-      console.log('Enviando para o banco:', dadosParaEnviar);
-      console.log('JSON que será enviado:', JSON.stringify(this.form.value));
-      this.usuarioService.criarUsuario(dadosParaEnviar).subscribe({
-        next: (response) => {
-          alert('Usuário criado!');
-          this.carregando = false;
-          console.log('Usuário criado com sucesso!', response);
-          this.activeModal.close('salvo'); // 3. ESSA LINHA fecha o modal
-        },
-        error: (err) => {
-          console.error('Erro ao criar usuário:', err);
-        },
-      });
-    } else {
-      this.carregando = false;
-      console.error('Formulário inválido!', this.form.errors);
-      // Dica: Se o botão está habilitado mas não entra no subscribe,
-      // é porque o formulário caiu aqui no else.
-    }
-  }
-  */
+
   onSubmit() {
     if (this.form.valid) {
       this.carregando = true;

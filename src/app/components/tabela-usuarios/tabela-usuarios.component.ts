@@ -5,11 +5,14 @@ import {
   EventEmitter,
   SimpleChanges,
   OnChanges,
+  OnInit,
+  inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsuarioResponseDTO } from '../../shared/dtos/response/usuario-response.dto';
 import { PerfilUsuario, StatusUsuario } from '../../shared/enums/user-enums';
 import { CpfPipe } from '../../shared/pipes/cpf.pipe';
+import { AuthService } from '../../modules/auth/auth.service';
 
 @Component({
   selector: 'app-tabela-usuarios',
@@ -18,11 +21,8 @@ import { CpfPipe } from '../../shared/pipes/cpf.pipe';
   templateUrl: './tabela-usuarios.component.html',
   styleUrl: './tabela-usuarios.component.scss',
 })
-export class TabelaUsuariosComponent implements OnChanges {
+export class TabelaUsuariosComponent implements OnChanges, OnInit {
   @Input() usuarios: UsuarioResponseDTO[] = [];
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('Usuarios recebidos pelo componente filho:', this.usuarios);
-  }
   @Input() paginaAtual: number = 1;
   @Input() totalElementos: number = 0;
   @Input() itensPorPagina: number = 10;
@@ -32,11 +32,23 @@ export class TabelaUsuariosComponent implements OnChanges {
   @Output() editar = new EventEmitter<UsuarioResponseDTO>();
   @Output() excluir = new EventEmitter<UsuarioResponseDTO>();
 
+  private authService = inject(AuthService);
+  public ehAdmin: boolean = false;
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('Usuarios recebidos pelo componente filho:', this.usuarios);
+  }
+
+  ngOnInit(): void {
+    this.ehAdmin = this.authService.isAdmin();
+  }
+
   onEditar(usuario: UsuarioResponseDTO) {
+    if (!this.ehAdmin) return;
     this.editar.emit(usuario);
   }
 
   onExcluir(usuario: UsuarioResponseDTO) {
+    if (!this.ehAdmin) return;
     this.excluir.emit(usuario);
   }
 

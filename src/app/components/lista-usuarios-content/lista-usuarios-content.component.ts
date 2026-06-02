@@ -48,9 +48,9 @@ export class ListaUsuariosContentComponent implements OnInit {
 
   constructor(
     private usuarioService: UsuarioService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
   ) {}
-
+  public ehAdmin: boolean = false;
   ngOnInit(): void {
     this.carregarUsuarios();
   }
@@ -107,7 +107,7 @@ export class ListaUsuariosContentComponent implements OnInit {
       (reason) => {
         // Modal fechado ou cancelado
         console.log('Criação de usuário cancelada');
-      }
+      },
     );
   }
 
@@ -127,7 +127,7 @@ export class ListaUsuariosContentComponent implements OnInit {
           this.carregarUsuarios(); // Recarrega a tabela
         }
       },
-      () => {}
+      () => {},
     );
   }
 
@@ -154,13 +154,13 @@ export class ListaUsuariosContentComponent implements OnInit {
         // Este bloco captura o 'dismiss' (quando o usuário clica em Cancelar ou fecha no X)
         // Geralmente não precisamos fazer nada aqui, apenas evitar o erro de 'Uncaught Promise'
         console.log('Exclusão cancelada pelo usuário');
-      }
+      },
     );
   }
 
   mudarPagina(paginaAtual: number): void {
     const totalPaginas = Math.ceil(
-      this.totalElementos / this.parametros.limite
+      this.totalElementos / this.parametros.limite,
     );
     if (paginaAtual < 0 || paginaAtual > totalPaginas) return;
 

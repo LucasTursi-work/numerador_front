@@ -1,0 +1,91 @@
+@use "../styles/colors" as *;
+@use "sass:color";
+:root {
+  margin: 0;
+  padding: 0;
+}
+.edicao {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+:host {
+  #bt_editar {
+    background-color: $primary-light;
+    border-radius: 0.5rem;
+    &:hover {
+      background-color: $primary-lighter;
+      box-shadow: 4px 3px 5px lightgray;
+    }
+    &:active {
+      background-color: $primary-dark;
+      box-shadow: 2px 2px 2px darkgray;
+    }
+  }
+}
+:host {
+  #bt_excluir {
+    border-radius: 0.5rem;
+    background-color: $danger;
+    &:hover {
+      background-color: lighten($danger, 15%);
+      //box-shadow: 4px 3px 5px lightgray;
+    }
+    &:active {
+      background-color: darken($danger, 15%);
+      //box-shadow: 2px 2px 2px darkgray;
+    }
+  }
+}
+label {
+  font-size: 0.5rem;
+  font-weight: bold;
+}
+
+table {
+  table-layout: auto;
+  width: 90vw;
+  max-width: 99%;
+  border-radius: 1rem;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  th {
+    background-color: $primary;
+    color: white;
+    text-align: left;
+    padding: 1rem;
+  }
+
+  td {
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid $primary-lightest;
+    text-align: center;
+  }
+  td.Nome {
+    text-align: left;
+    color: black;
+  }
+
+  tr:nth-child(odd) {
+    background-color: $primary-lightest;
+  }
+
+  tr:nth-child(even) {
+    background-color: $primary-lighter;
+  }
+
+  tr:hover {
+    background-color: $primary-light;
+    color: white;
+  }
+}
+
+table td:last-child {
+  width: 20rem; /* Nome */
+}
+
+table tr:last-child {
+  border-radius: 0 0 1rem 1rem;
+}
