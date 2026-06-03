@@ -56,16 +56,18 @@
       @for (item of listaDocumentos; track item.id) {
         <tr>
           <td class="nome-documento">{{ item.nome }}</td>
-          <td>
-            <label class="switch">
-              <input
-                type="checkbox"
-                [checked]="item.status === 'ATIVO'"
-                (change)="toggleStatus(item)"
-              />
-              <span class="slider"></span>
-            </label>
-          </td>
+          @if (ehAdmin) {
+            <td>
+              <label class="switch">
+                <input
+                  type="checkbox"
+                  [checked]="item.status === 'ATIVO'"
+                  (change)="toggleStatus(item)"
+                />
+                <span class="slider"></span>
+              </label>
+            </td>
+          }
           <td>
             @if (ehAdmin) {
               <div class="edicao">

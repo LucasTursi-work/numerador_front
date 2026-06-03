@@ -15,7 +15,9 @@
             <th>Perfil</th>
             <th>Status</th>
             <th>Data Cadastro</th>
-            <th width="6rem;" height="2rem;">Edição</th>
+            @if (ehAdmin) {
+              <th width="6rem;" height="2rem;">Edição</th>
+            }
           </tr>
         </thead>
         <tbody>

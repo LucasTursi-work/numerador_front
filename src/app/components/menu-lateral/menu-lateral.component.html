@@ -39,12 +39,13 @@
     </div>
   }
   <div class="separador"></div>
-
-  <span>Você está logado como:</span>
-  <br />
-  <span>{{ nomeUsuario }}</span>
-  <br />
-  <button class="botao sair" (click)="navLogOut()">Sair</button>
+  <div>
+    <span>Você está logado como:</span>
+    <br />
+    <span class="nome-usuario">{{ nomeUsuario }}</span>
+    <br />
+    <button class="botao sair" (click)="navLogOut()">Sair</button>
+  </div>
 </div>
 
 <!--    

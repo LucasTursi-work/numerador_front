@@ -55,17 +55,24 @@ export class TabelaDocumentosComponent implements OnInit {
   // No toggleStatus
   toggleStatus(documento: TipoDocumentoDTO) {
     if (!this.ehAdmin) return;
+
     const novoStatus =
       documento.status === Status.ATIVO ? Status.INATIVO : Status.ATIVO;
-    // O endpoint PATCH do Java apenas inverte o status atual
+
     this.documentoService
       .alterarStatusTipoDocumento(documento.id, novoStatus)
       .subscribe({
         next: (docAtualizado: any) => {
-          // Converte o retorno booleano do Java de volta para o Enum
+          // O map do seu service garante string 'ATIVO' ou 'INATIVO'
           documento.status = docAtualizado.tipoDocumentoAtivo
             ? Status.ATIVO
             : Status.INATIVO;
+          console.log('Status alterado no banco com sucesso!');
+        },
+        error: (err) => {
+          console.error('Erro ao mudar status:', err);
+          // Força o Angular a redesenhar o template resetando o valor se falhar
+          this.carregarDocumentos();
         },
       });
   }

@@ -76,7 +76,7 @@ export class DocumentoService {
   ): Observable<DocumentoResponseDto> {
     return this.http.post<DocumentoResponseDto>(this.apiUrl, documento);
   }
-/* --LEGADO
+  /* --LEGADO
   gerarNumeracao(
     dadosGeracao: GerarNumeracaoDto,
   ): Observable<DocumentoResponseDto> {
@@ -84,8 +84,8 @@ export class DocumentoService {
     return this.http.post<DocumentoResponseDto>(url, dadosGeracao);
   }*/
   gerarNumeracao(dadosGeracao: GerarNumeracaoDto): Observable<void> {
-  return this.http.post<void>(`${this.apiUrl}/gerar`, dadosGeracao);
-}
+    return this.http.post<void>(`${this.apiUrl}/gerar`, dadosGeracao);
+  }
 
   public buscarUltimosDocumentos(): Observable<DocumentoResponseDto[]> {
     const url = `${this.apiUrl}/ultimos`;
@@ -106,37 +106,16 @@ export class DocumentoService {
     id: number,
     tipoDocumento: TipoDocumento,
   ): Observable<TipoDocumento> {
-    const url = `${this.apiUrl}/${id}`;
+    // 🛠️ Corrigido para apiTiposDocumentoUrl
+    const url = `${this.apiTiposDocumentoUrl}/${id}`;
     return this.http.put<TipoDocumento>(url, tipoDocumento);
   }
 
   deletarTipoDocumento(id: number): Observable<any> {
-    const url = `${this.apiUrl}/${id}`;
+    // 🛠️ Corrigido para apiTiposDocumentoUrl
+    const url = `${this.apiTiposDocumentoUrl}/${id}`;
     return this.http.delete(url);
   }
-  /*
-  listarTodosTiposDocumentos(): Observable<{ content: TipoDocumentoDTO[] }> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      map((res) => {
-        // O 'map' aqui serve para "limpar" o que vem do Java
-        res.content = res.content.map((item: any) => {
-          res.content = res.content.map((item: any) => {
-            return {
-              id: item.id,
-              // Se nomeTipoDocumento vier null, ele tenta pegar 'nome'.
-              // Se ambos forem null, ele coloca 'Sem Nome' para você ver algo na tela.
-              nome: item.nomeTipoDocumento || item.nome || 'Documento sem nome',
-
-              // Se o status vier null do Java, definimos um padrão para o switch não quebrar
-              status: item.status ? (item.status as Status) : Status.INATIVO,
-            } as TipoDocumentoDTO;
-          });
-        });
-        return res;
-      }),
-    );
-  }
-*/
 
   listarTodosTiposDocumentos(): Observable<any> {
     return this.http.get<any>(this.apiTiposDocumentoUrl).pipe(
@@ -166,15 +145,18 @@ export class DocumentoService {
   criarTipoDocumento(
     tipoDocumento: CreateTipoDocumentoDto,
   ): Observable<TipoDocumento> {
-    return this.http.post<TipoDocumento>(this.apiTiposDocumentoUrl, tipoDocumento);
+    return this.http.post<TipoDocumento>(
+      this.apiTiposDocumentoUrl,
+      tipoDocumento,
+    );
   }
 
   alterarStatusTipoDocumento(
     id: number,
     status: Status,
   ): Observable<TipoDocumento> {
-    const url = `${this.apiUrl}/${id}/status?status=${status}`;
-    // A requisição PATCH não precisa de corpo (body) para esta chamada
+    // 🛠️ Corrigido para apiTiposDocumentoUrl
+    const url = `${this.apiTiposDocumentoUrl}/${id}/status?status=${status}`;
     return this.http.patch<TipoDocumento>(url, null);
   }
 

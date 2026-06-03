@@ -53,7 +53,8 @@ export class UsuarioService {
     page: number = 0,
     size: number = 10,
     sort: string = '',
-  ): Observable<UsuarioResponseDTO | UsuarioResponseDTO[]> {
+  ): Observable<any> {
+    // Tipo para any ou UsuarioResponseDTO para aceitar objeto direto
     let url = '';
 
     switch (tipo) {
@@ -62,9 +63,8 @@ export class UsuarioService {
         return this.http.get<UsuarioResponseDTO>(url);
 
       case 'cpf':
-        url = `${this.API}/buscarPorCpf?cpf=${valor}&page=${page}&size=${size}`;
-        if (sort) url += `&sort=${sort}`;
-        return this.http.get<UsuarioResponseDTO[]>(url);
+        url = `${this.API}/cpf/${valor}`;
+        return this.http.get<UsuarioResponseDTO>(url);
 
       case 'nome':
         url = `${this.API}/buscarPorNome?nome=${valor}&page=${page}&size=${size}`;
@@ -119,24 +119,3 @@ export class UsuarioService {
     return this.http.get(`${this.API}/filtrar`, { params: httpParams });
   }
 }
-
-/*
-*UTILIZAR ISTO NUM COMPONENTE PARA RODAR A FUNÇÃO DE BUSCA
-==========================BUSCA POR ID
-this.usuarioService.buscarUsuario(5, 'id').subscribe({
-  next: (usuario) => console.log('Usuário:', usuario),
-  error: () => alert('Usuário não encontrado')
-});
-
-============================ BUSCA POR NOME (COM PAGINAÇÃO)
-this.usuarioService.buscarUsuario('João', 'nome', 0, 5).subscribe({
-  next: (usuarios) => console.log('Lista:', usuarios),
-  error: () => alert('Erro ao buscar por nome')
-});
-
-============================ BUSCA POR CPF
-this.usuarioService.buscarUsuario('00000000000', 'cpf', 0, 1).subscribe({
-  next: (usuarios) => console.log('Resultado:', usuarios),
-  error: () => alert('Erro ao buscar por CPF')
-});
-*/

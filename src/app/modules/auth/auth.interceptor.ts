@@ -9,18 +9,24 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
   const token = authService.getToken();
 
-  const cloned = token
-    ? req.clone({
-        headers: req.headers.set('Authorization', `Bearer ${token}`),
-      })
-    : req;
+  const isPublicUrl = req.url.includes('/api/auth/login');
+
+  let cloned = req;
+  if (token && !isPublicUrl) {
+    cloned = req.clone({
+      headers: req.headers.set('Authorization', `Bearer ${token}`),
+    });
+  }
 
   return next(cloned).pipe(
     catchError((erro: HttpErrorResponse) => {
-      if (erro.status === 401) {
-        authService.logout(); // limpa o token e o estado
-        router.navigate(['']); // volta para o splash
+      // Se for 401 e NÃO for uma rota pública
+      if (erro.status === 401 && !isPublicUrl) {
+        console.warn('Sessão inválida ou expirada. Redirecionando...');
+        authService.logout();
+        router.navigate(['']);
       }
+
       return throwError(() => erro);
     }),
   );

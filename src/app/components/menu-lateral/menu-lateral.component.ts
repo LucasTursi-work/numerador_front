@@ -63,37 +63,30 @@ export class MenuLateralComponent implements OnInit {
     }
 
     try {
-      // 1. Extrai o CPF (sub) do Token JWT
       const payload = JSON.parse(atob(token.split('.')[1]));
       const cpfUsuario = payload.sub;
 
-      if (cpfUsuario) {
-        // 2. Chama o método buscarUsuario que você postou, passando o tipo 'cpf'
-        this.UsuarioService.buscarUsuario(cpfUsuario, 'cpf', 0, 1).subscribe({
-          next: (res: any) => {
-            console.log('Resposta do Java:', res);
-            // Como o endpoint de CPF retorna paginação ou array (UsuarioResponseDTO[]),
-            // pegamos a primeira posição ou o conteúdo do Page
-            const lista = res?.content || (Array.isArray(res) ? res : [res]);
-
-            const usuario = res.content
-              ? res.content[0]
-              : Array.isArray(res)
-                ? res[0]
-                : res;
-
-            if (lista && lista.length > 0 && lista[0]?.nome) {
-              this.nomeUsuario = lista[0].nome;
-            } else {
-              this.nomeUsuario = 'Usuário';
-            }
-          },
-          error: (err: any) => {
-            console.error('Erro ao buscar o nome do usuário pelo CPF:', err);
-            this.nomeUsuario = 'Usuário';
-          },
-        });
+      if (!cpfUsuario) {
+        this.nomeUsuario = 'Usuário';
+        return;
       }
+
+      this.UsuarioService.buscarUsuario(cpfUsuario, 'cpf').subscribe({
+        next: (usuario: any) => {
+          console.log('Usuário direto do Java:', usuario);
+
+          // Como o endpoint retorna o objeto direto, basta ler a propriedade .nome
+          if (usuario && usuario.nome) {
+            this.nomeUsuario = usuario.nome;
+          } else {
+            this.nomeUsuario = 'Usuário';
+          }
+        },
+        error: (err: any) => {
+          console.error('Erro ao buscar o nome do usuário pelo CPF:', err);
+          this.nomeUsuario = 'Usuário';
+        },
+      });
     } catch (e) {
       console.error('Erro ao descriptografar token:', e);
       this.nomeUsuario = 'Usuário';
