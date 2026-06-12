@@ -1,0 +1,26 @@
+<div
+  class="dashboard-resultado"
+  *ngIf="relatoriosService.resultado$ | async as dados"
+>
+  <div class="grafico-box">
+    <h3>GRÁFICO DOCUMENTOS</h3>
+    <canvas
+      baseChart
+      [data]="getChartData(dados.graficoDocumentos)"
+      [options]="pieChartOptions"
+      [type]="pieChartType"
+    >
+    </canvas>
+  </div>
+
+  <div class="grafico-box">
+    <h3>GRÁFICO CARTÓRIOS</h3>
+    <canvas
+      baseChart
+      [data]="getChartData(dados.graficoCartorios)"
+      [options]="pieChartOptions"
+      [type]="pieChartType"
+    >
+    </canvas>
+  </div>
+</div>

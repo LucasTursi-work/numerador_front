@@ -86,7 +86,10 @@ button {
     border: none;
   }
 }
-
+label {
+  font-size: 0.5rem;
+  font-weight: bold;
+}
 input,
 select {
   padding: 0.6rem;
@@ -94,7 +97,14 @@ select {
   border-radius: 6px;
   font-size: 1rem;
   transition: border-color 0.2s;
-
+  width: 12vw;
+  height: 2rem;
+  margin: 0.2rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  &:hover {
+    border-color: $primary-light;
+  }
   &:focus {
     outline: none;
     border-color: $primary-light;
@@ -105,4 +115,4 @@ select {
 @import "bootstrap/scss/bootstrap";
 
 /* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";

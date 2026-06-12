@@ -1,0 +1,42 @@
+<div class="filtros-container" [formGroup]="formFiltros">
+  <div class="grupo-filtro">
+    <label>Data Inicial</label>
+    <input type="date" formControlName="dataInicial" class="input-data" />
+  </div>
+
+  <div class="grupo-filtro">
+    <label>Data Final</label>
+    <input type="date" formControlName="dataFinal" class="input-data" />
+  </div>
+
+  <div class="grupo-filtro">
+    <label>Tipo de Documento</label>
+    <select formControlName="tiposDocumentoIds" class="select-filtro" multiple>
+      <option *ngFor="let tipo of tiposDocumento" [value]="tipo.id">
+        {{ tipo.nome }}
+      </option>
+    </select>
+  </div>
+
+  <div class="grupo-filtro">
+    <label>Cartórios</label>
+    <select formControlName="cartoriosIds" class="select-filtro" multiple>
+      <option *ngFor="let cartorio of cartorios" [value]="cartorio.id">
+        {{ cartorio.nome }}
+      </option>
+    </select>
+  </div>
+
+  <div class="grupo-filtro">
+    <label>Usuários</label>
+    <select formControlName="usuariosIds" class="select-filtro" multiple>
+      <option *ngFor="let user of usuarios" [value]="user.id">
+        {{ user.nome }}
+      </option>
+    </select>
+  </div>
+
+  <button type="button" class="btn-gerar" (click)="emitirBusca()">
+    Gerar Relatório
+  </button>
+</div>

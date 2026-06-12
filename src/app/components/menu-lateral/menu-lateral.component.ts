@@ -44,6 +44,9 @@ export class MenuLateralComponent implements OnInit {
   navCartCad() {
     this.router.navigate(['/cartoriosCadastrados']);
   }
+  navRelatorios() {
+    this.router.navigate(['/relatorios']);
+  }
   navModalDocumento() {
     this.modalComService.abrirModal('documento');
   }
