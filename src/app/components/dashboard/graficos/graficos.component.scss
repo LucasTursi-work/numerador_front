@@ -13,7 +13,7 @@
 #secondheader {
   background-color: $primary-light;
   color: white;
-  height: 2rem;
+  height: 3rem;
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -24,6 +24,7 @@ button {
   color: white;
   border: none;
   cursor: pointer;
+  border-radius: 0%;
 
   &:hover:not(:disabled) {
     background-color: $primary-light;

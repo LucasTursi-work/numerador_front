@@ -5,6 +5,7 @@ export interface AtualizarSenhaParams {
 }
 
 export interface ListarUsuariosParams {
+  status?: StatusUsuario;
   pagina: number;
   limite: number;
   filtro?: string;

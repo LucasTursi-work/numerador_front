@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @use "colors" as *;
 @import "normalize.css/normalize.css";
+/* Importing Bootstrap SCSS file. */
+@import "bootstrap/scss/bootstrap";
 
 * {
   margin: 0;
@@ -18,12 +20,6 @@ body {
   overflow-y: auto;
   overflow: hidden; // Evita scroll
 }
-input {
-  border-radius: 1rem;
-  font-size: 1.5rem;
-  width: 100%;
-}
-
 .separador-mini {
   height: 2vh;
   width: 5vw;
@@ -87,8 +83,14 @@ button {
   }
 }
 label {
-  font-size: 0.5rem;
+  margin: 0%;
+  font-size: 0.66rem;
   font-weight: bold;
+}
+input {
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  width: 100%;
 }
 input,
 select {
@@ -97,11 +99,13 @@ select {
   border-radius: 6px;
   font-size: 1rem;
   transition: border-color 0.2s;
-  width: 12vw;
+  min-width: 12vw;
+  max-width: fit-content;
   height: 2rem;
-  margin: 0.2rem;
+  margin-bottom: 0.2rem;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+  margin-top: 0;
   &:hover {
     border-color: $primary-light;
   }
@@ -111,8 +115,11 @@ select {
     box-shadow: 0 0 0 2px rgba($primary-light, 0.2);
   }
 }
-/* Importing Bootstrap SCSS file. */
-@import "bootstrap/scss/bootstrap";
-
-/* Importing Bootstrap SCSS file. */
-@import "bootstrap/scss/bootstrap";
+.footer-principal {
+  position: fixed;
+  bottom: -2rem;
+  right: 0;
+  width: 30vw;
+  height: 12vh;
+  z-index: 999;
+}

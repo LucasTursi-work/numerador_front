@@ -1,7 +1,7 @@
 import { PerfilUsuario, StatusUsuario } from '../../../shared/enums/user-enums';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { CreateUsuarioRequestDTO } from '../../../shared/dtos/request/create-user.dto';
 import {
   UsuarioResponseDTO,
@@ -14,6 +14,10 @@ import { AlterarSenhaRequestDTO } from '../../../shared/dtos/request/alterar-sen
 @Injectable({ providedIn: 'root' })
 export class UsuarioService {
   private readonly API = `${environment.apiUrl}/usuarios`;
+
+  private usuariosSubject$ = new BehaviorSubject<any[]>([]);
+  public usuarios$ = this.usuariosSubject$.asObservable();
+
   constructor(private http: HttpClient) {}
 
   criarUsuario(dto: CreateUsuarioRequestDTO): Observable<UsuarioResponseDTO> {
@@ -117,5 +121,22 @@ export class UsuarioService {
     );
 
     return this.http.get(`${this.API}/filtrar`, { params: httpParams });
+  }
+
+  public carregarUsuarios(): void {
+    const parametrosFiltro = {
+      status: StatusUsuario.ATIVO,
+      pagina: 0,
+      limite: 999,
+    };
+
+    this.listarUsuarios(parametrosFiltro).subscribe({
+      next: (res: any) => {
+        const lista = res.content || (Array.isArray(res) ? res : []);
+        this.usuariosSubject$.next(lista);
+      },
+      error: (err: any) =>
+        console.error('Erro ao carregar universo de usuários ativos:', err),
+    });
   }
 }

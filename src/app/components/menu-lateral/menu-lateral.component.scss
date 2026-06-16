@@ -38,17 +38,19 @@ label {
   min-width: 12vw;
   max-width: 24vw;
 }
+
 .botao {
   cursor: pointer;
   border: none;
   color: white;
   background-color: $primary-light;
-  width: 100%;
-  height: fit-content;
+  width: 110%;
+  min-height: fit-content;
   margin-top: 0.2rem;
   padding: 0.5rem;
   padding-left: 0.1rem;
   padding-right: 1rem;
+  border-radius: 0%;
   &:hover {
     background-color: $primary;
     transform: scale(1.05);
@@ -63,6 +65,7 @@ label {
     transform: scale(0.95);
   }
 }
+
 .mini {
   margin-left: 1rem;
   padding: 0.25rem;
