@@ -1,4 +1,10 @@
-import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  OnDestroy,
+  HostListener,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; // Necessário para o *ngFor funcionar no HTML
 import { RelatoriosService } from '../relatorios.service';
@@ -63,6 +69,45 @@ export class FiltrosRelatorioComponent implements OnInit {
     // 3. Força os serviços a irem ao backend Java buscar os dados mais recentes caso estejam vazios
     this.cartorioService.carregarCartorios();
     this.usuarioService.carregarUsuarios(); // Ajuste para o método real do seu serviço de usuários
+  }
+
+  menuAberto: 'doc' | 'cartorio' | 'usuario' | null = null;
+
+  toggleMenu(menu: 'doc' | 'cartorio' | 'usuario') {
+    this.menuAberto = this.menuAberto === menu ? null : menu;
+  }
+
+  // Verifica se o ID já está na lista do Form para deixar o checkbox marcado visualmente
+  isCheckboxSelecionado(controleNome: string, id: number): boolean {
+    const listaIds =
+      (this.formFiltros.get(controleNome)?.value as number[]) || [];
+    return listaIds.includes(id);
+  }
+
+  // Adiciona ou remove os IDs do Form Array reativo dinamicamente
+  onCheckboxChange(controleNome: string, id: number) {
+    const controle = this.formFiltros.get(controleNome);
+    let listaIds = [...((controle?.value as number[]) || [])];
+
+    if (listaIds.includes(id)) {
+      // Se já estava selecionado, remove da lista
+      listaIds = listaIds.filter((itemId) => itemId !== id);
+    } else {
+      // Se não estava selecionado, adiciona na lista
+      listaIds.push(id);
+    }
+
+    // Atualiza o valor dentro do Reactive Form
+    controle?.setValue(listaIds);
+  }
+
+  @HostListener('document:click', ['$event'])
+  cliqueForaDaTela(event: MouseEvent) {
+    const elementoClicado = event.target as HTMLElement;
+    // Se o clique não foi no botão do dropdown, fecha as caixas abertas
+    if (!elementoClicado.closest('.dropdown-customizado')) {
+      this.menuAberto = null;
+    }
   }
 
   emitirBusca() {

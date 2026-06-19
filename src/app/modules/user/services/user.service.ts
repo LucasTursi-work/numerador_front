@@ -124,18 +124,17 @@ export class UsuarioService {
   }
 
   public carregarUsuarios(): void {
-    const parametrosFiltro = {
+    // Chamamos o método listarUsuariosPaginado que já usa a rota padrão correta da sua API
+    this.listarUsuariosPaginado({
       status: StatusUsuario.ATIVO,
       pagina: 0,
       limite: 999,
-    };
-
-    this.listarUsuarios(parametrosFiltro).subscribe({
+    }).subscribe({
       next: (res: any) => {
         const lista = res.content || (Array.isArray(res) ? res : []);
         this.usuariosSubject$.next(lista);
       },
-      error: (err: any) =>
+      error: (err) =>
         console.error('Erro ao carregar universo de usuários ativos:', err),
     });
   }

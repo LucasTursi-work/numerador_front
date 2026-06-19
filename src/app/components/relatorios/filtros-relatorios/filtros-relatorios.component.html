@@ -11,29 +11,76 @@
 
   <div class="grupo-filtro">
     <label>Tipo de Documento</label>
-    <select formControlName="tiposDocumentoIds" class="select-filtro" multiple>
-      <option *ngFor="let tipo of tiposDocumento" [value]="tipo.id">
-        {{ tipo.nome }}
-      </option>
-    </select>
+    <div class="dropdown-customizado">
+      <button class="btn-dropdown" type="button" (click)="toggleMenu('doc')">
+        Selecionar Tipos
+        <span class="seta-dropdown">▼</span>
+      </button>
+      <div class="menu-dropdown-itens" [class.aberto]="menuAberto === 'doc'">
+        <label *ngFor="let tipo of tiposDocumento" class="checkbox-item">
+          <input
+            type="checkbox"
+            [checked]="isCheckboxSelecionado('tiposDocumentoIds', tipo.id)"
+            (change)="onCheckboxChange('tiposDocumentoIds', tipo.id)"
+          />
+          {{ tipo.nome }}
+        </label>
+      </div>
+    </div>
   </div>
 
   <div class="grupo-filtro">
     <label>Cartórios</label>
-    <select formControlName="cartoriosIds" class="select-filtro" multiple>
-      <option *ngFor="let cartorio of cartorios" [value]="cartorio.id">
-        {{ cartorio.nome }}
-      </option>
-    </select>
+    <div class="dropdown-customizado">
+      <button
+        class="btn-dropdown"
+        type="button"
+        (click)="toggleMenu('cartorio')"
+      >
+        Selecionar Cartórios
+        <span class="seta-dropdown">▼</span>
+      </button>
+      <div
+        class="menu-dropdown-itens"
+        [class.aberto]="menuAberto === 'cartorio'"
+      >
+        <label *ngFor="let cartorio of cartorios" class="checkbox-item">
+          <input
+            type="checkbox"
+            [checked]="isCheckboxSelecionado('cartoriosIds', cartorio.id)"
+            (change)="onCheckboxChange('cartoriosIds', cartorio.id)"
+          />
+          {{ cartorio.nome }}
+        </label>
+      </div>
+    </div>
   </div>
 
   <div class="grupo-filtro">
     <label>Usuários</label>
-    <select formControlName="usuariosIds" class="select-filtro" multiple>
-      <option *ngFor="let user of usuarios" [value]="user.id">
-        {{ user.nome }}
-      </option>
-    </select>
+    <div class="dropdown-customizado">
+      <button
+        class="btn-dropdown"
+        type="button"
+        (click)="toggleMenu('usuario')"
+      >
+        Selecionar Usuários
+        <span class="seta-dropdown">▼</span>
+      </button>
+      <div
+        class="menu-dropdown-itens"
+        [class.aberto]="menuAberto === 'usuario'"
+      >
+        <label *ngFor="let user of usuarios" class="checkbox-item">
+          <input
+            type="checkbox"
+            [checked]="isCheckboxSelecionado('usuariosIds', user.id)"
+            (change)="onCheckboxChange('usuariosIds', user.id)"
+          />
+          {{ user.nome }}
+        </label>
+      </div>
+    </div>
   </div>
 
   <button type="button" class="btn-gerar" (click)="emitirBusca()">
