@@ -6,10 +6,10 @@ import {
   HostListener,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common'; // Necessário para o *ngFor funcionar no HTML
+import { CommonModule } from '@angular/common';
 import { RelatoriosService } from '../relatorios.service';
-import { CartorioService } from '../../../modules/cartorio/cartorio.service'; // Ajuste o caminho se necessário
-import { UsuarioService } from '../../../modules/user/services/user.service'; // Injete o seu serviço real de Usuários
+import { CartorioService } from '../../../modules/cartorio/cartorio.service';
+import { UsuarioService } from '../../../modules/user/services/user.service';
 import { DocumentoService } from '../../../modules/documents/services/documents.service';
 import { RelatorioFiltroDTO } from '../../../shared/models/relatorio.model';
 import { Subscription } from 'rxjs';
@@ -21,16 +21,20 @@ import { Subscription } from 'rxjs';
   templateUrl: './filtros-relatorios.component.html',
   styleUrls: ['./filtros-relatorios.component.scss'],
 })
-export class FiltrosRelatorioComponent implements OnInit {
+export class FiltrosRelatorioComponent implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
   private relatoriosService = inject(RelatoriosService);
   private cartorioService = inject(CartorioService);
   private usuarioService = inject(UsuarioService);
   private documentoService = inject(DocumentoService);
 
+  // CORREÇÃO: Todos os nomes agora estão estritamente no PLURAL, combinando com o HTML!
   tiposDocumento: any[] = [];
   cartorios: any[] = [];
   usuarios: any[] = [];
+
+  // Controla qual menu dropdown está expandido na tela
+  menuAberto: 'doc' | 'cartorio' | 'usuario' | null = null;
 
   private sub = new Subscription();
 
@@ -43,11 +47,10 @@ export class FiltrosRelatorioComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    // 1. Escuta reativamente o fluxo de Cartórios e mapeia o retorno do Spring Boot
+    // 1. Escuta reativamente o fluxo de Cartórios
     this.sub.add(
       this.cartorioService.cartorios$.subscribe({
         next: (res: any) => {
-          // Trata se o backend retornar a paginação (res.content) ou lista direta
           this.cartorios = res.content || (Array.isArray(res) ? res : []);
         },
         error: (err) =>
@@ -55,7 +58,7 @@ export class FiltrosRelatorioComponent implements OnInit {
       }),
     );
 
-    // 2. Escuta reativamente o fluxo de Usuários do seu sistema
+    // 2. Escuta reativamente o fluxo de Usuários (Bando de dados centralizado via usuarios$)
     this.sub.add(
       this.usuarioService.usuarios$.subscribe({
         next: (res: any) => {
@@ -66,18 +69,39 @@ export class FiltrosRelatorioComponent implements OnInit {
       }),
     );
 
-    // 3. Força os serviços a irem ao backend Java buscar os dados mais recentes caso estejam vazios
+    // Adicionado o listener para carregar e escutar os Tipos de Documento do seu sistema
+
+    this.sub.add(
+      this.documentoService.listarDocumentos().subscribe({
+        next: (res: any) => {
+          // Como o documento.service.ts retorna mapeado dentro de um objeto contendo .content, extraímos ele aqui:
+          this.tiposDocumento =
+            res && res.content ? res.content : Array.isArray(res) ? res : [];
+          console.log(
+            'Tipos de documentos carregados para o relatório:',
+            this.tiposDocumento,
+          );
+        },
+        error: (err) =>
+          console.error(
+            'Erro ao carregar tipos de documento para o filtro',
+            err,
+          ),
+      }),
+    );
+
+    // Dispara as cargas iniciais indo buscar as informações no Spring Boot
     this.cartorioService.carregarCartorios();
-    this.usuarioService.carregarUsuarios(); // Ajuste para o método real do seu serviço de usuários
+    this.usuarioService.carregarUsuarios();
+    this.documentoService.listarTiposDocumentosAtivos();
   }
 
-  menuAberto: 'doc' | 'cartorio' | 'usuario' | null = null;
-
+  // Alterna a abertura dos menus de forma segura
   toggleMenu(menu: 'doc' | 'cartorio' | 'usuario') {
     this.menuAberto = this.menuAberto === menu ? null : menu;
   }
 
-  // Verifica se o ID já está na lista do Form para deixar o checkbox marcado visualmente
+  // Verifica na lista do Form para deixar o checkbox marcado visualmente
   isCheckboxSelecionado(controleNome: string, id: number): boolean {
     const listaIds =
       (this.formFiltros.get(controleNome)?.value as number[]) || [];
@@ -90,34 +114,29 @@ export class FiltrosRelatorioComponent implements OnInit {
     let listaIds = [...((controle?.value as number[]) || [])];
 
     if (listaIds.includes(id)) {
-      // Se já estava selecionado, remove da lista
       listaIds = listaIds.filter((itemId) => itemId !== id);
     } else {
-      // Se não estava selecionado, adiciona na lista
       listaIds.push(id);
     }
 
-    // Atualiza o valor dentro do Reactive Form
     controle?.setValue(listaIds);
   }
 
   @HostListener('document:click', ['$event'])
   cliqueForaDaTela(event: MouseEvent) {
     const elementoClicado = event.target as HTMLElement;
-    // Se o clique não foi no botão do dropdown, fecha as caixas abertas
     if (!elementoClicado.closest('.dropdown-customizado')) {
       this.menuAberto = null;
     }
   }
 
   emitirBusca() {
-    const filtros: RelatorioFiltroDTO = this.formFiltros
-      .value as RelatorioFiltroDTO;
+    const filtros: RelatorioFiltroDTO = this.formFiltros.value as any;
     this.relatoriosService.buscarDadosRelatorio(filtros);
   }
 
   ngOnDestroy(): void {
-    // Cancela todas as inscrições quando o usuário sai da página de relatórios
+    // Evita vazamento de memória ao trocar de página no app
     this.sub.unsubscribe();
   }
 }

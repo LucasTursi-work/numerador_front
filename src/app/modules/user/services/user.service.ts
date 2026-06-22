@@ -124,18 +124,26 @@ export class UsuarioService {
   }
 
   public carregarUsuarios(): void {
-    // Chamamos o método listarUsuariosPaginado que já usa a rota padrão correta da sua API
-    this.listarUsuariosPaginado({
-      status: StatusUsuario.ATIVO,
+    // Criamos o objeto seguindo à risca a interface BuscarUsuariosParams
+    const parametrosFiltro: BuscarUsuariosParams = {
+      status: StatusUsuario.ATIVO, // Usa o Enum exigido para evitar erro de tipo
       pagina: 0,
-      limite: 999,
-    }).subscribe({
+      limite: 999, // Traz um universo amplo para não cortar nomes no dropdown
+    };
+
+    // Chamamos o método antigo que bate na rota raiz (/usuarios), resolvendo o 401!
+    this.listarUsuarios(parametrosFiltro).subscribe({
       next: (res: any) => {
+        // Como o Spring Boot devolve uma estrutura Page do org.springframework.data.domain, pegamos o .content
         const lista = res.content || (Array.isArray(res) ? res : []);
         this.usuariosSubject$.next(lista);
       },
-      error: (err) =>
-        console.error('Erro ao carregar universo de usuários ativos:', err),
+      error: (err) => {
+        console.error(
+          'Erro ao carregar universo de usuários ativos via listarUsuarios():',
+          err,
+        );
+      },
     });
   }
 }

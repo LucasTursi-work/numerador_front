@@ -32,13 +32,11 @@ export class CartorioService {
    * Exemplo de ação de escrita (Alternar status ativo/inativo)
    */
   public alternarStatus(id: number): Observable<void> {
-    return this.http
-      .patch<void>(`${this.apiUrl}/${id}/status`, {}) // Mudou de /alternar-status para /status
-      .pipe(
-        tap(() => {
-          this.carregarCartorios();
-        }),
-      );
+    return this.http.patch<void>(`${this.apiUrl}/${id}/status`, {}).pipe(
+      tap(() => {
+        this.carregarCartorios();
+      }),
+    );
   }
 
   deletarCartorio(id: number): Observable<any> {

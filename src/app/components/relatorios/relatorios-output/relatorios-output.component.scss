@@ -18,3 +18,14 @@
 }
 #daunroad {
 }
+.exportar-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 6fr;
+  place-items: center;
+  gap: 1rem 1rem;
+}
+.btn-exportar {
+  margin-top: 1rem;
+  min-height: fit-content;
+  max-height: max-content;
+}

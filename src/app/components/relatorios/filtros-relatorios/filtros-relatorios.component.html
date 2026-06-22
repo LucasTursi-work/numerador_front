@@ -17,6 +17,10 @@
         <span class="seta-dropdown">▼</span>
       </button>
       <div class="menu-dropdown-itens" [class.aberto]="menuAberto === 'doc'">
+        <div *ngIf="tiposDocumento.length === 0" class="dropdown-vazio">
+          Nenhum tipo encontrado
+        </div>
+
         <label *ngFor="let tipo of tiposDocumento" class="checkbox-item">
           <input
             type="checkbox"
@@ -44,6 +48,10 @@
         class="menu-dropdown-itens"
         [class.aberto]="menuAberto === 'cartorio'"
       >
+        <div *ngIf="cartorios.length === 0" class="dropdown-vazio">
+          Nenhum cartório encontrado
+        </div>
+
         <label *ngFor="let cartorio of cartorios" class="checkbox-item">
           <input
             type="checkbox"
@@ -71,6 +79,10 @@
         class="menu-dropdown-itens"
         [class.aberto]="menuAberto === 'usuario'"
       >
+        <div *ngIf="usuarios.length === 0" class="dropdown-vazio">
+          Nenhum usuário encontrado
+        </div>
+
         <label *ngFor="let user of usuarios" class="checkbox-item">
           <input
             type="checkbox"
@@ -83,7 +95,7 @@
     </div>
   </div>
 
-  <button type="button" class="btn-gerar" (click)="emitirBusca()">
+  <button class="btn-gerar" type="button" (click)="emitirBusca()">
     Gerar Relatório
   </button>
 </div>
