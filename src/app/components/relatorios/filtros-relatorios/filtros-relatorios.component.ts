@@ -47,34 +47,10 @@ export class FiltrosRelatorioComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit(): void {
-    // 1. Escuta reativamente o fluxo de Cartórios
+    // 1. Tipos de Documento (A requisição já é disparada no exato momento do .subscribe)
     this.sub.add(
-      this.cartorioService.cartorios$.subscribe({
+      this.documentoService.listarTodosTiposDocumentos().subscribe({
         next: (res: any) => {
-          this.cartorios = res.content || (Array.isArray(res) ? res : []);
-        },
-        error: (err) =>
-          console.error('Erro ao carregar cartórios para o filtro', err),
-      }),
-    );
-
-    // 2. Escuta reativamente o fluxo de Usuários (Bando de dados centralizado via usuarios$)
-    this.sub.add(
-      this.usuarioService.usuarios$.subscribe({
-        next: (res: any) => {
-          this.usuarios = res.content || (Array.isArray(res) ? res : []);
-        },
-        error: (err) =>
-          console.error('Erro ao carregar usuários para o filtro', err),
-      }),
-    );
-
-    // Adicionado o listener para carregar e escutar os Tipos de Documento do seu sistema
-
-    this.sub.add(
-      this.documentoService.listarDocumentos().subscribe({
-        next: (res: any) => {
-          // Como o documento.service.ts retorna mapeado dentro de um objeto contendo .content, extraímos ele aqui:
           this.tiposDocumento =
             res && res.content ? res.content : Array.isArray(res) ? res : [];
           console.log(
@@ -89,15 +65,50 @@ export class FiltrosRelatorioComponent implements OnInit, OnDestroy {
           ),
       }),
     );
+    /*
+    // 2. Cartórios (O componente gerencia e assina o método do serviço)
+    this.sub.add(
+      this.cartorioService.carregarCartorios().subscribe({
+        next: (res: any) => {
+          this.cartorios = res.content || (Array.isArray(res) ? res : []);
+          console.log('Cartórios carregados para o relatório:', this.cartorios);
+        },
+        error: (err) =>
+          console.error('Erro ao carregar cartórios para o filtro', err),
+      }),
+    );
+*/
+    this.sub.add(
+      this.cartorioService.carregarCartorios().subscribe({
+        next: (res: any) => {
+          console.log('RETORNO BRUTO CARTORIOS:', res);
+          console.log('É array?', Array.isArray(res));
+          console.log('content?', res?.content);
 
-    // Dispara as cargas iniciais indo buscar as informações no Spring Boot
-    this.cartorioService.carregarCartorios();
-    this.usuarioService.carregarUsuarios();
-    this.documentoService.listarTiposDocumentosAtivos();
+          this.cartorios = res?.content || (Array.isArray(res) ? res : []);
+
+          console.log('ATRIBUÍDO PARA TELA:', this.cartorios);
+        },
+        error: (err) => console.error(err),
+      }),
+    );
+    // 3. Usuários (O componente gerencia e assina o método do serviço)
+    this.sub.add(
+      this.usuarioService.carregarUsuarios().subscribe({
+        next: (res: any) => {
+          this.usuarios = res.content || (Array.isArray(res) ? res : []);
+          console.log('Usuários carregados para o relatório:', this.usuarios);
+        },
+        error: (err) =>
+          console.error('Erro ao carregar usuários para o filtro', err),
+      }),
+    );
   }
 
   // Alterna a abertura dos menus de forma segura
-  toggleMenu(menu: 'doc' | 'cartorio' | 'usuario') {
+  toggleMenu(menu: 'doc' | 'cartorio' | 'usuario', event?: MouseEvent) {
+    event?.stopPropagation();
+
     this.menuAberto = this.menuAberto === menu ? null : menu;
   }
 

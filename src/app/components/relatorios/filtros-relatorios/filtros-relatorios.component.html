@@ -12,7 +12,11 @@
   <div class="grupo-filtro">
     <label>Tipo de Documento</label>
     <div class="dropdown-customizado">
-      <button class="btn-dropdown" type="button" (click)="toggleMenu('doc')">
+      <button
+        class="btn-dropdown"
+        type="button"
+        (click)="toggleMenu('doc', $event)"
+      >
         Selecionar Tipos
         <span class="seta-dropdown">▼</span>
       </button>
@@ -39,7 +43,7 @@
       <button
         class="btn-dropdown"
         type="button"
-        (click)="toggleMenu('cartorio')"
+        (click)="toggleMenu('cartorio', $event)"
       >
         Selecionar Cartórios
         <span class="seta-dropdown">▼</span>
@@ -70,7 +74,7 @@
       <button
         class="btn-dropdown"
         type="button"
-        (click)="toggleMenu('usuario')"
+        (click)="toggleMenu('usuario', $event)"
       >
         Selecionar Usuários
         <span class="seta-dropdown">▼</span>

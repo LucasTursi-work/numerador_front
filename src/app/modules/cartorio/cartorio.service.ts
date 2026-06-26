@@ -20,12 +20,12 @@ export class CartorioService {
 
   constructor() {}
 
-  public carregarCartorios(): void {
-    this.http.get<CartorioDTO[]>(this.apiUrl).subscribe({
-      next: (dados) => this.cartoriosSubject$.next(dados),
-      error: (err) => console.error('Erro ao buscar cartórios:', err),
-      // O interceptor JWT cuidará do Bearer Token automaticamente aqui
-    });
+  public carregarCartorios(): Observable<CartorioDTO[]> {
+    return this.http.get<CartorioDTO[]>(this.apiUrl).pipe(
+      tap((dados) => {
+        this.cartoriosSubject$.next(dados);
+      }),
+    );
   }
 
   /**

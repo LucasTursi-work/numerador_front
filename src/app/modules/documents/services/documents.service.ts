@@ -142,6 +142,7 @@ export class DocumentoService {
       }),
     );
   }
+
   criarTipoDocumento(
     tipoDocumento: CreateTipoDocumentoDto,
   ): Observable<TipoDocumento> {

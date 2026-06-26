@@ -1,7 +1,7 @@
 import { PerfilUsuario, StatusUsuario } from '../../../shared/enums/user-enums';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, of, BehaviorSubject, tap } from 'rxjs';
 import { CreateUsuarioRequestDTO } from '../../../shared/dtos/request/create-user.dto';
 import {
   UsuarioResponseDTO,
@@ -123,7 +123,7 @@ export class UsuarioService {
     return this.http.get(`${this.API}/filtrar`, { params: httpParams });
   }
 
-  public carregarUsuarios(): void {
+  public carregarUsuarios(): Observable<any> {
     // Criamos o objeto seguindo à risca a interface BuscarUsuariosParams
     const parametrosFiltro: BuscarUsuariosParams = {
       status: StatusUsuario.ATIVO, // Usa o Enum exigido para evitar erro de tipo
@@ -132,18 +132,11 @@ export class UsuarioService {
     };
 
     // Chamamos o método antigo que bate na rota raiz (/usuarios), resolvendo o 401!
-    this.listarUsuarios(parametrosFiltro).subscribe({
-      next: (res: any) => {
-        // Como o Spring Boot devolve uma estrutura Page do org.springframework.data.domain, pegamos o .content
+    return this.listarUsuarios(parametrosFiltro).pipe(
+      tap((res: any) => {
         const lista = res.content || (Array.isArray(res) ? res : []);
-        this.usuariosSubject$.next(lista);
-      },
-      error: (err) => {
-        console.error(
-          'Erro ao carregar universo de usuários ativos via listarUsuarios():',
-          err,
-        );
-      },
-    });
+        this.usuariosSubject$.next(lista); // MANTÉM O RESTO DO SISTEMA FUNCIONANDO!
+      }),
+    );
   }
 }
