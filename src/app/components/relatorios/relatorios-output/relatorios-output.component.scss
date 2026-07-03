@@ -4,20 +4,19 @@
   max-width: 25vw;
   max-height: 25vw;
 }
-
+/*
 .cartorio-box {
   min-height: fit-content;
   min-width: fit-content;
   max-width: 25vw;
   max-height: 25vw;
 }
-
+*/
 .dashboard-resultado {
   display: grid;
   grid-template-columns: 1fr 0.5fr 1fr;
 }
-#daunroad {
-}
+
 .exportar-container {
   display: grid;
   grid-template-columns: 2fr 1fr 6fr;

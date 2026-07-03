@@ -9,95 +9,96 @@
     <input type="date" formControlName="dataFinal" class="input-data" />
   </div>
 
-  <div class="grupo-filtro">
-    <label>Tipo de Documento</label>
-    <div class="dropdown-customizado">
-      <button
-        class="btn-dropdown"
-        type="button"
-        (click)="toggleMenu('doc', $event)"
-      >
-        Selecionar Tipos
-        <span class="seta-dropdown">▼</span>
-      </button>
-      <div class="menu-dropdown-itens" [class.aberto]="menuAberto === 'doc'">
-        <div *ngIf="tiposDocumento.length === 0" class="dropdown-vazio">
-          Nenhum tipo encontrado
-        </div>
+  <!--DOCUMENTOS -->
+  <mat-form-field
+    appearance="outline"
+    class="filtro-material"
+    subscriptSizing="dynamic"
+  >
+    <mat-label>Tipo de Documento</mat-label>
+    <mat-select
+      formControlName="tiposDocumentoIds"
+      multiple
+      panelClass="dropdown-relatorio-panel"
+    >
+      <mat-option *ngFor="let tipo of tiposDocumento" [value]="tipo.id">
+        {{ tipo.nome }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-        <label *ngFor="let tipo of tiposDocumento" class="checkbox-item">
-          <input
-            type="checkbox"
-            [checked]="isCheckboxSelecionado('tiposDocumentoIds', tipo.id)"
-            (change)="onCheckboxChange('tiposDocumentoIds', tipo.id)"
-          />
-          {{ tipo.nome }}
-        </label>
-      </div>
-    </div>
+  <!--CARTORIOS -->
+  <mat-form-field
+    appearance="outline"
+    class="filtro-material"
+    subscriptSizing="dynamic"
+  >
+    <mat-label for="cartoriosIds">Cartório</mat-label>
+    <mat-select
+      formControlName="cartoriosIds"
+      multiple
+      panelClass="dropdown-relatorio-panel"
+    >
+      <mat-option *ngFor="let cartorio of cartorios" [value]="cartorio.id">
+        {{ cartorio.nome }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!--USUARIOS -->
+  <mat-form-field
+    appearance="outline"
+    class="filtro-material"
+    subscriptSizing="dynamic"
+  >
+    <mat-label for="usuariosIds">Usuários</mat-label>
+    <mat-select
+      formControlName="usuariosIds"
+      multiple
+      panelClass="dropdown-relatorio-panel"
+    >
+      <mat-option *ngFor="let user of usuarios" [value]="user.id">
+        {{ user.nome }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!--
+  <div class="grupo-filtro">
+    <label for="cartoriosIds"
+      >Cartórios (Segure Ctrl para selecionar vários)</label
+    >
+    <select
+      id="cartoriosIds"
+      formControlName="cartoriosIds"
+      multiple
+      class="select-multiple-custom"
+    >
+      <option *ngFor="let cartorio of cartorios" [value]="cartorio.id">
+        {{ cartorio.nome }}
+      </option>
+    </select>
   </div>
 
   <div class="grupo-filtro">
-    <label>Cartórios</label>
-    <div class="dropdown-customizado">
-      <button
-        class="btn-dropdown"
-        type="button"
-        (click)="toggleMenu('cartorio', $event)"
-      >
-        Selecionar Cartórios
-        <span class="seta-dropdown">▼</span>
-      </button>
-      <div
-        class="menu-dropdown-itens"
-        [class.aberto]="menuAberto === 'cartorio'"
-      >
-        <div *ngIf="cartorios.length === 0" class="dropdown-vazio">
-          Nenhum cartório encontrado
-        </div>
-
-        <label *ngFor="let cartorio of cartorios" class="checkbox-item">
-          <input
-            type="checkbox"
-            [checked]="isCheckboxSelecionado('cartoriosIds', cartorio.id)"
-            (change)="onCheckboxChange('cartoriosIds', cartorio.id)"
-          />
-          {{ cartorio.nome }}
-        </label>
-      </div>
-    </div>
+    <label for="usuariosIds"
+      >Usuários (Segure Ctrl para selecionar vários)</label
+    >
+    <select
+      id="usuariosIds"
+      formControlName="usuariosIds"
+      multiple
+      class="select-multiple-custom"
+    >
+      <option *ngFor="let user of usuarios" [value]="user.id">
+        {{ user.nome }}
+      </option>
+    </select>
   </div>
-
-  <div class="grupo-filtro">
-    <label>Usuários</label>
-    <div class="dropdown-customizado">
-      <button
-        class="btn-dropdown"
-        type="button"
-        (click)="toggleMenu('usuario', $event)"
-      >
-        Selecionar Usuários
-        <span class="seta-dropdown">▼</span>
-      </button>
-      <div
-        class="menu-dropdown-itens"
-        [class.aberto]="menuAberto === 'usuario'"
-      >
-        <div *ngIf="usuarios.length === 0" class="dropdown-vazio">
-          Nenhum usuário encontrado
-        </div>
-
-        <label *ngFor="let user of usuarios" class="checkbox-item">
-          <input
-            type="checkbox"
-            [checked]="isCheckboxSelecionado('usuariosIds', user.id)"
-            (change)="onCheckboxChange('usuariosIds', user.id)"
-          />
-          {{ user.nome }}
-        </label>
-      </div>
-    </div>
-  </div>
+ -->
+  <button mat-stroked-button type="button" (click)="limparFiltros()">
+    Limpar filtros
+  </button>
 
   <button class="btn-gerar" type="button" (click)="emitirBusca()">
     Gerar Relatório

@@ -7,6 +7,8 @@ import {
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { RelatoriosService } from '../relatorios.service';
 import { CartorioService } from '../../../modules/cartorio/cartorio.service';
 import { UsuarioService } from '../../../modules/user/services/user.service';
@@ -17,7 +19,12 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-filtros-relatorio',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+  ],
   templateUrl: './filtros-relatorios.component.html',
   styleUrls: ['./filtros-relatorios.component.scss'],
 })
@@ -149,5 +156,17 @@ export class FiltrosRelatorioComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // Evita vazamento de memória ao trocar de página no app
     this.sub.unsubscribe();
+  }
+
+  limparFiltros(): void {
+    this.formFiltros.reset({
+      dataInicial: null,
+      dataFinal: null,
+      tiposDocumentoIds: [],
+      cartoriosIds: [],
+      usuariosIds: [],
+    });
+
+    this.emitirBusca(); // opcional
   }
 }

@@ -92,4 +92,35 @@
       }
     }
   }
+
+  .filtro-material {
+    width: 100%;
+    margin: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    // 1. TAMANHO DA FONTE DA MARCAÇÃO / LABEL DO SELECT
+    // No MDC, a variável oficial para o tamanho do texto interno selecionado é:
+    --mdc-select-input-text-size: 1rem;
+
+    // E o tamanho da label flutuante:
+    --mat-form-field-state-layer-label-text-size: 0.8rem;
+
+    // 2. CORES DAS BORDAS OFICIAIS (Evita quebrar o efeito Outline)
+    --mdc-outlined-text-field-border-color: #{$primary};
+    --mdc-outlined-text-field-hover-border-color: #{$primary-lighter};
+    --mdc-outlined-text-field-focus-border-color: #{$primary-darker};
+
+    // 3. ARREDONDAMENTO DAS BORDAS (Substitui o border-radius tradicional)
+    --mdc-outlined-text-field-container-shape: 1rem;
+
+    // 4. COR DO TEXTO INTERNO
+    --mdc-select-input-text-color: #{$txt};
+    --mdc-outlined-text-field-label-text-color: #{$txt};
+    --mdc-outlined-text-field-focus-label-text-color: #{$primary-darker};
+  }
+  mat-form-filed {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
 }
