@@ -3,7 +3,7 @@
 
 .filtros-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   align-items: end;
   //align-items: center;
   grid-gap: 0.8rem;
@@ -24,6 +24,12 @@
 .btn-gerar {
   margin-top: 1rem;
   max-width: 8rem;
+}
+
+.btn-limpar {
+  margin-top: 1rem;
+  height: 4rem;
+  max-width: 6rem;
 }
 
 .dropdown-customizado {
