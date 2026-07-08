@@ -1,11 +1,12 @@
 <table id="miatablea">
   <thead>
     <tr class="primeiro-header">
-      <th colspan="5">Numerador</th>
+      <th colspan="6">Numerador</th>
     </tr>
     <tr class="segundo-header">
       <th scope="col">#</th>
       <th scope="col">Nome do documento</th>
+      <th scope="col">Cartório</th>
       <th scope="col">Contagem</th>
       <th scope="col">Botão</th>
     </tr>
@@ -13,7 +14,7 @@
   <tbody class="corpo_tabela">
     <ng-container *ngIf="documentos$ | async as documentos">
       <tr *ngIf="documentos.length === 0">
-        <td colspan="4">
+        <td colspan="6">
           Carregando documentos ou nenhum documento encontrado.
         </td>
       </tr>
@@ -21,11 +22,21 @@
       <tr *ngFor="let documento of documentos; let i = index">
         <td class="col" id="index">{{ i + 1 }}</td>
         <td class="col">{{ documento.nome }}</td>
-        <td class="col">{{ documento.id }}</td>
+        <td class="col">
+          <select #cartorioSelect class="opcao-item">
+            <option [value]="null" disabled selected>
+              Selecione um cartório...
+            </option>
+            <option *ngFor="let cartorio of cartorios" [value]="cartorio.id">
+              {{ cartorio.nome }}
+            </option>
+          </select>
+        </td>
+        <td class="col">{{ obterContagemDocumento(documento.nome) }}</td>
         <td>
           <app-botao
             [texto]="'Gerar'"
-            (click)="gerarDocumento(documento)"
+            (click)="gerarDocumento(documento, cartorioSelect.value)"
           ></app-botao>
         </td>
       </tr>

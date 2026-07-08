@@ -62,41 +62,12 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-
-  <!--
-  <div class="grupo-filtro">
-    <label for="cartoriosIds"
-      >Cartórios (Segure Ctrl para selecionar vários)</label
-    >
-    <select
-      id="cartoriosIds"
-      formControlName="cartoriosIds"
-      multiple
-      class="select-multiple-custom"
-    >
-      <option *ngFor="let cartorio of cartorios" [value]="cartorio.id">
-        {{ cartorio.nome }}
-      </option>
-    </select>
-  </div>
-
-  <div class="grupo-filtro">
-    <label for="usuariosIds"
-      >Usuários (Segure Ctrl para selecionar vários)</label
-    >
-    <select
-      id="usuariosIds"
-      formControlName="usuariosIds"
-      multiple
-      class="select-multiple-custom"
-    >
-      <option *ngFor="let user of usuarios" [value]="user.id">
-        {{ user.nome }}
-      </option>
-    </select>
-  </div>
- -->
-  <button mat-stroked-button type="button" (click)="limparFiltros()">
+  <button
+    mat-stroked-button
+    type="button"
+    class="btn-limpar"
+    (click)="limparFiltros()"
+  >
     Limpar filtros
   </button>
 

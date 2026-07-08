@@ -8,11 +8,12 @@
     <tbody class="corpo_tabela">
       @for (item of dados; track item.id) {
         <tr>
-          <td class="nome-documento">{{ item.nome }}</td>
+          <td class="nome">{{ item.nome }}</td>
           @if (ehAdmin) {
             <td>
               <label class="switch">
                 <input
+                  class="icon"
                   type="checkbox"
                   [checked]="item.cartorioAtivo"
                   (change)="toggleStatus(item)"

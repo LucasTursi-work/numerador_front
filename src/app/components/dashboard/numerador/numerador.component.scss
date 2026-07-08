@@ -61,10 +61,17 @@ tr:nth-child(odd) {
 tr:nth-child(even) {
   background-color: $primary-lighter;
 }
-
+.opcao-item {
+  margin: 0;
+  padding-bottom: 0;
+  padding-top: 0;
+  text-align: center;
+  max-height: 2rem;
+  max-width: auto;
+}
 th,
 td {
   white-space: nowrap;
-  width:11%;
+  width: 11%;
   text-align: center;
 }

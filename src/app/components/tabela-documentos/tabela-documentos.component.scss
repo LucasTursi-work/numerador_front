@@ -3,6 +3,7 @@
 :root {
   margin: 0;
   padding: 0;
+  font-size: 12px;
 }
 .edicao {
   display: flex;
@@ -10,33 +11,38 @@
   justify-content: center;
   align-items: center;
 }
+
 :host {
   #bt_editar {
     background-color: $primary-light;
     border-radius: 0.5rem;
     &:hover {
       background-color: $primary-lighter;
-      box-shadow: 4px 3px 5px lightgray;
     }
     &:active {
       background-color: $primary-dark;
-      box-shadow: 2px 2px 2px darkgray;
     }
   }
-}
-:host {
   #bt_excluir {
     border-radius: 0.5rem;
     background-color: $danger;
     &:hover {
       background-color: lighten($danger, 15%);
-      //box-shadow: 4px 3px 5px lightgray;
     }
     &:active {
       background-color: darken($danger, 15%);
       //box-shadow: 2px 2px 2px darkgray;
     }
   }
+}
+
+.switch {
+  height: fit-content;
+  width: fit-content;
+}
+.icon {
+  height: 24px;
+  width: 24px;
 }
 label {
   font-size: 0.5rem;
@@ -65,10 +71,15 @@ table {
   td.Nome {
     text-align: left;
     color: black;
+    //width: 20vw;
   }
   tr {
-    height: 0.5rem !important;
+    height: 2rem !important;
+    max-height: 2rem;
     width: 100%;
+  }
+  tr:last-child {
+    border-radius: 0 0 1rem 1rem;
   }
 
   tr:nth-child(odd) {
@@ -83,12 +94,4 @@ table {
     background-color: $primary-light;
     color: white;
   }
-}
-
-table td:last-child {
-  width: 20rem; /* Nome */
-}
-
-table tr:last-child {
-  border-radius: 0 0 1rem 1rem;
 }

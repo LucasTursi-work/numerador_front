@@ -12,6 +12,7 @@
   margin-bottom: 8rem;
 }
 .container-content {
+  margin-right: 2rem;
   background-color: $primary-lightest;
   height: 100%;
   justify-content: space-between;
@@ -40,6 +41,7 @@ label {
 }
 
 .botao {
+  margin-left: -1rem;
   cursor: pointer;
   border: none;
   color: white;
@@ -48,8 +50,6 @@ label {
   min-height: fit-content;
   margin-top: 0.2rem;
   padding: 0.5rem;
-  padding-left: 0.1rem;
-  padding-right: 1rem;
   border-radius: 0%;
   &:hover {
     background-color: $primary;
@@ -64,12 +64,4 @@ label {
     background-color: $primary-darker;
     transform: scale(0.95);
   }
-}
-
-.mini {
-  margin-left: 1rem;
-  padding: 0.25rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  font-size: 1rem;
 }

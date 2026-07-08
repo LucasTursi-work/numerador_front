@@ -72,19 +72,6 @@ export class FiltrosRelatorioComponent implements OnInit, OnDestroy {
           ),
       }),
     );
-    /*
-    // 2. Cartórios (O componente gerencia e assina o método do serviço)
-    this.sub.add(
-      this.cartorioService.carregarCartorios().subscribe({
-        next: (res: any) => {
-          this.cartorios = res.content || (Array.isArray(res) ? res : []);
-          console.log('Cartórios carregados para o relatório:', this.cartorios);
-        },
-        error: (err) =>
-          console.error('Erro ao carregar cartórios para o filtro', err),
-      }),
-    );
-*/
     this.sub.add(
       this.cartorioService.carregarCartorios().subscribe({
         next: (res: any) => {

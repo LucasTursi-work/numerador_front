@@ -4,19 +4,18 @@ import {
   ViewChild,
   Inject,
   PLATFORM_ID,
+  OnDestroy,
 } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { BotaoComponent } from '../../botao/botao.component';
 import { CommonModule, AsyncPipe, isPlatformBrowser } from '@angular/common';
 import { DocumentoService } from '../../../modules/documents/services/documents.service';
-import {
-  DocumentoResponseDto,
-  TipoDocumentoDTO,
-} from '../../../shared/dtos/response/documento-response.dto';
+import { CartorioService } from '../../../modules/cartorio/cartorio.service';
+import { TipoDocumentoDTO } from '../../../shared/dtos/response/documento-response.dto';
 import { GerarNumeracaoDto } from '../../../shared/dtos/request/gerar-numeracao.dto';
-import { UsuarioService } from '../../../modules/user/services/user.service';
 import { NumeradorService } from '../numerador.service';
 import { AuthService } from '../../../modules/auth/auth.service';
+import { ContagemGraficoDto } from '../contagem-grafico.dto';
 
 @Component({
   selector: 'app-numerador',
@@ -25,19 +24,26 @@ import { AuthService } from '../../../modules/auth/auth.service';
   templateUrl: './numerador.component.html',
   styleUrl: './numerador.component.scss',
 })
-export class NumeradorComponent implements OnInit {
+export class NumeradorComponent implements OnInit, OnDestroy {
+  cartorios: any[] = [];
   documentos$!: Observable<TipoDocumentoDTO[]>;
   private idUsuarioLogado: number | undefined;
+
+  // Guardará as contagens em tempo real para exibir na tabela
+  private listaContagens: ContagemGraficoDto[] = [];
+  private subContagens!: Subscription;
 
   constructor(
     private documentsService: DocumentoService,
     private numeradorService: NumeradorService,
+    private cartorioService: CartorioService,
     private authService: AuthService,
     @Inject(PLATFORM_ID) private platformId: Object,
   ) {}
 
   ngOnInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
+
     this.authService.getUsuarioLogadoId().subscribe((id) => {
       this.idUsuarioLogado = id ?? undefined;
     });
@@ -46,42 +52,56 @@ export class NumeradorComponent implements OnInit {
       .listarTiposDocumentosAtivos()
       .pipe(map((dados) => dados as TipoDocumentoDTO[]));
 
-    // apenas esta linha — ela já atualiza o documentosSubject internamente
-    this.numeradorService.carregarECompartilharContagens();
-  }
-  /*
-  private buscarUltimosDocumentos() {
-    this.documentsService.buscarUltimosDocumentos().subscribe({
-      next: (data) => {
-        this.documentos$ = data;
+    this.cartorioService.carregarCartorios().subscribe({
+      next: (res: any) => {
+        this.cartorios = res?.content || (Array.isArray(res) ? res : []);
       },
-      error: (err) => {
-        console.error('Erro ao buscar últimos documentos', err);
+      error: (err) => console.error(err),
+    });
+
+    // Escuta o canal de contagens do serviço para atualizar a coluna 'Contagem' dinamicamente
+    this.subContagens = this.numeradorService.contagens$.subscribe({
+      next: (contagens) => {
+        this.listaContagens = contagens;
       },
     });
+
+    // Carga inicial do histórico
+    this.numeradorService.carregarECompartilharContagens();
   }
-*/
-  gerarDocumento(documento: TipoDocumentoDTO) {
-    // 1. Mudamos a tipagem para o que vem do HTML
-    // Validação ajustada para ler as propriedades reais do TipoDocumentoDTO
-    if (
-      documento &&
-      documento.id > 0 && // O id do TipoDocumentoDTO é o ID do tipo!
-      this.idUsuarioLogado // Garantir que o ID da sessão foi carregado
-    ) {
+
+  ngOnDestroy(): void {
+    if (this.subContagens) {
+      this.subContagens.unsubscribe();
+    }
+  }
+
+  // Retorna a contagem real baseada no nome do documento do gráfico/logs
+  obterContagemDocumento(nomeDocumento: string): number {
+    const item = this.listaContagens.find((c) => c.nome === nomeDocumento);
+    return item ? item.contagem : 0;
+  }
+
+  // Modificado para aceitar o ID do cartório vindo do HTML select
+  gerarDocumento(documento: TipoDocumentoDTO, cartorioIdString: string) {
+    const cartorioId = parseInt(cartorioIdString, 10);
+
+    if (!cartorioId || isNaN(cartorioId)) {
+      alert('Por favor, selecione um cartório antes de gerar o documento.');
+      return;
+    }
+
+    if (documento && documento.id > 0 && this.idUsuarioLogado) {
       const dadosGeracao: GerarNumeracaoDto = {
-        tipoDocumentoId: documento.id, // Passa o ID do tipo de documento correto
-        cartorioId: 1, // Defina o id do cartório do usuário/sistema aqui
-        usuarioId: this.idUsuarioLogado, // Preenche o campo obrigatório do DTO
+        tipoDocumentoId: documento.id,
+        cartorioId: cartorioId, // Agora usa o id dinâmico selecionado!
+        usuarioId: this.idUsuarioLogado,
       };
 
       this.documentsService.gerarNumeracao(dadosGeracao).subscribe({
         next: (resposta) => {
           console.log('Documento gerado com sucesso:', resposta);
-
-          // ⚠️ ESSA LINHA FAZ A MÁGICA: Notifica o serviço global.
-          // O serviço vai bater no backend, pegar a lista de emissões atualizada,
-          // recalcular os contadores do gráfico e injetar as linhas novas nos Logs!
+          // Atualiza contadores e logs globalmente
           this.numeradorService.carregarECompartilharContagens();
         },
         error: (err) => {
@@ -89,13 +109,8 @@ export class NumeradorComponent implements OnInit {
         },
       });
     } else {
-      // Console log de erro ajustado para refletir as variáveis corretas do botão
       console.error(
-        'Falha na geração: dados críticos faltando. IDs necessários: Tipo (' +
-          documento?.id +
-          '), Usuário Logado (' +
-          this.idUsuarioLogado +
-          ').',
+        `Falha na geração. IDs: Tipo (${documento?.id}), Usuário (${this.idUsuarioLogado}).`,
       );
     }
   }

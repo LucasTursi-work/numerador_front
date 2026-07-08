@@ -1,55 +1,8 @@
-<!-- COMENTADO
 <div class="conteudo">
   <table id="document-types">
     <thead>
       <tr class="primeiro-header">
-        <th colspan="4">Tipos de Documentos</th>
-      </tr>
-    </thead>
-    <tbody class="corpo_tabela">
-      @for (item of listaDocumentos; track item.id) {
-        <tr *ngFor="let item of listaDocumentos">
-          <td class="nome-documento">{{ item.nomeTipoDocumento }}</td>
-          <td>
-            <label class="switch">
-              <input
-                type="checkbox"
-                [checked]="item.status === 'ATIVO'"
-                (change)="toggleStatus(item)"
-              />
-              <span class="slider round"></span>
-            </label>
-          </td>
-          <td>
-            <app-botao
-              [texto]="'Editar'"
-              id="bt-editar"
-              (click)="editar(item)"
-            ></app-botao>
-          </td>
-          <td>
-            <app-botao
-              [texto]="'Excluir'"
-              id="bt_excluir"
-              (click)="excluir(item.id)"
-            ></app-botao>
-          </td>
-        </tr>
-      } @empty {
-        <tr>
-          <td colspan="4">Nenhum documento cadastrado.</td>
-        </tr>
-      }
-    </tbody>
-  </table>
-</div>
--->
-
-<div class="conteudo">
-  <table id="document-types">
-    <thead>
-      <tr class="primeiro-header">
-        <th colspan="4">Tipos de Documentos</th>
+        <th colspan="3">Tipos de Documentos</th>
       </tr>
     </thead>
     <tbody class="corpo_tabela">
@@ -63,6 +16,7 @@
                   type="checkbox"
                   [checked]="item.status === 'ATIVO'"
                   (change)="toggleStatus(item)"
+                  class="icon"
                 />
                 <span class="slider"></span>
               </label>
@@ -83,9 +37,6 @@
         </tr>
       }
     </tbody>
-    {{
-      listaDocumentos.length
-    }}
-    itens carregados.
   </table>
+  <p class="contador-itens">{{ listaDocumentos.length }} itens carregados.</p>
 </div>
