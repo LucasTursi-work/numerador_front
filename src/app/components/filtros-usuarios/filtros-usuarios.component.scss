@@ -72,12 +72,12 @@ label {
 .textField {
   //display: inline-block;
   margin: 0.2rem;
-  height: 2rem;
+  height: 4rem;
   width: 10rem;
   border-radius: 0.4rem;
   color: black;
   border: 2px solid gray;
-  box-shadow: 2px 0 2px 0;
+  //box-shadow: 2px 0 2px 0;
   &:active {
     //display: inline-block;
     border-radius: 0.4rem;
@@ -133,11 +133,11 @@ label {
   cursor: pointer;
   &:active {
     border-color: $primary-dark;
-    transform: scale(0.95);
+    //transform: scale(0.95);
   }
   &:hover {
     border-color: $accent;
-    transform: scale(1.05);
+    //transform: scale(1.05);
   }
 }
 .box-status-container {
@@ -149,6 +149,7 @@ label {
 .limpar {
   background-color: $secondary;
   margin-top: 1rem;
+  margin-bottom: 0;
   max-width: fit-content;
   padding-left: 0.2rem;
   padding-right: 0.2rem;

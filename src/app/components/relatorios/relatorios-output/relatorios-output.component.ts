@@ -43,27 +43,27 @@ export class RelatoriosOutputComponent {
 
   exportar(formatoRecebido: string) {
     const formato = formatoRecebido as 'pdf' | 'csv';
-    // 1. Recupera o último filtro que foi salvo no serviço ao clicar em "Gerar"
     const filtrosAtuais = this.relatoriosService.obterFiltroAtual();
 
-    // Se o usuário não filtrou nada ainda, impede a exportação vazia
     if (!filtrosAtuais) {
       alert('Por favor, gere os dados do relatório na tela antes de exportar.');
       return;
     }
 
-    // 2. Dispara a requisição POST enviando os filtros e o formato escolhido
     this.relatoriosService.baixarArquivo(filtrosAtuais, formato).subscribe({
       next: (blob: Blob) => {
-        // 3. Cria um link temporário oculto no navegador para simular o download automático do arquivo
-        const url = window.URL.createObjectURL(blob);
+        // --- CORREÇÃO AQUI: Define o tipo MIME correto baseado no formato ---
+        const mimeType =
+          formato === 'pdf' ? 'application/pdf' : 'text/csv;charset=utf-8;';
+        const arquivoDefinido = new Blob([blob], { type: mimeType });
+
+        // Cria a URL com o arquivo devidamente tipado
+        const url = window.URL.createObjectURL(arquivoDefinido);
         const link = document.createElement('a');
         link.href = url;
 
-        // Define o nome do arquivo que o usuário vai salvar
         link.download = `relatorio_sistema_numerador.${formato}`;
 
-        // Clica no link via código e limpa o cache do navegador
         link.click();
         window.URL.revokeObjectURL(url);
       },
