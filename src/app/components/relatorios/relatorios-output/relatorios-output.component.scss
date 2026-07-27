@@ -1,17 +1,16 @@
+.grafico-box canvas {
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
 .grafico-box {
-  min-height: fit-content;
-  min-width: fit-content;
-  max-width: 25vw;
-  max-height: 25vw;
+width: 20vw;
+  height: 20vw;
+  position: relative; /* Importante para o Chart.js se ancorar corretamente */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-/*
-.cartorio-box {
-  min-height: fit-content;
-  min-width: fit-content;
-  max-width: 25vw;
-  max-height: 25vw;
-}
-*/
+
 .dashboard-resultado {
   display: grid;
   grid-template-columns: 1fr 0.5fr 1fr;

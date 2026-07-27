@@ -1,7 +1,6 @@
 <div
   class="dashboard-resultado"
-  *ngIf="relatoriosService.resultado$ | async as dados"
->
+  *ngIf="relatoriosService.resultado$ | async as dados">
   <div class="grafico-box">
     <h3>GRÁFICO DOCUMENTOS</h3>
     <canvas
@@ -9,6 +8,7 @@
       [data]="getChartData(dados.graficoDocumentos)"
       [options]="pieChartOptions"
       [type]="pieChartType"
+      id="chartDocs"
     >
     </canvas>
   </div>
@@ -20,6 +20,7 @@
       [data]="getChartData(dados.graficoCartorios)"
       [options]="pieChartOptions"
       [type]="pieChartType"
+      id="chartCartorios"
     >
     </canvas>
   </div>

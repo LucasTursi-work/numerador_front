@@ -4,6 +4,8 @@ export interface RelatorioFiltroDTO {
   tiposDocumentoIds: number[];
   cartoriosIds: number[];
   usuariosIds: number[];
+  imagemGraficoDocsBase64?: string | null;
+  imagemGraficoCartoriosBase64?: string | null;
 }
 
 export interface GraficoDataDTO {
