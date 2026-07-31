@@ -5,7 +5,7 @@ export enum PerfilUsuario {
 
 export enum StatusUsuario {
   ATIVO = 'ATIVO',
-  INATIVO = 'INATIVO',
+  INATIVO = 'INATIVO'
 }
 
 export enum UserSearchEnum {}

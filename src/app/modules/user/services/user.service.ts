@@ -24,7 +24,7 @@ export class UsuarioService {
     // Remove campos opcionais não preenchidos (evita envio de 'undefined')
     const body = {
       ...dto,
-      Status: dto.status || StatusUsuario.ATIVO, // Valor padrão
+      status: dto.status || StatusUsuario.ATIVO, // Valor padrão
     };
 
     return this.http.post<UsuarioResponseDTO>(`${this.API}`, body);

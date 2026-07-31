@@ -56,7 +56,7 @@
   <div>
     <label>Perfil:</label>
     <select formControlName="perfil">
-      <option *ngFor="let perfil of perfis" [value]="perfil">
+      <option *ngFor="let perfil of perfis" [ngValue]="perfil">
         {{ perfil }}
       </option>
     </select>

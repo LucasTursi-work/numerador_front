@@ -57,6 +57,15 @@ export class CriarUsuarioComponent {
   }
 
   onSubmit() {
+    console.log('--- STATUS DO FORMULÁRIO ---');
+  console.log('Form Válido?', this.form.valid);
+  console.log('Erros por campo:', {
+    nome: this.form.get('nome')?.errors,
+    cpf: this.form.get('cpf')?.errors,
+    email: this.form.get('email')?.errors,
+    senha: this.form.get('senha')?.errors,
+    perfil: this.form.get('perfil')?.errors
+  });
     if (this.form.valid) {
       this.carregando = true;
 
@@ -65,10 +74,12 @@ export class CriarUsuarioComponent {
         ...this.form.value,
         cpf: this.form.get('cpf')?.value.replace(/\D/g, ''),
       };
-
+      console.log('Dados enviados', this.carregando);
+      console.log('Dados do formulário (form.value):', this.form.value);
       this.usuarioService.criarUsuario(dadosParaEnviar).subscribe({
         next: (response) => {
           this.carregando = false;
+          console.log('Sucesso no cadastro:', response);
           this.activeModal.close('salvo');
         },
         error: (err) => {
